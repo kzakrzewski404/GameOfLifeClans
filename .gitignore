@@ -1,4 +1,4 @@
 *.exe
 *.cache
 bin/*
-obj/Debug/*
+obj/*
