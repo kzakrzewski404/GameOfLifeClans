@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <!--controls area-->
+        <Rectangle Grid.Column="0" Fill="Silver"/>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="Run simulation" Margin="10,20,10,20" Click="RunSimulation_Click"/>
+            <Button Grid.Row="4" Content="Generate map" Margin="10,20,10,20" Click="GenerateMap_Click"/>
+        </Grid>
+        <!--render area-->
+        <Rectangle Grid.Column="1" Grid.Row="0" Fill="#202020"/>
+        <Image x:Name="renderOutput" Grid.Column="1" Margin="10" Stretch="Uniform"/>
     </Grid>
 </Window>

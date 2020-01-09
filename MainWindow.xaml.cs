@@ -24,5 +24,15 @@ namespace GameOfLifeClans
         {
             InitializeComponent();
         }
+
+        private void RunSimulation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GenerateMap_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
