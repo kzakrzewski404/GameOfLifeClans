@@ -1,4 +1,8 @@
+.vs/*
+NUnitTests/obj/*
+NUnitTests/bin/*
+GameOfLifeClans/bin/*
+GameOfLifeClans/obj/*
+
 *.exe
 *.cache
-bin/*
-obj/*
