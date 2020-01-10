@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using GameOfLifeClans.Render;
+
+
 namespace GameOfLifeClans
 {
     /// <summary>
@@ -32,6 +35,10 @@ namespace GameOfLifeClans
 
         private void GenerateMap_Click(object sender, RoutedEventArgs e)
         {
+            BitmapRenderer Renderer = new BitmapRenderer();
+            Renderer.SetRenderOutput(renderOutput);
+            Renderer.TestCreateCanvas();
+            Renderer.Render();
 
         }
     }
