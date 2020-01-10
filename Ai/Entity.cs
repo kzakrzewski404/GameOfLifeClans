@@ -1,4 +1,5 @@
 ﻿using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Senses;
 
 
 namespace GameOfLifeClans.Ai
@@ -9,7 +10,8 @@ namespace GameOfLifeClans.Ai
         public int Damage { get; private set; }
         public ClanId Id { get; private set; }
 
-        private int _maxHealth;
+        protected static Vision _vision = new Vision();
+        protected int _maxHealth;
 
 
         public Entity(ClanId id, int health, int damage)
