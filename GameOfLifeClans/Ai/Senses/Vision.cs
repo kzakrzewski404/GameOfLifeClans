@@ -9,7 +9,6 @@ namespace GameOfLifeClans.Ai.Senses
     {
         private delegate bool SearchCriteria(Tile tile);
 
-        public int x;
 
         public List<Tile> GetUnoccupiedAndPassableTiles(Tile origin) => Search(origin, IsUnoccupiedAndPassable);
 

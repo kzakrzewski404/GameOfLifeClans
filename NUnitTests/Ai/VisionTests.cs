@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-using GameOfLifeClans.Ai;
-using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses;
 using GameOfLifeClans.Map;
+using GameOfLifeClans.Map.Enums;
 using GameOfLifeClans.Map.Data;
+
 
 namespace GameOfLifeClans.Tests.Ai
 {
@@ -23,12 +23,12 @@ namespace GameOfLifeClans.Tests.Ai
 
 
         [Test]
-        public void VisionListShouldContain8_WhenSurroundedByUnoccupiedAndPassableTiles()
+        public void When_SurroundedByAllUnoccupiedAndPassableTiles_Expect_ListWithEightElements()
         {
             //Arange
+            map.Generate(3, 3);
 
             //Act
-            map.Generate(3, 3);
             List<Tile> result = vision.GetUnoccupiedAndPassableTiles(map.Tiles[1, 1]);
 
             //Prepare msg
@@ -40,6 +40,46 @@ namespace GameOfLifeClans.Tests.Ai
 
             //Assert
             Assert.IsTrue(result.Count == 8, $"List contained [{result.Count}] elements\n" + msg);
+        }
+
+        [Test]
+        public void When_SurroundedByAllImpassableTiles_Expect_ListWithZeroElements()
+        {
+            //Arange
+            TileTerrainFactory factory = new TileTerrainFactory();
+            map.Generate(3, 3);
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    map.Tiles[x, y].SetTerrain(factory.Terrain(TerrainId.Water));
+                }
+            }
+            map.Tiles[1, 1].SetTerrain(factory.Terrain(TerrainId.Grass));
+
+            //Act
+            List<Tile> result = vision.GetUnoccupiedAndPassableTiles(map.Tiles[1, 1]);
+
+            //Assert
+            Assert.IsTrue(result.Count == 0, $"List contained [{result.Count}] elements\n");
+        }
+
+        [Test]
+        public void When_SurroundedByThreeImpassableTiles_Expect_ListWithFiveElements()
+        {
+            //Arange
+            TileTerrainFactory factory = new TileTerrainFactory();
+            map.Generate(3, 3);
+            for (int x = 0; x < 3; x++)
+            {
+                map.Tiles[x, 0].SetTerrain(factory.Terrain(TerrainId.Water));
+            }
+
+            //Act
+            List<Tile> result = vision.GetUnoccupiedAndPassableTiles(map.Tiles[1, 1]);
+
+            //Assert
+            Assert.IsTrue(result.Count == 5, $"List contained [{result.Count}] elements\n");
         }
     }
 }
