@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Ai\Headquarter.cs" />
     <Compile Include="Ai\Senses\Vision.cs" />
+    <Compile Include="Ai\Senses\VisionResult.cs" />
     <Compile Include="Map\Data\Tile.cs" />
     <Compile Include="Render\BitmapRenderer.cs" />
     <Compile Include="Render\Renderer.cs" />
