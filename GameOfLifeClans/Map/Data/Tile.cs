@@ -13,9 +13,8 @@ namespace GameOfLifeClans.Map.Data
 
 
         public bool IsOccupied => !(AiEntity == null);
-        public void SetTerrain(TileTerrain terrain) => Terrain = terrain;
-        public void SetAiEntity(Entity aiEntity) => AiEntity = aiEntity;
         public void RemoveAiEntity() => AiEntity = null;
+        public void SetTerrain(TileTerrain terrain) => Terrain = terrain;
 
 
         public Tile(int x, int y, TileTerrain terrain, MapContainer map)
@@ -27,9 +26,15 @@ namespace GameOfLifeClans.Map.Data
         }
 
 
+        public void SetAiEntity(Entity aiEntity)
+        {
+            AiEntity = aiEntity;
+            AiEntity.SetOccupiedTile(this);
+        }
+
         public void MoveAiEntityHere(Tile fromTile)
         {
-            AiEntity = fromTile.AiEntity;
+            SetAiEntity(fromTile.AiEntity);
             fromTile.RemoveAiEntity();
         }
     }
