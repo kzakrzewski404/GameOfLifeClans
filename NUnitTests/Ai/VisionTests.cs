@@ -8,7 +8,7 @@ using GameOfLifeClans.Map.Enums;
 using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Tests.Ai
+namespace GameOfLifeClans.UnitTests.Ai
 {
     public class VisionTests
     {
