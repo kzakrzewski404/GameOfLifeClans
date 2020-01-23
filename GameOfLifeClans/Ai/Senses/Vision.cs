@@ -23,9 +23,9 @@ namespace GameOfLifeClans.Ai.Senses
             MapContainer map = visionOwner.Map;
 
             int minX = (visionOwner.LocationX - 1) < 0 ? 0 : (visionOwner.LocationX - 1);
-            int maxX = (visionOwner.LocationX + 1) >= map.Width ? map.Width + 1 : visionOwner.LocationX + 1;
+            int maxX = (visionOwner.LocationX + 1) >= map.Width ? map.Width - 1 : visionOwner.LocationX + 1;
             int minY = (visionOwner.LocationY - 1) < 0 ? 0 : (visionOwner.LocationY - 1);
-            int maxY = (visionOwner.LocationY + 1) >= map.Height ? map.Height + 1 : visionOwner.LocationY + 1;
+            int maxY = (visionOwner.LocationY + 1) >= map.Height ? map.Height - 1 : visionOwner.LocationY + 1;
 
             for (int x = minX; x <= maxX; x++)
             {
