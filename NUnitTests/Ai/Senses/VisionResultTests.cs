@@ -4,7 +4,7 @@ using GameOfLifeClans.Ai.Senses;
 using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.UnitTests.Ai
+namespace GameOfLifeClans.UnitTests.Ai.Senses
 {
     public class VisionResultTests
     {
