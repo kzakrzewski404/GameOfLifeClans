@@ -18,6 +18,7 @@ namespace GameOfLifeClans.Ai
 
         public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
 
+
         public Entity(ClanId id, int health, int damage)
         {
             Id = id;

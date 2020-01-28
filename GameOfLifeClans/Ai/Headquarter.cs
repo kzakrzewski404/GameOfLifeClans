@@ -7,6 +7,7 @@ namespace GameOfLifeClans.Ai
     {
         private int _spawnCounter;
         private const int _spawnTreshold = 15;
+        private static EntityFactory _entityFactory = new EntityFactory();
 
 
         public Headquarter(ClanId clanId, int health, int damage) : base(clanId, health, damage)
