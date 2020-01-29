@@ -9,7 +9,7 @@ namespace GameOfLifeClans.Ai
     {
         public int Health { get; private set; }
         public int Damage { get; private set; }
-        public ClanId Id { get; private set; }
+        public ClanId Clan { get; private set; }
         public Tile OccupiedTile { get; private set; }
 
         protected static Vision _vision = new Vision();
@@ -21,7 +21,7 @@ namespace GameOfLifeClans.Ai
 
         public Entity(ClanId id, int health, int damage)
         {
-            Id = id;
+            Clan = id;
             Health = health;
             _maxHealth = health;
             Damage = damage;
@@ -29,5 +29,26 @@ namespace GameOfLifeClans.Ai
 
 
         public abstract void SimulateStep();
+
+        public virtual void DealDamage(int damage)
+        {
+            Health -= damage;
+
+            if (Health <= 0)
+            {
+                OccupiedTile.RemoveAiEntity();
+            }
+        }
+
+
+        protected virtual void PerformAttackOnRandomEnemy(VisionResult enemies)
+        {
+            enemies.PickRandom.AiEntity.DealDamage(Damage);
+        }
+
+        protected virtual void MoveToRandomFreeTile(VisionResult freeTiles)
+        {
+            freeTiles.PickRandom.MoveAiEntityHere(this.OccupiedTile);
+        }
     }
 }

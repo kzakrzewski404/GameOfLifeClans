@@ -1,4 +1,5 @@
 ﻿using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Senses;
 
 
 namespace GameOfLifeClans.Ai
@@ -18,23 +19,28 @@ namespace GameOfLifeClans.Ai
 
         public override void SimulateStep()
         {
+            //Attack
+            VisionResult tilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
+            if (tilesWithEnemies.IsNotEmpty)
+            {
+                PerformAttackOnRandomEnemy(tilesWithEnemies);
+            }
+
+            //Spawn
             if (_spawnCounter < _spawnTreshold)
             {
                 _spawnCounter++;
             }
             else
             {
-                //TODO
-                //1. check nearby tiles for empty space
-                //  exist? > spawn and reset counter
-                // else > skip this frame
+                VisionResult freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
+
+                if(freeTiles.IsNotEmpty)
+                {
+                    freeTiles.PickRandom.SetAiEntity(_entityFactory.Create(EntityId.Soldier, Clan));
+                    _spawnCounter = 0;
+                }
             }
-        }
-
-
-        private void SpawnEntity()
-        {
-
         }
     }
 }

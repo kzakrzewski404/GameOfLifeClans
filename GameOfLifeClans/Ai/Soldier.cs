@@ -1,16 +1,46 @@
-﻿using GameOfLifeClans.Ai.Enums;
+﻿using System;
+
+using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Senses;
 
 
 namespace GameOfLifeClans.Ai
 {
     public class Soldier : Entity
     {
-        public Soldier(ClanId id, int health, int damage) : base(id, health, damage) { }
+        private static Random _rnd = new Random();
+        private int _willingnessToAttact;
+
+
+        public Soldier(ClanId id, int health, int damage) : base(id, health, damage)
+        {
+            _willingnessToAttact = _rnd.Next(25, 100);
+        }
 
 
         public override void SimulateStep()
         {
-            //Todo
+            //Attack
+            bool enemyKilled = false;
+            if (_rnd.Next(0, 100) > _willingnessToAttact)
+            {
+                VisionResult TilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
+                if (TilesWithEnemies.IsNotEmpty)
+                {
+                    PerformAttackOnRandomEnemy(TilesWithEnemies);
+                    enemyKilled = true;
+                }
+            }
+
+            //Move
+            if (!enemyKilled)
+            {
+                VisionResult freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
+                if (freeTiles.IsNotEmpty)
+                {
+                    MoveToRandomFreeTile(freeTiles);
+                }
+            }
         }
     }
 }

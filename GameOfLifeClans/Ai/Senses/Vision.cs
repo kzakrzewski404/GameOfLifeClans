@@ -34,7 +34,7 @@ namespace GameOfLifeClans.Ai.Senses
                     if ((visionOwner.LocationX != map.Tiles[x, y].LocationX) ||
                          visionOwner.LocationY != map.Tiles[x, y].LocationY)
                     {
-                        if (searchPattern(map.Tiles[x, y], visionOwner.AiEntity.Id))
+                        if (searchPattern(map.Tiles[x, y], visionOwner.AiEntity.Clan))
                         {
                             results.Add(map.Tiles[x, y]);
                         }
@@ -46,7 +46,7 @@ namespace GameOfLifeClans.Ai.Senses
         }
 
         private bool IsUnoccupiedAndPassable(Tile tile, ClanId ownerId) => !tile.IsOccupied && tile.Terrain.IsPassable;
-        private bool IsOccupiedByEnemy(Tile tile, ClanId ownerId) => tile.IsOccupied && (tile.AiEntity.Id != ownerId);
-        private bool IsOccupiedByAlly(Tile tile, ClanId ownerId) => tile.IsOccupied && (tile.AiEntity.Id == ownerId);
+        private bool IsOccupiedByEnemy(Tile tile, ClanId ownerId) => tile.IsOccupied && (tile.AiEntity.Clan != ownerId);
+        private bool IsOccupiedByAlly(Tile tile, ClanId ownerId) => tile.IsOccupied && (tile.AiEntity.Clan == ownerId);
     }
 }
