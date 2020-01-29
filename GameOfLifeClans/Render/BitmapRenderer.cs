@@ -70,7 +70,7 @@ namespace GameOfLifeClans.Render
             {
                 //passable
                 case TerrainId.Grass: return Color.YellowGreen;
-                case TerrainId.Desert: return Color.Wheat;
+                case TerrainId.Sand: return Color.Wheat;
 
                 //impassable
                 case TerrainId.Water: return Color.RoyalBlue;

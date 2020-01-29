@@ -3,7 +3,7 @@
     public enum TerrainId
     {
         Grass,
-        Desert,
+        Sand,
         Water,
         Mountain
     };
