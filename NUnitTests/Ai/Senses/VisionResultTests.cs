@@ -12,7 +12,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_NoTilesInList_Expect_IsNotEmpty_False()
         {
             //Arrange
-            VisionResult vr = new VisionResult();
+            VisionResultItems vr = new VisionResultItems();
 
             //Act
 
@@ -24,7 +24,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_OneTileInList_Expect_IsNotEmpty_True()
         {
             //Arrange
-            VisionResult vr = new VisionResult();
+            VisionResultItems vr = new VisionResultItems();
 
             //Act
             vr.Add(new Tile(0, 0, null, null));
@@ -37,7 +37,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_ThreeTileInList_Expect_IsNotEmpty_True()
         {
             //Arrange
-            VisionResult vr = new VisionResult();
+            VisionResultItems vr = new VisionResultItems();
 
             //Act
             vr.Add(new Tile(0, 0, null, null));
@@ -52,7 +52,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_OneTileInList_Expect_PickRandom_ReturnsSameTile()
         {
             //Arrange
-            VisionResult vr = new VisionResult();
+            VisionResultItems vr = new VisionResultItems();
 
             //Act
             Tile t = new Tile(0, 0, null, null);
@@ -65,7 +65,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_Add_Expect_ListWithOneElement()
         {
             //Arrange
-            VisionResult vr = new VisionResult();
+            VisionResultItems vr = new VisionResultItems();
 
             //Act
             vr.Add(new Tile(0, 0, null, null));

@@ -54,9 +54,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             map.Tiles[1, 1].SetAiEntity(aiVisionOwner);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 8) && (allies.Results.Count == 0) && (enemies.Results.Count == 0));
@@ -72,9 +72,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             SetTerrain(1, 1, TerrainId.Grass);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 0) && (allies.Results.Count == 0) && (enemies.Results.Count == 0));
@@ -93,9 +93,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             }
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 5) && (allies.Results.Count == 0) && (enemies.Results.Count == 0));
@@ -111,9 +111,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(0, 0, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 7) && (allies.Results.Count == 0) && (enemies.Results.Count == 1));
@@ -130,9 +130,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(0, 1, ClanId.Blue);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 6) && (allies.Results.Count == 1) && (enemies.Results.Count == 1));
@@ -149,9 +149,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(0, 2, ClanId.Blue);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 6) && (allies.Results.Count == 1) && (enemies.Results.Count == 1));
@@ -168,9 +168,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(1, 0, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 1) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -187,9 +187,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(2, 1, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 1) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -206,9 +206,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(1, 2, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 1) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -225,9 +225,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(1, 2, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 1) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -244,9 +244,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(0, 2, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 3) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -263,9 +263,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(2, 2, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 3) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -282,9 +282,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(2, 2, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 3) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));
@@ -301,9 +301,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             AddAiIntoTile(2, 0, ClanId.Red);
 
             //Act
-            VisionResult free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
-            VisionResult enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
-            VisionResult allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
+            VisionResultItems free = vision.GetNearbyFreeTiles(aiVisionOwner.OccupiedTile);
+            VisionResultItems enemies = vision.GetNearbyEnemies(aiVisionOwner.OccupiedTile);
+            VisionResultItems allies = vision.GetNearbyAllies(aiVisionOwner.OccupiedTile);
 
             //Assert
             Assert.IsTrue((free.Results.Count == 3) && (enemies.Results.Count == 1) && (allies.Results.Count == 1));

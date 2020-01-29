@@ -20,7 +20,7 @@ namespace GameOfLifeClans.Ai
         public override void SimulateStep()
         {
             //Attack
-            VisionResult tilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
+            VisionResultItems tilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
             if (tilesWithEnemies.IsNotEmpty)
             {
                 PerformAttackOnRandomEnemy(tilesWithEnemies);
@@ -33,7 +33,7 @@ namespace GameOfLifeClans.Ai
             }
             else
             {
-                VisionResult freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
+                VisionResultItems freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
 
                 if(freeTiles.IsNotEmpty)
                 {

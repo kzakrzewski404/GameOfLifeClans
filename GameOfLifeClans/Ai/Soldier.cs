@@ -24,7 +24,7 @@ namespace GameOfLifeClans.Ai
             bool enemyKilled = false;
             if (_rnd.Next(0, 100) > _willingnessToAttact)
             {
-                VisionResult TilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
+                VisionResultItems TilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
                 if (TilesWithEnemies.IsNotEmpty)
                 {
                     PerformAttackOnRandomEnemy(TilesWithEnemies);
@@ -35,7 +35,7 @@ namespace GameOfLifeClans.Ai
             //Move
             if (!enemyKilled)
             {
-                VisionResult freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
+                VisionResultItems freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
                 if (freeTiles.IsNotEmpty)
                 {
                     MoveToRandomFreeTile(freeTiles);

@@ -12,6 +12,9 @@ namespace GameOfLifeClans.Ai
         public ClanId Clan { get; private set; }
         public Tile OccupiedTile { get; private set; }
 
+        public int LocationX => OccupiedTile.LocationX;
+        public int LocationY => OccupiedTile.LocationY;
+
         protected static Vision _vision = new Vision();
         protected int _maxHealth;
 
@@ -41,12 +44,12 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        protected virtual void PerformAttackOnRandomEnemy(VisionResult enemies)
+        protected virtual void PerformAttackOnRandomEnemy(VisionResultItems enemies)
         {
             enemies.PickRandom.AiEntity.DealDamage(Damage);
         }
 
-        protected virtual void MoveToRandomFreeTile(VisionResult freeTiles)
+        protected virtual void MoveToRandomFreeTile(VisionResultItems freeTiles)
         {
             freeTiles.PickRandom.MoveAiEntityHere(this.OccupiedTile);
         }

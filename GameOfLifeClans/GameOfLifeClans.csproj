@@ -59,8 +59,9 @@
     <Compile Include="Ai\EntityFactory.cs" />
     <Compile Include="Ai\Enums\EntityId.cs" />
     <Compile Include="Ai\Headquarter.cs" />
-    <Compile Include="Ai\Senses\Vision.cs" />
-    <Compile Include="Ai\Senses\VisionResult.cs" />
+    <Compile Include="Ai\Senses\Vision\ItemsContainer.cs" />
+    <Compile Include="Ai\Senses\Vision\Result.cs" />
+    <Compile Include="Ai\Senses\Vision\Vision.cs" />
     <Compile Include="Ai\Soldier.cs" />
     <Compile Include="Map\Data\Tile.cs" />
     <Compile Include="Render\BitmapRenderer.cs" />
