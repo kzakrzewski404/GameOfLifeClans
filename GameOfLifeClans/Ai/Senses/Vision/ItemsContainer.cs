@@ -10,6 +10,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         private static Random rnd = new Random();
 
         public bool IsNotEmpty => Results.Count > 0;
+        public int Count => Results.Count;
         public T PickRandom => Results[rnd.Next(0, Results.Count)];
 
         public void Add(T item) => Results.Add(item);

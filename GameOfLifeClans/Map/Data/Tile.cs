@@ -9,7 +9,7 @@ namespace GameOfLifeClans.Map.Data
         public int LocationY { get; private set; }
         public TileTerrain Terrain { get; private set; }
         public Entity AiEntity { get; private set; }
-        public static MapContainer Map { get; private set; }
+        public MapContainer Map { get; private set; }
 
 
         public bool IsOccupied => !(AiEntity == null);

@@ -16,7 +16,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
             ((visionOwner.LocationX != target.LocationX) || (visionOwner.LocationY != target.LocationY));
         private bool IsTileFree(Tile target) => !target.IsOccupied && target.Terrain.IsPassable;
         private bool IsEnemy(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.Clan != visionOwner.Clan);
-        private bool IsAlly(Entity visionOwner, Tile target) => !IsEnemy(visionOwner, target);
+        private bool IsAlly(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.Clan == visionOwner.Clan);
 
 
         private Result GenerateResult(Entity visionOwner)
