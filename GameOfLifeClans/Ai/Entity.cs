@@ -1,5 +1,5 @@
 ﻿using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map.Data;
 
 
@@ -44,14 +44,14 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        protected virtual void PerformAttackOnRandomEnemy(VisionResultItems enemies)
+        protected virtual void PerformAttackOnRandomEnemy(Result visionResult)
         {
-            enemies.PickRandom.AiEntity.DealDamage(Damage);
+            visionResult.Enemies.PickRandom.DealDamage(Damage);
         }
 
-        protected virtual void MoveToRandomFreeTile(VisionResultItems freeTiles)
+        protected virtual void MoveToRandomFreeTile(Result visionResult)
         {
-            freeTiles.PickRandom.MoveAiEntityHere(this.OccupiedTile);
+            visionResult.FreeTiles.PickRandom.MoveAiEntityHere(this);
         }
     }
 }

@@ -32,10 +32,10 @@ namespace GameOfLifeClans.Map.Data
             AiEntity.SetOccupiedTile(this);
         }
 
-        public void MoveAiEntityHere(Tile fromTile)
+        public void MoveAiEntityHere(Entity invoker)
         {
-            SetAiEntity(fromTile.AiEntity);
-            fromTile.RemoveAiEntity();
+            SetAiEntity(invoker);
+            invoker.OccupiedTile.RemoveAiEntity();
         }
     }
 }

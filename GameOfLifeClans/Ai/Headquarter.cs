@@ -1,5 +1,5 @@
 ﻿using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Senses.Vision;
 
 
 namespace GameOfLifeClans.Ai
@@ -7,39 +7,34 @@ namespace GameOfLifeClans.Ai
     public class Headquarter : Entity
     {
         private int _spawnCounter;
-        private const int _spawnTreshold = 15;
         private static EntityFactory _entityFactory = new EntityFactory();
 
 
         public Headquarter(ClanId clanId, int health, int damage) : base(clanId, health, damage)
         {
-            _spawnCounter = _spawnTreshold;
+            _spawnCounter = AiConfig.HEADQUARTER_SPAWN_TRESHOLD;
         }
 
 
         public override void SimulateStep()
         {
+            Result visionResult = _vision.GetResult(this);
+
             //Attack
-            VisionResultItems tilesWithEnemies = _vision.GetNearbyEnemies(OccupiedTile);
-            if (tilesWithEnemies.IsNotEmpty)
+            if (visionResult.Enemies.IsNotEmpty)
             {
-                PerformAttackOnRandomEnemy(tilesWithEnemies);
+                PerformAttackOnRandomEnemy(visionResult);
             }
 
             //Spawn
-            if (_spawnCounter < _spawnTreshold)
+            if (_spawnCounter < AiConfig.HEADQUARTER_SPAWN_TRESHOLD)
             {
                 _spawnCounter++;
             }
-            else
+            else if(visionResult.FreeTiles.IsNotEmpty)
             {
-                VisionResultItems freeTiles = _vision.GetNearbyFreeTiles(OccupiedTile);
-
-                if(freeTiles.IsNotEmpty)
-                {
-                    freeTiles.PickRandom.SetAiEntity(_entityFactory.Create(EntityId.Soldier, Clan));
-                    _spawnCounter = 0;
-                }
+                visionResult.FreeTiles.PickRandom.SetAiEntity(_entityFactory.Create(EntityId.Soldier, Clan));
+                _spawnCounter = 0;
             }
         }
     }
