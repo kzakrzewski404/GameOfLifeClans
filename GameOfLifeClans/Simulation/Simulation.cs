@@ -78,18 +78,21 @@ namespace GameOfLifeClans.Simulation
                 x = _rnd.Next(1, Map.Width - 1);
                 y = _rnd.Next(1, Map.Height - 1);
 
-                entitiesNearby = 0;
-                for (int mapX = (x - 1); mapX <= (x + 1); mapX++)
+                if (Map.Tiles[x, y].Terrain.IsPassable && !Map.Tiles[x, y].IsOccupied)
                 {
-                    for (int mapY = (y - 1); mapY < (y + 1); mapY++)
+                    entitiesNearby = 0;
+                    for (int mapX = (x - 1); mapX <= (x + 1); mapX++)
                     {
-                        if (Map.Tiles[mapX, mapY].IsOccupied)
+                        for (int mapY = (y - 1); mapY < (y + 1); mapY++)
                         {
-                            entitiesNearby++;
+                            if (Map.Tiles[mapX, mapY].IsOccupied)
+                            {
+                                entitiesNearby++;
+                            }
                         }
                     }
+                    isFreeTileFound = entitiesNearby == 0;
                 }
-                isFreeTileFound = entitiesNearby == 0;
             } while (!isFreeTileFound);
             return Map.Tiles[x, y];
         }
