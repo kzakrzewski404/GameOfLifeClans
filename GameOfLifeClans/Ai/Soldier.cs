@@ -24,7 +24,7 @@ namespace GameOfLifeClans.Ai
 
             //Attack
             bool isEnemyAttacked = false;
-            if (IsWillToAttack && visionResult.Enemies.IsNotEmpty)
+            if (visionResult.Enemies.IsNotEmpty && (IsWillToAttack || !visionResult.FreeTiles.IsNotEmpty))
             {
                 PerformAttackOnRandomEnemy(visionResult);
                 isEnemyAttacked = true;
