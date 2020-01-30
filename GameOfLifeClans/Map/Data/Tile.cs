@@ -7,17 +7,17 @@ namespace GameOfLifeClans.Map.Data
     {
         public int LocationX { get; private set; }
         public int LocationY { get; private set; }
-        public TileTerrain Terrain { get; private set; }
+        public Terrain Terrain { get; private set; }
         public Entity AiEntity { get; private set; }
         public MapContainer Map { get; private set; }
 
 
         public bool IsOccupied => !(AiEntity == null);
         public void RemoveAiEntity() => AiEntity = null;
-        public void SetTerrain(TileTerrain terrain) => Terrain = terrain;
+        public void SetTerrain(Terrain terrain) => Terrain = terrain;
 
 
-        public Tile(int x, int y, TileTerrain terrain, MapContainer map)
+        public Tile(int x, int y, Terrain terrain, MapContainer map)
         {
             LocationX = x;
             LocationY = y;

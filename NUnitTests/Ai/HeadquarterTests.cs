@@ -12,7 +12,7 @@ namespace GameOfLifeClans.UnitTests.Ai
     public class HeadquarterTests
     {
         private EntityFactory _factory = new EntityFactory();
-        private TileTerrainFactory _terrainFactory = new TileTerrainFactory();
+        private TerrainFactory _terrainFactory = new TerrainFactory();
         private MapContainer _map;
 
         
@@ -28,12 +28,12 @@ namespace GameOfLifeClans.UnitTests.Ai
             {
                 for (int y = 0; y < _map.Height; y++)
                 {
-                    _map.Tiles[x, y].SetTerrain(_terrainFactory.Terrain(id));
+                    _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
                 }
             }
         }
 
-        private void SetTerrainInto(TerrainId id, int x, int y) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Terrain(id));
+        private void SetTerrainInto(TerrainId id, int x, int y) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
         private void AddEntityIntoMap(int x, int y, Entity entity) => _map.Tiles[x, y].SetAiEntity(entity);
 
 

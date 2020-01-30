@@ -3,13 +3,13 @@
 
 namespace GameOfLifeClans.Map.Data
 {
-    public class TileTerrain
+    public class Terrain
     {
         public TerrainId Id { get; private set; }
         public bool IsPassable { get; private set; }
 
 
-        public TileTerrain(TerrainId id, bool isPassable)
+        public Terrain(TerrainId id, bool isPassable)
         {
             Id = id;
             IsPassable = isPassable;

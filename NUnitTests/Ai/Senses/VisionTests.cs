@@ -14,7 +14,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
     {
         private MapContainer _map;
         private Vision _vision;
-        private TileTerrainFactory _terrainFactory;
+        private TerrainFactory _terrainFactory;
 
         private void GenerateNewMap3x3WithFill(TerrainId id)
         {
@@ -33,7 +33,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             }
         }
         private void AddAiIntoTile(int x, int y, ClanId id) => _map.Tiles[x, y].SetAiEntity(new Headquarter(id, 100, 100));
-        private void SetTerrain(int x, int y, TerrainId id) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Terrain(id));
+        private void SetTerrain(int x, int y, TerrainId id) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
 
 
         [OneTimeSetUp]
@@ -41,7 +41,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             _map = new MapContainer();
             _vision = new Vision();
-            _terrainFactory = new TileTerrainFactory();
+            _terrainFactory = new TerrainFactory();
         }
 
 

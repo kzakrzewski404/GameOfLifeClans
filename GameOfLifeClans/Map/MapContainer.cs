@@ -10,12 +10,12 @@ namespace GameOfLifeClans.Map
         public int Height { get; private set; }
         public Tile[,] Tiles;
 
-        private TileTerrainFactory _terrainFactory;
+        private TerrainFactory _terrainFactory;
 
 
         public MapContainer()
         {
-            _terrainFactory = new TileTerrainFactory();
+            _terrainFactory = new TerrainFactory();
         }
 
 
@@ -34,7 +34,7 @@ namespace GameOfLifeClans.Map
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    Tiles[x, y] = new Tile(x, y, _terrainFactory.Terrain(TerrainId.Grass), this);
+                    Tiles[x, y] = new Tile(x, y, _terrainFactory.Create(TerrainId.Grass), this);
                 }
             }
         }
