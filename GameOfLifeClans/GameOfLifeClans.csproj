@@ -69,6 +69,7 @@
     <Compile Include="Map\Data\Tile.cs" />
     <Compile Include="Render\BitmapRenderer.cs" />
     <Compile Include="Render\Renderer.cs" />
+    <Compile Include="Simulation\Simulation.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

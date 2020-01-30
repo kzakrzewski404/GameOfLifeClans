@@ -16,12 +16,16 @@ namespace GameOfLifeClans.Ai
         public int LocationX => OccupiedTile.LocationX;
         public int LocationY => OccupiedTile.LocationY;
 
+        public delegate void WhenKilledEventHandler(Entity entity);
+
         protected static Vision _vision = new Vision();
         protected static ulong _idCounter = 0;
         protected int _maxHealth;
+        protected WhenKilledEventHandler WhenKilledCallback;
 
 
         public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
+        public void SetWhenKilledCallback(WhenKilledEventHandler callback) => WhenKilledCallback = callback;
 
 
         public Entity(ClanId clan, int health, int damage)
@@ -34,7 +38,7 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        public abstract void SimulateStep();
+        public abstract void CalculateStep();
 
         public virtual void DealDamage(int damage)
         {
@@ -43,6 +47,7 @@ namespace GameOfLifeClans.Ai
             if (Health <= 0)
             {
                 OccupiedTile.RemoveAiEntity();
+                On_WhenKilled();
             }
         }
 
@@ -55,6 +60,15 @@ namespace GameOfLifeClans.Ai
         protected virtual void MoveToRandomFreeTile(Result visionResult)
         {
             visionResult.FreeTiles.PickRandom.MoveAiEntityHere(this);
+        }
+
+
+        protected virtual void On_WhenKilled()
+        {
+            if (WhenKilledCallback != null)
+            {
+                WhenKilledCallback.Invoke(this.Id);
+            }
         }
     }
 }

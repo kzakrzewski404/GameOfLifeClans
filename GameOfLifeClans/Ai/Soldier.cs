@@ -18,7 +18,7 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        public override void SimulateStep()
+        public override void CalculateStep()
         {
             Result visionResult = _vision.GetResult(this);
 

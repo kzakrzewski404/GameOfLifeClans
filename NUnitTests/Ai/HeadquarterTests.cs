@@ -50,7 +50,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Act
             for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
             {
-                headquarter.SimulateStep();
+                headquarter.CalculateStep();
             }
 
             int entitiesOnMap = 0;
@@ -82,7 +82,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Act
             for (int i = 0; i <= (AiConfig.HEADQUARTER_SPAWN_TRESHOLD * 20); i++)
             {
-                headquarter.SimulateStep();
+                headquarter.CalculateStep();
             }
 
             int entitiesOnMap = 0;
@@ -116,7 +116,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Act
             for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
             {
-                headquarter.SimulateStep();
+                headquarter.CalculateStep();
             }
 
             //Assert
@@ -138,7 +138,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Act
             for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
             {
-                headquarter.SimulateStep();
+                headquarter.CalculateStep();
             }
 
             //Assert
