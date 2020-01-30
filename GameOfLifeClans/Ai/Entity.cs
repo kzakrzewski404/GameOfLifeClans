@@ -7,6 +7,7 @@ namespace GameOfLifeClans.Ai
 {
     public abstract class Entity
     {
+        public ulong Id { get; private set; }
         public int Health { get; private set; }
         public int Damage { get; private set; }
         public ClanId Clan { get; private set; }
@@ -16,15 +17,17 @@ namespace GameOfLifeClans.Ai
         public int LocationY => OccupiedTile.LocationY;
 
         protected static Vision _vision = new Vision();
+        protected static ulong _idCounter = 0;
         protected int _maxHealth;
 
 
         public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
 
 
-        public Entity(ClanId id, int health, int damage)
+        public Entity(ClanId clan, int health, int damage)
         {
-            Clan = id;
+            Id = (_idCounter++);
+            Clan = clan;
             Health = health;
             _maxHealth = health;
             Damage = damage;
