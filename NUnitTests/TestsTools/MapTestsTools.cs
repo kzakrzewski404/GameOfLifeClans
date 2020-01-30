@@ -14,12 +14,13 @@ namespace GameOfLifeClans.UnitTests.TestsTools
         private EntityFactory _entityFactory = new EntityFactory();
 
 
-        public void LinkMap(MapContainer map) => _map = map;
         public void SetTerrain(int x, int y, TerrainId terrain) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(terrain));
         public void AddEntity(int x, int y, EntityId entity, ClanId clan) => _map.Tiles[x, y].SetAiEntity(_entityFactory.Create(entity, clan));
 
-        public void GenerateMap(int width, int height, TerrainId defaultFill)
+
+        public void GenerateMap(int width, int height, MapContainer mapContainer, TerrainId defaultFill)
         {
+            _map = mapContainer;
             _map.Generate(width, height);
             FillTerrain(defaultFill);
         }

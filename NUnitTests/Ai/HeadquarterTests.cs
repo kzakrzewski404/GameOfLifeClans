@@ -4,48 +4,26 @@ using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Enums;
-using GameOfLifeClans.Map.Data;
+
+using GameOfLifeClans.UnitTests.TestsTools;
 
 
 namespace GameOfLifeClans.UnitTests.Ai
 {
     public class HeadquarterTests
     {
-        private EntityFactory _factory = new EntityFactory();
-        private TerrainFactory _terrainFactory = new TerrainFactory();
         private MapContainer _map;
-
-        
-        private void GenerateMap(int sizeX, int sizeY)
-        {
-            _map = new MapContainer();
-            _map.Generate(sizeX, sizeY);
-        }
-
-        private void FillMapWith(TerrainId id)
-        {
-            for (int x = 0; x < _map.Width; x++)
-            {
-                for (int y = 0; y < _map.Height; y++)
-                {
-                    _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
-                }
-            }
-        }
-
-        private void SetTerrainInto(TerrainId id, int x, int y) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
-        private void AddEntityIntoMap(int x, int y, Entity entity) => _map.Tiles[x, y].SetAiEntity(entity);
+        private MapTestsTools _tools = new MapTestsTools();
 
 
         [Test]
         public void When_SpawnTresholdTriggers_Expect_Total2EntitiesOnMap()
         {
             //Arrange
-            Entity headquarter = _factory.Create(EntityId.Headquarter, ClanId.Blue);
-
-            GenerateMap(3, 3);
-            FillMapWith(TerrainId.Grass);
-            AddEntityIntoMap(1, 1, headquarter);
+            _map = new MapContainer();
+            _tools.GenerateMap(3, 3, _map, TerrainId.Grass);
+            _tools.AddEntity(1, 1, EntityId.Headquarter, ClanId.Blue);
+            Entity headquarter = _map.Tiles[1, 1].AiEntity;
 
             //Act
             for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
@@ -73,11 +51,10 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void When_SpawnTresholdTriggers20Times_Expect_Total9EntitiesOnMap()
         {
             //Arrange
-            Entity headquarter = _factory.Create(EntityId.Headquarter, ClanId.Blue);
-
-            GenerateMap(3, 3);
-            FillMapWith(TerrainId.Grass);
-            AddEntityIntoMap(1, 1, headquarter);
+            _map = new MapContainer();
+            _tools.GenerateMap(3, 3, _map, TerrainId.Grass);
+            _tools.AddEntity(1, 1, EntityId.Headquarter, ClanId.Blue);
+            Entity headquarter = _map.Tiles[1, 1].AiEntity;
 
             //Act
             for (int i = 0; i <= (AiConfig.HEADQUARTER_SPAWN_TRESHOLD * 20); i++)
@@ -105,13 +82,12 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void When_SpawnTresholdTriggers_Expect_SpawnedEntityIsTheSameClan()
         {
             //Arrange
-            Entity headquarter = _factory.Create(EntityId.Headquarter, ClanId.Blue);
-
-            GenerateMap(3, 3);
-            FillMapWith(TerrainId.Mountain);
-            SetTerrainInto(TerrainId.Grass, 1, 1);
-            SetTerrainInto(TerrainId.Grass, 1, 2);
-            AddEntityIntoMap(1, 1, headquarter);
+            _map = new MapContainer();
+            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
+            _tools.SetTerrain(1, 1, TerrainId.Grass);
+            _tools.SetTerrain(1, 2, TerrainId.Grass);
+            _tools.AddEntity(1, 1, EntityId.Headquarter, ClanId.Blue);
+            Entity headquarter = _map.Tiles[1, 1].AiEntity;
 
             //Act
             for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
@@ -121,28 +97,6 @@ namespace GameOfLifeClans.UnitTests.Ai
 
             //Assert
             Assert.IsTrue(_map.Tiles[1, 1].AiEntity.Clan == _map.Tiles[1, 2].AiEntity.Clan);
-        }
-
-        [Test]
-        public void When_SpawnTresholdTriggers_Expect_SpawnedEntityHasHigherId()
-        {
-            //Arrange
-            Entity headquarter = _factory.Create(EntityId.Headquarter, ClanId.Blue);
-
-            GenerateMap(3, 3);
-            FillMapWith(TerrainId.Mountain);
-            SetTerrainInto(TerrainId.Grass, 1, 1);
-            SetTerrainInto(TerrainId.Grass, 1, 2);
-            AddEntityIntoMap(1, 1, headquarter);
-
-            //Act
-            for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
-            {
-                headquarter.CalculateStep();
-            }
-
-            //Assert
-            Assert.IsTrue(_map.Tiles[1, 1].AiEntity.Id < _map.Tiles[1, 2].AiEntity.Id);
         }
     }
 }

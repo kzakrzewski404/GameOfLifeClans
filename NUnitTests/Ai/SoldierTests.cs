@@ -21,8 +21,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         {
             //Arrange
             _map = new MapContainer();
-            _tools.LinkMap(_map);
-            _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
 
             _tools.SetTerrain(1, 1, TerrainId.Grass);
             _tools.AddEntity(1, 1, EntityId.Soldier, ClanId.Blue);
@@ -46,8 +45,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         {
             //Arrange
             _map = new MapContainer();
-            _tools.LinkMap(_map);
-            _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
 
             _tools.SetTerrain(1, 1, TerrainId.Grass);
             _tools.AddEntity(1, 1, EntityId.Soldier, ClanId.Blue);
@@ -71,8 +69,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         {
             //Arrange
             _map = new MapContainer();
-            _tools.LinkMap(_map);
-            _tools.GenerateMap(3, 3, TerrainId.Water);
+            _tools.GenerateMap(3, 3, _map, TerrainId.Water);
 
             _tools.SetTerrain(1, 1, TerrainId.Grass);
             _tools.AddEntity(1, 1, EntityId.Soldier, ClanId.Blue);
@@ -93,8 +90,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         {
             //Arrange
             _map = new MapContainer();
-            _tools.LinkMap(_map);
-            _tools.GenerateMap(3, 3, TerrainId.Water);
+            _tools.GenerateMap(3, 3, _map, TerrainId.Water);
 
             _tools.SetTerrain(1, 1, TerrainId.Grass);
             _tools.AddEntity(1, 1, EntityId.Soldier, ClanId.Blue);

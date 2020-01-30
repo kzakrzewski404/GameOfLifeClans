@@ -7,7 +7,6 @@ namespace GameOfLifeClans.Ai
 {
     public abstract class Entity
     {
-        public ulong Id { get; private set; }
         public int Health { get; private set; }
         public int Damage { get; private set; }
         public ClanId Clan { get; private set; }
@@ -30,7 +29,6 @@ namespace GameOfLifeClans.Ai
 
         public Entity(ClanId clan, int health, int damage)
         {
-            Id = (_idCounter++);
             Clan = clan;
             Health = health;
             _maxHealth = health;
