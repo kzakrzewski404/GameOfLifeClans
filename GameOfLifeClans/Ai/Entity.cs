@@ -67,7 +67,7 @@ namespace GameOfLifeClans.Ai
         {
             if (WhenKilledCallback != null)
             {
-                WhenKilledCallback.Invoke(this.Id);
+                WhenKilledCallback.Invoke(this);
             }
         }
     }

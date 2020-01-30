@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System;
 
 using GameOfLifeClans.Map;
+using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Enums;
 
@@ -16,13 +14,12 @@ namespace GameOfLifeClans.Simulation
         public MapContainer Map { get; private set; }
         public bool IsSimulationRunning { get; private set; }
 
-        public int EntitiesOnMap => entitiesList.Count;
+        public int EntitiesOnMap => _entitiesList.Count;
 
-        private List<Entity> entitiesList;
-        private static EntityFactory _entityFactory = new EntityFactory();
         private int _headquartersOnMap;
-
-        
+        private List<Entity> _entitiesList = new List<Entity>();
+        private static EntityFactory _entityFactory = new EntityFactory();
+        private static Random _rnd = new Random();
 
 
         public Simulation()
@@ -38,17 +35,23 @@ namespace GameOfLifeClans.Simulation
             IsSimulationRunning = true;
 
             //spawning units
-            entitiesList.Clear();
+            _entitiesList.Clear();
             _headquartersOnMap = 0;
             AddHeadquarterToRandomLocation(ClanId.Blue);
             AddHeadquarterToRandomLocation(ClanId.Red);
         }
 
-        public void CalculateStep()
+        public void CalculateStep(int numberOfSteps = 1)
         {
-            for (int i = 0; i < entitiesList.Count; i++)
+            for (int s = 0; s < numberOfSteps; s++)
             {
-                entitiesList[i].CalculateStep();
+                if (IsSimulationRunning)
+                {
+                    for (int i = 0; i < _entitiesList.Count; i++)
+                    {
+                        _entitiesList[i].CalculateStep();
+                    }
+                }
             }
         }
 
@@ -60,9 +63,35 @@ namespace GameOfLifeClans.Simulation
             headquarter.SetWhenKilledForSpawnedEntities(WhenEntityIsKilled);
             headquarter.SetWhenSpawnedEntityCallback(WhenEntityIsSpawned);
 
-            //TODO: search and add to random location;
-            entitiesList.Add(headquarter);
+            FindTileForHeadquarter().SetAiEntity(headquarter);
+            _entitiesList.Add(headquarter);
             _headquartersOnMap++;
+        }
+
+        private Tile FindTileForHeadquarter()
+        {
+            int x, y, entitiesNearby;
+            bool isFreeTileFound = false;
+            do
+            {
+                //Never search tile for headquarter on map border
+                x = _rnd.Next(1, Map.Width - 1);
+                y = _rnd.Next(1, Map.Height - 1);
+
+                entitiesNearby = 0;
+                for (int mapX = (x - 1); mapX <= (x + 1); mapX++)
+                {
+                    for (int mapY = (y - 1); mapY < (y + 1); mapY++)
+                    {
+                        if (Map.Tiles[mapX, mapY].IsOccupied)
+                        {
+                            entitiesNearby++;
+                        }
+                    }
+                }
+                isFreeTileFound = entitiesNearby == 0;
+            } while (!isFreeTileFound);
+            return Map.Tiles[x, y];
         }
 
         private void WhenHeadquarterIsDestroyed(Entity destroyedHeadquarter)
@@ -74,12 +103,12 @@ namespace GameOfLifeClans.Simulation
 
         private void WhenEntityIsKilled(Entity killedEntity)
         {
-            entitiesList.Remove(killedEntity);
+            _entitiesList.Remove(killedEntity);
         }
 
         private void WhenEntityIsSpawned(Entity spawned)
         {
-            entitiesList.Add(spawned);
+            _entitiesList.Add(spawned);
         }
     }
 }
