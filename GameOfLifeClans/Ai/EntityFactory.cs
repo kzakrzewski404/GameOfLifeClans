@@ -10,10 +10,10 @@ namespace GameOfLifeClans.Ai
             switch (entityId)
             {
                 case EntityId.Headquarter:
-                    return new Headquarter(clanId, 200, 20);
+                    return new Headquarter(entityId, clanId, 200, 20);
 
                 case EntityId.Soldier:
-                    return new Soldier(clanId, 20, 5);
+                    return new Soldier(entityId, clanId, 20, 5);
 
                 default:
                     throw new System.Exception("Missing entity in EntityFactory");

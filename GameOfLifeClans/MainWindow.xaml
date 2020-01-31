@@ -25,6 +25,6 @@
         </Grid>
         <!--render area-->
         <Rectangle Grid.Column="1" Grid.Row="0" Fill="#202020"/>
-        <Image x:Name="renderOutput" Grid.Column="1" Margin="10" Stretch="Uniform"/>
+        <Image x:Name="imgRenderOutput" Grid.Column="1" Margin="10" Stretch="Uniform"/>
     </Grid>
 </Window>

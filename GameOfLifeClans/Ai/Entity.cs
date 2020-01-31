@@ -10,6 +10,7 @@ namespace GameOfLifeClans.Ai
         public int Health { get; private set; }
         public int Damage { get; private set; }
         public ClanId Clan { get; private set; }
+        public EntityId Id { get; private set; }
         public Tile OccupiedTile { get; private set; }
 
         public int LocationX => OccupiedTile.LocationX;
@@ -27,8 +28,9 @@ namespace GameOfLifeClans.Ai
         public void SetWhenKilledCallback(WhenKilledEventHandler callback) => WhenKilledCallback = callback;
 
 
-        public Entity(ClanId clan, int health, int damage)
+        public Entity(EntityId id, ClanId clan, int health, int damage)
         {
+            Id = id;
             Clan = clan;
             Health = health;
             _maxHealth = health;

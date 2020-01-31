@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using GameOfLifeClans.Render;
+using GameOfLifeClans.Simulation;
 
 
 namespace GameOfLifeClans
@@ -23,23 +24,30 @@ namespace GameOfLifeClans
     /// </summary>
     public partial class MainWindow : Window
     {
+        private SimulationHandler _simulation = new SimulationHandler();
+        private BitmapRenderer _renderer = new BitmapRenderer();
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _renderer.SetRenderOutput(imgRenderOutput);
         }
 
         private void RunSimulation_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_simulation.IsSimulationRunning)
+            {
+                _simulation.CalculateStep(20);
+                _renderer.Render();
+            }
         }
 
         private void GenerateMap_Click(object sender, RoutedEventArgs e)
         {
-            BitmapRenderer Renderer = new BitmapRenderer();
-            Renderer.SetRenderOutput(renderOutput);
-            Renderer.TestCreateCanvas();
-            Renderer.Render();
-
+            _simulation.GenerateMap(100, 100);
+            _renderer.LinkMapContainer(_simulation.Map);
         }
     }
 }

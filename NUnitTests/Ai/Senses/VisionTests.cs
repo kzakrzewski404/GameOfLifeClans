@@ -32,7 +32,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
                 }
             }
         }
-        private void AddAiIntoTile(int x, int y, ClanId id) => _map.Tiles[x, y].SetAiEntity(new Headquarter(id, 100, 100));
+        private void AddAiIntoTile(int x, int y, ClanId id) => _map.Tiles[x, y].SetAiEntity(new Headquarter(EntityId.Headquarter, id, 100, 100));
         private void SetTerrain(int x, int y, TerrainId id) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
 
 
@@ -50,7 +50,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 1].SetAiEntity(entity);
 
             //Act
@@ -65,7 +65,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Water);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 1].SetAiEntity(entity);
             SetTerrain(1, 1, TerrainId.Grass);
 
@@ -81,7 +81,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 1].SetAiEntity(entity);
             for (int x = 0; x < 3; x++)
             {
@@ -100,7 +100,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 1].SetAiEntity(entity);
             AddAiIntoTile(0, 0, ClanId.Red);
 
@@ -116,7 +116,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 1].SetAiEntity(entity);
             AddAiIntoTile(0, 0, ClanId.Red);
             AddAiIntoTile(0, 1, ClanId.Blue);
@@ -132,7 +132,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Water);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 1].SetAiEntity(entity);
             AddAiIntoTile(0, 0, ClanId.Blue);
             AddAiIntoTile(0, 1, ClanId.Blue);
@@ -150,7 +150,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[0, 0].SetAiEntity(entity);
             AddAiIntoTile(0, 1, ClanId.Blue);
             AddAiIntoTile(1, 0, ClanId.Red);
@@ -167,7 +167,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[2, 0].SetAiEntity(entity);
             AddAiIntoTile(1, 0, ClanId.Blue);
             AddAiIntoTile(2, 1, ClanId.Red);
@@ -184,7 +184,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[0, 2].SetAiEntity(entity);
             AddAiIntoTile(0, 1, ClanId.Blue);
             AddAiIntoTile(1, 2, ClanId.Red);
@@ -201,7 +201,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[2, 2].SetAiEntity(entity);
             AddAiIntoTile(2, 1, ClanId.Blue);
             AddAiIntoTile(1, 2, ClanId.Red);
@@ -218,7 +218,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[0, 1].SetAiEntity(entity);
             AddAiIntoTile(0, 0, ClanId.Blue);
             AddAiIntoTile(0, 2, ClanId.Red);
@@ -235,7 +235,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 2].SetAiEntity(entity);
             AddAiIntoTile(0, 2, ClanId.Blue);
             AddAiIntoTile(2, 2, ClanId.Red);
@@ -252,7 +252,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[2, 1].SetAiEntity(entity);
             AddAiIntoTile(2, 0, ClanId.Blue);
             AddAiIntoTile(2, 2, ClanId.Red);
@@ -269,7 +269,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         {
             //Arange
             GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(ClanId.Blue, 100, 100);
+            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100);
             _map.Tiles[1, 0].SetAiEntity(entity);
             AddAiIntoTile(0, 0, ClanId.Blue);
             AddAiIntoTile(2, 0, ClanId.Red);

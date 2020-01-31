@@ -9,7 +9,7 @@ using GameOfLifeClans.Ai.Enums;
 
 namespace GameOfLifeClans.Simulation
 {
-    public class Simulation
+    public class SimulationHandler
     {
         public MapContainer Map { get; private set; }
         public bool IsSimulationRunning { get; private set; }
@@ -22,13 +22,13 @@ namespace GameOfLifeClans.Simulation
         private static Random _rnd = new Random();
 
 
-        public Simulation()
+        public SimulationHandler()
         {
             Map = new MapContainer();
         }
 
 
-        public void Generate(int mapWidth, int mapHeight)
+        public void GenerateMap(int mapWidth, int mapHeight)
         {
             //setting map
             Map.Generate(mapWidth, mapHeight);

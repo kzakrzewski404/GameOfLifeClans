@@ -13,6 +13,7 @@ namespace GameOfLifeClans.Render
     public class BitmapRenderer : Renderer
     {
         private Bitmap _canvas;
+        private BitmapColors _colors = new BitmapColors();
         private System.Windows.Controls.Image _renderOutput;
 
 
@@ -20,21 +21,26 @@ namespace GameOfLifeClans.Render
         public void SetRenderOutput(System.Windows.Controls.Image uiImage) => _renderOutput = uiImage;
 
 
-        public override void LinkMap(MapContainer map)
+        public override void LinkMapContainer(MapContainer map)
         {
-            base.LinkMap(map);
+            base.LinkMapContainer(map);
             _canvas = new Bitmap(map.Width, map.Height);
         }
 
         public override void Render()
         {
-            for (int x = 0; x < 100; x++)
+            for (int x = 0; x < _map.Width; x++)
             {
-                for (int y = 0; y < 100; y++)
+                for (int y = 0; y < _map.Height; y++)
                 {
-                    //TODO - recognize tiles in map
-                    //TODO - change this func to map.width, map.height
-                    _canvas.SetPixel(x, y, Color.Magenta);
+                    if (_map.Tiles[x, y].IsOccupied)
+                    {
+                        _canvas.SetPixel(x, y, _colors.GetEntityColor(_map.Tiles[x, y].AiEntity.Id, _map.Tiles[x, y].AiEntity.Clan));
+                    }
+                    else
+                    {
+                        _canvas.SetPixel(x, y, _colors.GetTerrainColor(_map.Tiles[x, y].Terrain.Id));
+                    }
                 }
             }
 
