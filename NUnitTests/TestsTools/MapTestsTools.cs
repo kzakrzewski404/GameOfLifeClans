@@ -17,6 +17,22 @@ namespace GameOfLifeClans.UnitTests.TestsTools
         public void SetTerrain(int x, int y, TerrainId terrain) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(terrain));
         public void AddEntity(int x, int y, EntityId entity, ClanId clan) => _map.Tiles[x, y].SetAiEntity(_entityFactory.Create(entity, clan));
 
+        public int CountEntitiesOnMap()
+        {
+            int entitiesOnMap = 0;
+            for (int x = 0; x < _map.Width; x++)
+            {
+                for (int y = 0; y < _map.Height; y++)
+                {
+                    if (_map.Tiles[x, y].IsOccupied)
+                    {
+                        entitiesOnMap++;
+                    }
+                }
+            }
+            return entitiesOnMap;
+        }
+
         public void AddEntityAndChangeTerrain(int x, int y, EntityId entity, ClanId clan, TerrainId terrain)
         {
             SetTerrain(x, y, terrain);
