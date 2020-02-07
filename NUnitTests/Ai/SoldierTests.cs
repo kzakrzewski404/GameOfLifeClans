@@ -19,13 +19,9 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void CalculateStep_OnlyOneEnemyIsNearbyAndNoAnyFreeTiles_ShouldAttackEnemy()
         {
             //Arrange
-            _map = new MapContainer();
-            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
-            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-            _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Red, TerrainId.Grass);
-
-            Entity attacker = _map.Tiles[1, 1].AiEntity;
-            Entity enemy = _map.Tiles[1, 0].AiEntity;
+            _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
+            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Red, TerrainId.Grass);
             int originalEnemyHealth = enemy.Health;
 
             //Act
@@ -39,12 +35,9 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void CalculateStep_AfterEnemyIsAttacked_SoldierShouldntMove()
         {
             //Arrange
-            _map = new MapContainer();
-            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
-            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-            _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Red, TerrainId.Grass);
-
-            Entity attacker = _map.Tiles[1, 1].AiEntity;
+            _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
+            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Red, TerrainId.Grass);
             int originalX = attacker.LocationX;
             int originalY = attacker.LocationY;
 
@@ -59,13 +52,9 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void CalculateStep_OnlyOneAllyIsNearbyAndNoAnyFreeTiles_AllyIsNotAttacked()
         {
             //Arrange
-            _map = new MapContainer();
-            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
-            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-            _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-
-            Entity attacker = _map.Tiles[1, 1].AiEntity;
-            Entity ally = _map.Tiles[1, 0].AiEntity;
+            _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
+            Entity ally = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
             int originalAllyHealth = ally.Health;
 
             //Act
@@ -79,12 +68,9 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void CalculateStep_OnlyOneAllyIsNearbyAndNoAnyFreeTiles_SoldierShouldtMove()
         {
             //Arrange
-            _map = new MapContainer();
-            _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
-            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-            _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-
-            Entity soldier = _map.Tiles[1, 1].AiEntity;
+            _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            Entity soldier = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
+            Entity ally = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
             int originalX = soldier.LocationX;
             int originalY = soldier.LocationY;
 
@@ -99,11 +85,8 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void CalculateStep_NoAnyFreeTilesNearby_SoldierStaysInTheSameTile()
         {
             //Arrange
-            _map = new MapContainer();
-            _tools.GenerateMap(3, 3, _map, TerrainId.Water);
-            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
-
-            Entity soldier = _map.Tiles[1, 1].AiEntity;
+            _map = _tools.GenerateMap(3, 3, TerrainId.Water);
+            Entity soldier = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
             int originalX = soldier.LocationX;
             int originalY = soldier.LocationY;
 
@@ -118,12 +101,9 @@ namespace GameOfLifeClans.UnitTests.Ai
         public void CalculateStep_OnlyOneFreeTileNearby_Expect_SoldierMoveToThatTile()
         {
             //Arrange
-            _map = new MapContainer();
-            _tools.GenerateMap(3, 3, _map, TerrainId.Water);
-            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Water);
+            Entity soldier = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, ClanId.Blue, TerrainId.Grass);
             _tools.SetTerrain(1, 0, TerrainId.Grass); //Free tile
-
-            Entity soldier = _map.Tiles[1, 1].AiEntity;
             int originalX = soldier.LocationX;
             int originalY = soldier.LocationY;
 
