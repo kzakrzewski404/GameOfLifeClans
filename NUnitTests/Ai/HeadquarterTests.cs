@@ -31,20 +31,8 @@ namespace GameOfLifeClans.UnitTests.Ai
                 headquarter.CalculateStep();
             }
 
-            int entitiesOnMap = 0;
-            for (int x = 0; x < _map.Width; x++)
-            {
-                for (int y = 0; y < _map.Height; y++)
-                {
-                    if (_map.Tiles[x, y].IsOccupied)
-                    {
-                        entitiesOnMap++;
-                    }
-                }
-            }
-
             //Assert
-            Assert.IsTrue(entitiesOnMap == 2);
+            Assert.IsTrue(_tools.CountEntitiesOnMap() == 2);
         }
 
         [Test]
@@ -62,20 +50,8 @@ namespace GameOfLifeClans.UnitTests.Ai
                 headquarter.CalculateStep();
             }
 
-            int entitiesOnMap = 0;
-            for (int x = 0; x < _map.Width; x++)
-            {
-                for (int y = 0; y < _map.Height; y++)
-                {
-                    if (_map.Tiles[x, y].IsOccupied)
-                    {
-                        entitiesOnMap++;
-                    }
-                }
-            }
-
             //Assert
-            Assert.IsTrue(entitiesOnMap == 9);
+            Assert.IsTrue(_tools.CountEntitiesOnMap() == 9);
         }
 
         [Test]
@@ -84,9 +60,8 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Arrange
             _map = new MapContainer();
             _tools.GenerateMap(3, 3, _map, TerrainId.Mountain);
-            _tools.SetTerrain(1, 1, TerrainId.Grass);
-            _tools.SetTerrain(1, 2, TerrainId.Grass);
-            _tools.AddEntity(1, 1, EntityId.Headquarter, ClanId.Blue);
+            _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, ClanId.Blue, TerrainId.Grass);
+            _tools.SetTerrain(1, 2, TerrainId.Grass); //only one free tile for spawn
             Entity headquarter = _map.Tiles[1, 1].AiEntity;
 
             //Act
@@ -96,7 +71,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             }
 
             //Assert
-            Assert.IsTrue(_map.Tiles[1, 1].AiEntity.Clan == _map.Tiles[1, 2].AiEntity.Clan);
+            Assert.IsTrue(headquarter.Clan == _map.Tiles[1, 2].AiEntity.Clan);
         }
 
         [Test]
