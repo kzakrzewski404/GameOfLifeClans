@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using GameOfLifeClans.Map;
+using GameOfLifeClans.Map.Data;
+using GameOfLifeClans.Generics;
 
 
 namespace GameOfLifeClans.Map.Generators
@@ -12,10 +9,14 @@ namespace GameOfLifeClans.Map.Generators
     public abstract class LandspaceGenerator
     {
         private static Random _rnd = new Random();
-        private bool[] _markedTerrainBuffor;
+        private bool[,] _markedTerrainBuffer;
+        private ItemsContainer<Tile> _availableTilesToModify = new ItemsContainer<Tile>();
+        private MapContainer _map;
 
-        public abstract void Generate(MapContainer map);
-
-
+        public virtual void Generate(MapContainer map)
+        {
+            _map = map;
+            _markedTerrainBuffer = new bool[_map.Width, _map.Height];
+        }
     }
 }
