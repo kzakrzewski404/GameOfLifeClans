@@ -17,7 +17,7 @@ namespace GameOfLifeClans.UnitTests.Ai
 
 
         [Test]
-        public void When_SpawnTresholdTriggers_Expect_Total2EntitiesOnMap()
+        public void CalculateStep_AfterSpawnTresholdTriggers_TotalEntitiesOnMapShouldBe2()
         {
             //Arrange
             _map = new MapContainer();
@@ -48,7 +48,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         }
 
         [Test]
-        public void When_SpawnTresholdTriggers20Times_Expect_Total9EntitiesOnMap()
+        public void CalculateStep_AfterSpawnTresholdTriggers20Times_TotalEntitiesOnMapShouldBe9()
         {
             //Arrange
             _map = new MapContainer();
@@ -79,7 +79,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         }
 
         [Test]
-        public void When_SpawnTresholdTriggers_Expect_SpawnedEntityIsTheSameClan()
+        public void CalculateStep_AfterSpawnTresholdTriggers_SpawnedEntityIsOfTheSameClan()
         {
             //Arrange
             _map = new MapContainer();
@@ -97,6 +97,42 @@ namespace GameOfLifeClans.UnitTests.Ai
 
             //Assert
             Assert.IsTrue(_map.Tiles[1, 1].AiEntity.Clan == _map.Tiles[1, 2].AiEntity.Clan);
+        }
+
+        [Test]
+        public void CalculateStep_AfterSpawnTresholdTriggersAndThereIsNoSpaceForSpawning_TotalEntitiesOnMapShouldBe1()
+        {
+
+        }
+
+        [Test]
+        public void CalculateStep_NormalCall_HeadquarterDoesntMove()
+        {
+
+        }
+
+        [Test]
+        public void CalculateStep_OnlyOneEnemyIsNearby_EnemyIsAttacked()
+        {
+
+        }
+
+        [Test]
+        public void CalculateStep_OnlyOneAllyIsNearby_AllyIsNotAttacked()
+        {
+
+        }
+
+        [Test]
+        public void CalculateStep_ThereIsOneEnemyAndOneAlly_EnemyIsAttackedAndAllyNot()
+        {
+
+        }
+
+        [Test]
+        public void CalculateStep_AfterAttackingEnemy_HeadquarterShouldntMove()
+        {
+
         }
     }
 }
