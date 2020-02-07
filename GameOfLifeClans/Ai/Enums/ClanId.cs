@@ -3,6 +3,12 @@
     public enum ClanId
     {
         Blue,
-        Red
+        Red,
+        Yellow,
+        Green,
+        Purple,
+        Black,
+        White,
+        Pink
     };
 }
