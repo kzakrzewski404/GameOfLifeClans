@@ -15,7 +15,38 @@ namespace GameOfLifeClans.UnitTests.TestsTools
 
 
         public void SetTerrain(int x, int y, TerrainId terrain) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(terrain));
-        public void AddEntity(int x, int y, EntityId entity, ClanId clan) => _map.Tiles[x, y].SetAiEntity(_entityFactory.Create(entity, clan));
+
+        public Entity AddEntity(int x, int y, EntityId entity, ClanId clan)
+        {
+            _map.Tiles[x, y].SetAiEntity(_entityFactory.Create(entity, clan));
+            return _map.Tiles[x, y].AiEntity;
+        }
+
+        public Entity AddEntityAndChangeTerrain(int x, int y, EntityId entity, ClanId clan, TerrainId terrain)
+        {
+            SetTerrain(x, y, terrain);
+            return AddEntity(x, y, entity, clan);
+        }
+
+
+        public MapContainer GenerateMap(int width, int height, TerrainId defaultFill)
+        {
+            _map = new MapContainer();
+            _map.Generate(width, height);
+            FillTerrain(defaultFill);
+            return _map;
+        }
+
+        public void FillTerrain(TerrainId fill)
+        {
+            for (int x = 0; x < _map.Width; x++)
+            {
+                for (int y = 0; y < _map.Height; y++)
+                {
+                    SetTerrain(x, y, fill);
+                }
+            }
+        }
 
         public int CountEntitiesOnMap()
         {
@@ -31,31 +62,6 @@ namespace GameOfLifeClans.UnitTests.TestsTools
                 }
             }
             return entitiesOnMap;
-        }
-
-        public void AddEntityAndChangeTerrain(int x, int y, EntityId entity, ClanId clan, TerrainId terrain)
-        {
-            SetTerrain(x, y, terrain);
-            AddEntity(x, y, entity, clan);
-        }
-
-
-        public void GenerateMap(int width, int height, MapContainer mapContainer, TerrainId defaultFill)
-        {
-            _map = mapContainer;
-            _map.Generate(width, height);
-            FillTerrain(defaultFill);
-        }
-
-        public void FillTerrain(TerrainId fill)
-        {
-            for (int x = 0; x < _map.Width; x++)
-            {
-                for (int y = 0; y < _map.Height; y++)
-                {
-                    SetTerrain(x, y, fill);
-                }
-            }
         }
     }
 }
