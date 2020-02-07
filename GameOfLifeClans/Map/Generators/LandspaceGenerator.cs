@@ -33,10 +33,21 @@ namespace GameOfLifeClans.Map.Generators
             _markedTerrainBuffer = new bool[_map.Width, _map.Height];
 
             GenerateSeeds();
+            while(_modifiedTilesCounter < _targetModifiedTilesCounter)
+            {
+                ModifyTile(_availableTilesToModify.PickRandom);
+                _modifiedTilesCounter++;
+            }
         }
 
 
         protected abstract void GenerateSeeds();
+
+        protected void GetRandomXY(out int x, out int y)
+        {
+            x = _rnd.Next(0, _map.Width);
+            y = _rnd.Next(0, _map.Height);
+        }
 
 
         protected void ModifyTile(Tile tile)

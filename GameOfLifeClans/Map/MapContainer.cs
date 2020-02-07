@@ -1,5 +1,6 @@
 ﻿using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Map.Data.Enums;
+using GameOfLifeClans.Map.Generators;
 
 
 namespace GameOfLifeClans.Map
@@ -25,6 +26,8 @@ namespace GameOfLifeClans.Map
             Height = height;
             Tiles = new Tile[width, height];
             FillWithGrass();
+            LandspaceGenerator water = new WaterGenerator();
+            water.Generate(this, TerrainId.Water);
         }
 
 
