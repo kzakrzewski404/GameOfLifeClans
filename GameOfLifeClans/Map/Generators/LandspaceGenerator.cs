@@ -12,6 +12,7 @@ namespace GameOfLifeClans.Map.Generators
         protected bool[,] _markedTerrainBuffer;
         protected ItemsContainer<Tile> _availableTilesToModify = new ItemsContainer<Tile>();
         protected int _modifiedTilesCounter = 0;
+        protected int _targetModifiedTilesCounter = 0;
         protected MapContainer _map;
         protected TerrainId _terrainToGenerate;
         protected static TerrainFactory _terrainFactory = new TerrainFactory();

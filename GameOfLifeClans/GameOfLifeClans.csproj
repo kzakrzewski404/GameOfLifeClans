@@ -68,6 +68,7 @@
     <Compile Include="Map\Data\TerrainFactory.cs" />
     <Compile Include="Map\Data\Tile.cs" />
     <Compile Include="Map\Generators\LandspaceGenerator.cs" />
+    <Compile Include="Map\Generators\WaterGenerator.cs" />
     <Compile Include="Render\BitmapColors.cs" />
     <Compile Include="Render\BitmapRenderer.cs" />
     <Compile Include="Render\Renderer.cs" />
