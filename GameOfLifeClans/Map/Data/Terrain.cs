@@ -1,4 +1,4 @@
-﻿using GameOfLifeClans.Map.Enums;
+﻿using GameOfLifeClans.Map.Data.Enums;
 
 
 namespace GameOfLifeClans.Map.Data

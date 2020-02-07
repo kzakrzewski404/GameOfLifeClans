@@ -88,7 +88,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Map\Enums\TerrainId.cs" />
+    <Compile Include="Map\Data\Enums\TerrainId.cs" />
     <Compile Include="Map\MapContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

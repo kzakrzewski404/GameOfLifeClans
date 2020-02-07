@@ -3,7 +3,7 @@
 using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
-using GameOfLifeClans.Map.Enums;
+using GameOfLifeClans.Map.Data.Enums;
 
 using GameOfLifeClans.UnitTests.TestsTools;
 

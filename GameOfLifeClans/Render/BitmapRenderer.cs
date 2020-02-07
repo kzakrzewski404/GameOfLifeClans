@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 
 using GameOfLifeClans.Map;
-using GameOfLifeClans.Map.Enums;
+using GameOfLifeClans.Map.Data.Enums;
 using GameOfLifeClans.Ai.Enums;
 
 

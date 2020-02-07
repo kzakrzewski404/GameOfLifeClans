@@ -4,7 +4,7 @@ using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
-using GameOfLifeClans.Map.Enums;
+using GameOfLifeClans.Map.Data.Enums;
 using GameOfLifeClans.Map.Data;
 
 

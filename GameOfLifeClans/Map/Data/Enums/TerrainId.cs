@@ -1,4 +1,4 @@
-﻿namespace GameOfLifeClans.Map.Enums
+﻿namespace GameOfLifeClans.Map.Data.Enums
 {
     public enum TerrainId
     {
