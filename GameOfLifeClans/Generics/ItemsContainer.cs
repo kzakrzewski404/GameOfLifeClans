@@ -2,7 +2,7 @@
 using System;
 
 
-namespace GameOfLifeClans.Ai.Senses.Vision
+namespace GameOfLifeClans.Generics
 {
     public class ItemsContainer<T>
     {

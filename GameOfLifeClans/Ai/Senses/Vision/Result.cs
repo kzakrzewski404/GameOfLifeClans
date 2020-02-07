@@ -1,4 +1,5 @@
 ﻿using GameOfLifeClans.Map.Data;
+using GameOfLifeClans.Generics;
 
 
 namespace GameOfLifeClans.Ai.Senses.Vision
