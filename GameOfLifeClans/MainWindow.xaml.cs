@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 using GameOfLifeClans.Render;
 using GameOfLifeClans.Simulation;
@@ -26,12 +27,14 @@ namespace GameOfLifeClans
     {
         private SimulationHandler _simulation = new SimulationHandler();
         private BitmapRenderer _renderer = new BitmapRenderer();
-
+        private DispatcherTimer _timer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
 
+            _timer.Tick += On_SimulationTimerTick;
+            _timer.Interval = new TimeSpan(0, 0, 0, 0, 16); //0.016s
             _renderer.SetRenderOutput(imgRenderOutput);
         }
 
@@ -39,15 +42,42 @@ namespace GameOfLifeClans
         {
             if (_simulation.IsSimulationRunning)
             {
-                _simulation.CalculateStep(20);
+                if (_timer.IsEnabled)
+                {
+                    _timer.Stop();
+                    btnRunSimulation.Content = "Run Simulation";
+                    btnGenerateMap.IsEnabled = true;
+                }
+                else
+                {
+                    _timer.Start();
+                    btnRunSimulation.Content = "Pause";
+                    btnGenerateMap.IsEnabled = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Map not generated!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void On_SimulationTimerTick(object sender, EventArgs e)
+        {
+            if (_simulation.IsSimulationRunning)
+            {
+                _simulation.CalculateStep(1);
                 _renderer.Render();
             }
         }
 
         private void GenerateMap_Click(object sender, RoutedEventArgs e)
         {
-            _simulation.GenerateMap(100, 100);
-            _renderer.LinkMapContainer(_simulation.Map);
+            if (!_simulation.IsSimulationRunning || !_timer.IsEnabled)
+            {
+                _simulation.GenerateMap(100, 100);
+                _renderer.LinkMapContainer(_simulation.Map);
+                _renderer.Render();
+            }
         }
     }
 }
