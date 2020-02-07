@@ -12,7 +12,7 @@ namespace GameOfLifeClans.Render
         private Color[] terrains;
 
         private const int NUMBER_OF_ENTITIES = 2;
-        private const int NUMBER_OF_CLANS = 2;
+        private const int NUMBER_OF_CLANS = 8;
         private const int NUMBER_OF_TERRAINS = 4;
 
 
@@ -33,6 +33,12 @@ namespace GameOfLifeClans.Render
 
             CreateEntitiesColorScheme(ClanId.Blue, Color.FromArgb(0, 83, 196), Color.FromArgb(0, 162, 255));
             CreateEntitiesColorScheme(ClanId.Red, Color.FromArgb(166, 0, 0), Color.FromArgb(255, 0, 0));
+            CreateEntitiesColorScheme(ClanId.Yellow, Color.FromArgb(163, 174, 0), Color.FromArgb(239, 255, 0));
+            CreateEntitiesColorScheme(ClanId.Green, Color.FromArgb(0, 160, 24), Color.FromArgb(0, 219, 33));
+            CreateEntitiesColorScheme(ClanId.Purple, Color.FromArgb(121, 0, 166), Color.FromArgb(181, 13, 243));
+            CreateEntitiesColorScheme(ClanId.Black, Color.FromArgb(43, 43, 43), Color.FromArgb(98, 98, 98));
+            CreateEntitiesColorScheme(ClanId.White, Color.FromArgb(225, 225, 225), Color.FromArgb(240, 240, 240));
+            CreateEntitiesColorScheme(ClanId.Pink, Color.FromArgb(152, 93, 156), Color.FromArgb(247, 127, 255));
         }
 
         private void InitializeTerrainsColors()
