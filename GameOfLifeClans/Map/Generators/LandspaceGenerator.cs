@@ -3,45 +3,45 @@
 using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Map.Data.Enums;
 using GameOfLifeClans.Generics;
+using GameOfLifeClans.Map.Generators.Data;
 
 
 namespace GameOfLifeClans.Map.Generators
 {
     public abstract class LandspaceGenerator
     {
-        protected bool[,] _markedTerrainBuffer;
-        protected ItemsContainer<Tile> _availableTilesToModify = new ItemsContainer<Tile>();
-        protected int _modifiedTilesCounter = 0;
-        protected int _targetModifiedTilesCounter = 0;
         protected MapContainer _map;
-        protected TerrainId _terrainToGenerate;
+        protected TerrainId _terrain;
+        protected ItemsContainer<Tile> _tilesPool = new ItemsContainer<Tile>();
+        protected TileBuffer _buffer;
         protected static TerrainFactory _terrainFactory = new TerrainFactory();
         protected static Random _rnd = new Random();
 
 
-        protected bool IsAvailableToModify(int x, int y) => IsInsideMapBorders(x, y) && !IsMarkedByBuffer(x, y) && IsGrass(x, y);
-
-        private bool IsInsideMapBorders(int x, int y) => (x >= 0 && x < _map.Width) && (y >= 0 && y < _map.Height);
-        private bool IsMarkedByBuffer(int x, int y) => _markedTerrainBuffer[x, y];
-        private bool IsGrass(int x, int y) => _map.Tiles[x, y].Terrain.Id == TerrainId.Grass;
-
-
-        public virtual void Generate(MapContainer map, TerrainId terrainToGenerate)
+        public virtual void Generate(MapContainer map, TerrainId terrain)
         {
             _map = map;
-            _terrainToGenerate = terrainToGenerate;
-            _markedTerrainBuffer = new bool[_map.Width, _map.Height];
+            _terrain = terrain;
+            _buffer = new TileBuffer(_map.Width, _map.Height);
 
-            GenerateSeeds();
-            while(_modifiedTilesCounter < _targetModifiedTilesCounter)
+            int targetMass = CalculateTargetTerrainMass();
+            int currentMass = GenerateSeeds();
+
+            while(currentMass < targetMass)
             {
-                ModifyTile(_availableTilesToModify.PickRandom);
-                _modifiedTilesCounter++;
+                ModifyTileAndCheckNeighbours(_tilesPool.PickRandom);
+                currentMass++;
             }
         }
 
 
-        protected abstract void GenerateSeeds();
+        protected abstract int GenerateSeeds();
+
+        protected abstract int CalculateTargetTerrainMass();
+
+
+        protected bool CanBeEdited(int x, int y) => IsInsideMapBorders(x, y) && !IsMarkedByBuffer(x, y) && IsGrass(x, y);
+
 
         protected void GetRandomXY(out int x, out int y)
         {
@@ -49,22 +49,28 @@ namespace GameOfLifeClans.Map.Generators
             y = _rnd.Next(0, _map.Height);
         }
 
-
-        protected void ModifyTile(Tile tile)
+        protected void ModifyTileAndCheckNeighbours(Tile tile)
         {
-            tile.SetTerrain(_terrainFactory.Create(_terrainToGenerate));
-            CheckAndAddTileToBuffer(tile.LocationX - 1, tile.LocationY);
-            CheckAndAddTileToBuffer(tile.LocationX + 1, tile.LocationY);
-            CheckAndAddTileToBuffer(tile.LocationX, tile.LocationY - 1);
-            CheckAndAddTileToBuffer(tile.LocationX, tile.LocationY + 1);
+            tile.SetTerrain(_terrainFactory.Create(_terrain));
+
+            CheckTileAndAddToPool(tile.LocationX - 1, tile.LocationY);
+            CheckTileAndAddToPool(tile.LocationX + 1, tile.LocationY);
+            CheckTileAndAddToPool(tile.LocationX, tile.LocationY - 1);
+            CheckTileAndAddToPool(tile.LocationX, tile.LocationY + 1);
         }
 
-        private void CheckAndAddTileToBuffer(int x, int y)
+
+        private bool IsInsideMapBorders(int x, int y) => (x >= 0 && x < _map.Width) && (y >= 0 && y < _map.Height);
+        private bool IsMarkedByBuffer(int x, int y) => _buffer.IsMarked(x, y);
+        private bool IsGrass(int x, int y) => _map.Tiles[x, y].Terrain.Id == TerrainId.Grass;
+
+
+        private void CheckTileAndAddToPool(int x, int y)
         {
-            if (IsAvailableToModify(x, y))
+            if (CanBeEdited(x, y))
             {
-                _availableTilesToModify.Add(_map.Tiles[x, y]);
-                _markedTerrainBuffer[x, y] = true;
+                _tilesPool.Add(_map.Tiles[x, y]);
+                _buffer.Add(x, y);
             }
         }
     }

@@ -14,24 +14,25 @@ namespace GameOfLifeClans.Map.Generators
 
         private double RandomWaterMassPercentage => _rnd.Next(MIN_WATER_MASS_PERCENTAGE, MAX_WATER_MASS_PERCENTAGE) * 0.01;
 
+        protected override int CalculateTargetTerrainMass() => (int)(_map.Width * _map.Height * RandomWaterMassPercentage);
 
-        protected override void GenerateSeeds()
+
+        protected override int GenerateSeeds()
         {
-            _targetModifiedTilesCounter = (int)(_map.Width * _map.Height * RandomWaterMassPercentage);
-
             int targetSeeds = _rnd.Next(1, (_map.Width / 10)); //1 seed per 25 map width
-            int addedSeeds = 0;
+            int generatedSeeds = 0;
 
-            while (addedSeeds != targetSeeds)
+            while (generatedSeeds != targetSeeds)
             {
                 int x, y;
                 GetRandomXY(out x, out y);
-                if (IsAvailableToModify(x, y))
+                if (CanBeEdited(x, y))
                 {
-                    ModifyTile(_map.Tiles[x, y]);
-                    addedSeeds++;
+                    ModifyTileAndCheckNeighbours(_map.Tiles[x, y]);
+                    generatedSeeds++;
                 }
             }
+            return generatedSeeds;
         }
     }
 }
