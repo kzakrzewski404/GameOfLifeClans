@@ -64,8 +64,8 @@ namespace GameOfLifeClans.Simulation
         private void AddHeadquarterToRandomLocation(ClanId clan)
         {
             Headquarter headquarter = _entityFactory.Create(EntityId.Headquarter, clan) as Headquarter;
-            headquarter.SetWhenKilledCallback(WhenHeadquarterIsDestroyed);
-            headquarter.SetWhenKilledForSpawnedEntities(WhenEntityIsKilled);
+            headquarter.SetWhenIsKilledCallback(WhenHeadquarterIsDestroyed);
+            headquarter.SetWhenSpawnedEntityIsKilledCallback(WhenEntityIsKilled);
             headquarter.SetWhenSpawnedEntityCallback(WhenEntityIsSpawned);
 
             FindTileForHeadquarter().SetAiEntity(headquarter);

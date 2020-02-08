@@ -27,7 +27,7 @@ namespace GameOfLifeClans.Ai
 
 
         public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
-        public void SetWhenKilledCallback(WhenKilledEventHandler callback) => WhenKilledCallback = callback;
+        public void SetWhenIsKilledCallback(WhenKilledEventHandler callback) => WhenKilledCallback = callback;
 
 
         public Entity(EntityId id, ClanId clan, int health, int damage, int defence)

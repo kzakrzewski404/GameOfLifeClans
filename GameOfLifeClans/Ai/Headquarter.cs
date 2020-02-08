@@ -16,7 +16,7 @@ namespace GameOfLifeClans.Ai
 
 
         public void SetWhenSpawnedEntityCallback(WhenSpawnedEntityEventHandler callback) => WhenSpawnedCallback = callback;
-        public void SetWhenKilledForSpawnedEntities(WhenKilledEventHandler spawnedCallback) => WhenKilledForSpawnedEntities = spawnedCallback;
+        public void SetWhenSpawnedEntityIsKilledCallback(WhenKilledEventHandler spawnedCallback) => WhenKilledForSpawnedEntities = spawnedCallback;
 
 
         public Headquarter(EntityId id, ClanId clanId, int health, int damage, int defence) : base(id, clanId, health, damage, defence)
@@ -43,7 +43,7 @@ namespace GameOfLifeClans.Ai
             else if(visionResult.FreeTiles.IsNotEmpty)
             {
                 Entity spawned = _entityFactory.Create(EntityId.Soldier, Clan);
-                spawned.SetWhenKilledCallback(WhenKilledForSpawnedEntities);
+                spawned.SetWhenIsKilledCallback(WhenKilledForSpawnedEntities);
                 On_WhenSpawnedEntity(spawned);
 
                 visionResult.FreeTiles.PickRandom.SetAiEntity(spawned);
