@@ -57,6 +57,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Ai\Config\AiConfig.cs" />
+    <Compile Include="Ai\Config\EntityConfig.cs" />
+    <Compile Include="Ai\Config\EntityConfigFactory.cs" />
     <Compile Include="Ai\EntityFactory.cs" />
     <Compile Include="Ai\Enums\EntityId.cs" />
     <Compile Include="Ai\Headquarter.cs" />

@@ -1,4 +1,5 @@
 ﻿using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Config;
 using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map.Data;
 
@@ -9,6 +10,7 @@ namespace GameOfLifeClans.Ai
     {
         public int Health { get; private set; }
         public int Damage { get; private set; }
+        public int Defence { get; private set; }
         public ClanId Clan { get; private set; }
         public EntityId Id { get; private set; }
         public Tile OccupiedTile { get; private set; }
@@ -28,13 +30,14 @@ namespace GameOfLifeClans.Ai
         public void SetWhenKilledCallback(WhenKilledEventHandler callback) => WhenKilledCallback = callback;
 
 
-        public Entity(EntityId id, ClanId clan, int health, int damage)
+        public Entity(EntityId id, ClanId clan, EntityConfig config)
         {
             Id = id;
             Clan = clan;
-            Health = health;
-            _maxHealth = health;
-            Damage = damage;
+            Health = config.Health;
+            Damage = config.Damage;
+            Defence = config.Defence;
+            _maxHealth = Health;
         }
 
 

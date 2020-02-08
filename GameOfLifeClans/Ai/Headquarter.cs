@@ -19,7 +19,7 @@ namespace GameOfLifeClans.Ai
         public void SetWhenKilledForSpawnedEntities(WhenKilledEventHandler spawnedCallback) => WhenKilledForSpawnedEntities = spawnedCallback;
 
 
-        public Headquarter(EntityId id, ClanId clanId, int health, int damage) : base(id, clanId, health, damage)
+        public Headquarter(EntityId id, ClanId clanId, EntityConfig config) : base(id, clanId, config)
         {
             _spawnCounter = AiConfig.HEADQUARTER_SPAWN_TRESHOLD;
         }

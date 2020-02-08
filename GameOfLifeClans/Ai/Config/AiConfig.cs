@@ -2,6 +2,9 @@
 {
     public static class AiConfig
     {
+        public const int NUMBER_OF_CLANS = 8;
+        public const int NUMBER_OF_ENTITIES = 2;
+
         public const int HEADQUARTER_DAMAGE = 200;
         public const int HEADQUARTER_HEALTH = 500;
         public const int HEADQUARTER_DEFENCE = 50;
