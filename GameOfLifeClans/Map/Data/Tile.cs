@@ -1,4 +1,5 @@
 ﻿using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Enums;
 
 
 namespace GameOfLifeClans.Map.Data
@@ -10,7 +11,7 @@ namespace GameOfLifeClans.Map.Data
         public Terrain Terrain { get; private set; }
         public Entity AiEntity { get; private set; }
         public MapContainer Map { get; private set; }
-
+        public ClanId? ClanOwnership { get; private set; }
 
         public bool IsOccupied => !(AiEntity == null);
         public void RemoveAiEntity() => AiEntity = null;
@@ -36,6 +37,7 @@ namespace GameOfLifeClans.Map.Data
         {
             invoker.OccupiedTile.RemoveAiEntity();
             SetAiEntity(invoker);
+            ClanOwnership = invoker.Clan;
         }
     }
 }
