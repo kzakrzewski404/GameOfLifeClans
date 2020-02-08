@@ -36,8 +36,8 @@ namespace GameOfLifeClans.Render
             CreateEntitiesColorScheme(ClanId.Yellow, Color.FromArgb(163, 174, 0), Color.FromArgb(239, 255, 0));
             CreateEntitiesColorScheme(ClanId.Green, Color.FromArgb(0, 160, 24), Color.FromArgb(0, 219, 33));
             CreateEntitiesColorScheme(ClanId.Purple, Color.FromArgb(121, 0, 166), Color.FromArgb(181, 13, 243));
-            CreateEntitiesColorScheme(ClanId.Black, Color.FromArgb(43, 43, 43), Color.FromArgb(98, 98, 98));
-            CreateEntitiesColorScheme(ClanId.White, Color.FromArgb(225, 225, 225), Color.FromArgb(240, 240, 240));
+            CreateEntitiesColorScheme(ClanId.Black, Color.FromArgb(43, 43, 43), Color.FromArgb(60, 60, 60));
+            CreateEntitiesColorScheme(ClanId.White, Color.FromArgb(160, 160, 160), Color.FromArgb(240, 240, 240));
             CreateEntitiesColorScheme(ClanId.Pink, Color.FromArgb(152, 93, 156), Color.FromArgb(247, 127, 255));
         }
 
