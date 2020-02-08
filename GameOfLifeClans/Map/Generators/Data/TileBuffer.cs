@@ -15,7 +15,7 @@ namespace GameOfLifeClans.Map.Generators.Data
         private ItemsContainer<Tile> _tilesPool = new ItemsContainer<Tile>();
 
 
-        public void Initialize(MapContainer map)
+        public TileBuffer(MapContainer map)
         {
             _map = map;
             _checkedTiles = new bool[_map.Width, _map.Height];
