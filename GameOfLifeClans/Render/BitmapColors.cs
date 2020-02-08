@@ -32,6 +32,7 @@ namespace GameOfLifeClans.Render
         private void InitializeEntitiesColors()
         {
             _entities = new Color[NUMBER_OF_CLANS, NUMBER_OF_ENTITIES];
+            _terrainOwnerships = new Color[NUMBER_OF_CLANS];
 
             CreateEntitiesColorScheme(ClanId.Blue,      Color.FromArgb(83, 99, 148),    Color.FromArgb(0, 83, 196),     Color.FromArgb(0, 162, 255));
             CreateEntitiesColorScheme(ClanId.Red,       Color.FromArgb(148, 89, 83),    Color.FromArgb(166, 0, 0),      Color.FromArgb(255, 0, 0));

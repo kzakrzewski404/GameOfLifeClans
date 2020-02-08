@@ -9,6 +9,8 @@
         Purple,
         Black,
         White,
-        Pink
+        Pink,
+
+        _Neutral = 999
     };
 }
