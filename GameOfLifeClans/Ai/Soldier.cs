@@ -2,6 +2,7 @@
 
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Ai.Config;
 
 
 namespace GameOfLifeClans.Ai
