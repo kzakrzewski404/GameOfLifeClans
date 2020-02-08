@@ -24,7 +24,7 @@ namespace GameOfLifeClans.Map.Generators
 
             while (generatedSeeds != targetSeeds)
             {
-                ModifyTerrain(_buffer.GetRandom(generateSeed:true));
+                ModifyTerrain(_buffer.GetFromGeneratedSeed);
                 generatedSeeds++;
             }
             return generatedSeeds;

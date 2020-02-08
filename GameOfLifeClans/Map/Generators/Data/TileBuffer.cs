@@ -21,7 +21,18 @@ namespace GameOfLifeClans.Map.Generators.Data
             _checkedTiles = new bool[_map.Width, _map.Height];
         }
 
-        public Tile GetRandom(bool generateSeed = false)
+
+        public Tile GetRandom => GetAndManageBuffer();
+        public Tile GetFromGeneratedSeed => GetAndManageBuffer(true);
+
+
+        private bool CanBeEdited(int x, int y) => IsInsideMapBorders(x, y) && !IsMarkedByBuffer(x, y) && IsGrass(x, y);
+        private bool IsInsideMapBorders(int x, int y) => (x >= 0 && x < _map.Width) && (y >= 0 && y < _map.Height);
+        private bool IsMarkedByBuffer(int x, int y) => _checkedTiles[x, y];
+        private bool IsGrass(int x, int y) => _map.Tiles[x, y].Terrain.Id == TerrainId.Grass;
+
+
+        private Tile GetAndManageBuffer(bool generateSeed = false)
         {
             Tile tile;
             if (generateSeed)
@@ -37,13 +48,6 @@ namespace GameOfLifeClans.Map.Generators.Data
             BufferNeighbours(tile);
             return tile;
         }
-
-
-        private bool CanBeEdited(int x, int y) => IsInsideMapBorders(x, y) && !IsMarkedByBuffer(x, y) && IsGrass(x, y);
-        private bool IsInsideMapBorders(int x, int y) => (x >= 0 && x < _map.Width) && (y >= 0 && y < _map.Height);
-        private bool IsMarkedByBuffer(int x, int y) => _checkedTiles[x, y];
-        private bool IsGrass(int x, int y) => _map.Tiles[x, y].Terrain.Id == TerrainId.Grass;
-
 
         private Tile FindTileForSeed()
         {

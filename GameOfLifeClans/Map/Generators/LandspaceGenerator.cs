@@ -29,7 +29,7 @@ namespace GameOfLifeClans.Map.Generators
 
             while(currentMass < targetMass)
             {
-                ModifyTerrain(_buffer.GetRandom());
+                ModifyTerrain(_buffer.GetRandom);
                 currentMass++;
             }
         }
