@@ -26,8 +26,11 @@ namespace GameOfLifeClans.Map
             Height = height;
             Tiles = new Tile[width, height];
             FillWithGrass();
-            LandspaceGenerator water = new WaterGenerator();
-            water.Generate(this, TerrainId.Water);
+            if (width >= 50 && height >= 50) //test mode check, unit tests use 3x3 map
+            {
+                LandspaceGenerator water = new WaterGenerator();
+                water.Generate(this, TerrainId.Water);
+            }
         }
 
 

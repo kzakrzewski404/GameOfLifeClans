@@ -15,7 +15,7 @@ namespace GameOfLifeClans.Map.Generators
     {
         private MapContainer _map;
         private TerrainId _terrainToFix;
-        private 
+        private TileBuffer _buffer;
         private static TerrainFactory _terrainFactory = new TerrainFactory();
         private static Random _rnd = new Random();
 
@@ -26,6 +26,9 @@ namespace GameOfLifeClans.Map.Generators
             _terrainToFix = terrainToFix;
         }
 
-        public void Clean();
+        public void Clean()
+        {
+
+        }
     }
 }

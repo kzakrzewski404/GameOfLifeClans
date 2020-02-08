@@ -12,6 +12,14 @@ namespace GameOfLifeClans.Generics
         public bool IsNotEmpty => Results.Count > 0;
         public int Count => Results.Count;
         public T PickRandom => Results[rnd.Next(0, Results.Count)];
+        
+        
+        public T PickRandomAndRemoveFromList()
+        {
+            T item = PickRandom;
+            Results.Remove(item);
+            return item;
+        }
 
         public void Add(T item) => Results.Add(item);
 
