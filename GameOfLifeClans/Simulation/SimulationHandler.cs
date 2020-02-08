@@ -70,31 +70,30 @@ namespace GameOfLifeClans.Simulation
 
         private Tile FindTileForHeadquarter()
         {
-            int x, y, entitiesNearby;
-            bool isFreeTileFound = false;
+            int xRandom, yRandom;
+            bool foundError = false;
             do
             {
-                //Never search tile for headquarter on map border
-                x = _rnd.Next(1, Map.Width - 1);
-                y = _rnd.Next(1, Map.Height - 1);
+                foundError = false;
 
-                if (Map.Tiles[x, y].Terrain.IsPassable && !Map.Tiles[x, y].IsOccupied)
+                //Never search tile for headquarter on map border
+                xRandom = _rnd.Next(1, Map.Width - 1);
+                yRandom = _rnd.Next(1, Map.Height - 1);
+                
+                for (int x = (xRandom - 1); (x <= (xRandom + 1) && !foundError); x++)
                 {
-                    entitiesNearby = 0;
-                    for (int mapX = (x - 1); mapX <= (x + 1); mapX++)
+                    for (int y = (yRandom - 1); (y <= (yRandom + 1) && !foundError); y++)
                     {
-                        for (int mapY = (y - 1); mapY < (y + 1); mapY++)
+                        Tile check = Map.Tiles[x, y];
+                        if (check.IsOccupied || !check.Terrain.IsPassable)
                         {
-                            if (Map.Tiles[mapX, mapY].IsOccupied)
-                            {
-                                entitiesNearby++;
-                            }
+                            foundError = true;
                         }
                     }
-                    isFreeTileFound = entitiesNearby == 0;
                 }
-            } while (!isFreeTileFound);
-            return Map.Tiles[x, y];
+
+            } while (foundError);
+            return Map.Tiles[xRandom, yRandom];
         }
 
         private void WhenHeadquarterIsDestroyed(Entity destroyedHeadquarter)
