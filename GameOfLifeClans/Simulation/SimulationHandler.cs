@@ -37,8 +37,13 @@ namespace GameOfLifeClans.Simulation
             //spawning units
             _entitiesList.Clear();
             _headquartersOnMap = 0;
-            AddHeadquarterToRandomLocation(ClanId.Blue);
-            AddHeadquarterToRandomLocation(ClanId.Red);
+            for (int i = 0; i < 8; i++)
+            {
+                AddHeadquarterToRandomLocation((ClanId)(i));
+            }
+
+            //AddHeadquarterToRandomLocation(ClanId.Blue);
+            //AddHeadquarterToRandomLocation(ClanId.Red);
         }
 
         public void CalculateStep(int numberOfSteps = 1)
