@@ -8,8 +8,8 @@ namespace GameOfLifeClans.Map.Generators
 {
     public class WaterGenerator : LandspaceGenerator
     {
-        private const int MIN_WATER_MASS_PERCENTAGE = 1;
-        private const int MAX_WATER_MASS_PERCENTAGE = 20;
+        private const int MIN_WATER_MASS_PERCENTAGE = 10;
+        private const int MAX_WATER_MASS_PERCENTAGE = 30;
 
 
         private double RandomWaterMassPercentage => _rnd.Next(MIN_WATER_MASS_PERCENTAGE, MAX_WATER_MASS_PERCENTAGE) * 0.01;
@@ -24,13 +24,8 @@ namespace GameOfLifeClans.Map.Generators
 
             while (generatedSeeds != targetSeeds)
             {
-                int x, y;
-                GetRandomXY(out x, out y);
-                if (CanBeEdited(x, y))
-                {
-                    ModifyTileAndCheckNeighbours(_map.Tiles[x, y]);
-                    generatedSeeds++;
-                }
+                ModifyTerrain(_buffer.GetRandom(generateSeed:true));
+                generatedSeeds++;
             }
             return generatedSeeds;
         }

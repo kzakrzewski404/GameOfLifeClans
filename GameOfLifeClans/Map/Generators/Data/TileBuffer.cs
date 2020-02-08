@@ -31,7 +31,7 @@ namespace GameOfLifeClans.Map.Generators.Data
             }
             else
             {
-                tile = _tilesPool.PickRandom;
+                tile = _tilesPool.PickRandomAndRemoveFromList();
             }
 
             BufferNeighbours(tile);
