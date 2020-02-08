@@ -8,18 +8,18 @@ namespace GameOfLifeClans.Render
 {
     public class BitmapColors
     {
-        private Color[,] entities;
-        private Color[] terrainOwnerships;
-        private Color[] terrains;
+        private Color[,] _entities;
+        private Color[] _terrainOwnerships;
+        private Color[] _terrains;
 
         private const int NUMBER_OF_ENTITIES = 2;
         private const int NUMBER_OF_CLANS = 8;
         private const int NUMBER_OF_TERRAINS = 4;
 
 
-        public Color GetEntityColor(ClanId clan, EntityId id) => entities[(int)(clan), (int)(id)];
-        public Color GetTerrainOwnershipColor(ClanId clan) => terrainOwnerships[(int)(clan)];
-        public Color GetTerrainColor(TerrainId id) => terrains[(int)(id)];
+        public Color GetEntityColor(ClanId clan, EntityId id) => _entities[(int)(clan), (int)(id)];
+        public Color GetTerrainOwnershipColor(ClanId clan) => _terrainOwnerships[(int)(clan)];
+        public Color GetTerrainColor(TerrainId id) => _terrains[(int)(id)];
 
 
         public BitmapColors()
@@ -31,7 +31,7 @@ namespace GameOfLifeClans.Render
 
         private void InitializeEntitiesColors()
         {
-            entities = new Color[NUMBER_OF_CLANS, NUMBER_OF_ENTITIES];
+            _entities = new Color[NUMBER_OF_CLANS, NUMBER_OF_ENTITIES];
 
             CreateEntitiesColorScheme(ClanId.Blue,      Color.FromArgb(83, 99, 148),    Color.FromArgb(0, 83, 196),     Color.FromArgb(0, 162, 255));
             CreateEntitiesColorScheme(ClanId.Red,       Color.FromArgb(148, 89, 83),    Color.FromArgb(166, 0, 0),      Color.FromArgb(255, 0, 0));
@@ -45,21 +45,22 @@ namespace GameOfLifeClans.Render
 
         private void InitializeTerrainsColors()
         {
-            terrains = new Color[NUMBER_OF_TERRAINS];
+            _terrains = new Color[NUMBER_OF_TERRAINS];
 
             //Passable
-            terrains[(int)TerrainId.Grass] = Color.FromArgb(76, 102, 18);
-            terrains[(int)TerrainId.Sand] = Color.FromArgb(214, 208, 164);
+            _terrains[(int)TerrainId.Grass] = Color.FromArgb(76, 102, 18);
+            _terrains[(int)TerrainId.Sand] = Color.FromArgb(214, 208, 164);
 
             //Impassable
-            terrains[(int)TerrainId.Water] = Color.FromArgb(18, 64, 102);
-            terrains[(int)TerrainId.Mountain] = Color.FromArgb(71, 55, 48);
+            _terrains[(int)TerrainId.Water] = Color.FromArgb(18, 64, 102);
+            _terrains[(int)TerrainId.Mountain] = Color.FromArgb(71, 55, 48);
         }
 
         private void CreateEntitiesColorScheme(ClanId id, Color terrainOwnership, Color headquarter, Color soldier)
         {
-            entities[(int)id, (int)EntityId.Headquarter] = headquarter;
-            entities[(int)id, (int)EntityId.Soldier] = soldier;
+            _terrainOwnerships[(int)id] = terrainOwnership;
+            _entities[(int)id, (int)EntityId.Headquarter] = headquarter;
+            _entities[(int)id, (int)EntityId.Soldier] = soldier;
         }
     }
 }
