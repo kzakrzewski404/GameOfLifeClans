@@ -2,6 +2,7 @@
 
 using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Config;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
 
