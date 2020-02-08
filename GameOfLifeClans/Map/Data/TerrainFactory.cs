@@ -18,15 +18,18 @@ namespace GameOfLifeClans.Map.Data
             int count = Enum.GetNames(typeof(TerrainId)).Length;
             _terrains = new Terrain[count];
 
-            _terrains[(int)TerrainId.Grass]     = new Terrain(TerrainId.Grass,      true);
-            _terrains[(int)TerrainId.Sand]      = new Terrain(TerrainId.Sand,       true);
-            _terrains[(int)TerrainId.Water]     = new Terrain(TerrainId.Water,      false);
-            _terrains[(int)TerrainId.Mountain]  = new Terrain(TerrainId.Mountain,   false);
+            InitializeTerrain(TerrainId.Grass, true);
+            InitializeTerrain(TerrainId.Sand, true);
+            InitializeTerrain(TerrainId.Water, false);
+            InitializeTerrain(TerrainId.Mountain, false);
 
             if (_terrains.Contains(null))
             {
                 throw new Exception("_terrains[] in TileTerrainFactory contains NULL, not enough defined terrains");
             }
         }
+
+        
+        private void InitializeTerrain(TerrainId id, bool isPassable) => _terrains[(int)id] = new Terrain(id, isPassable);
     }
 }
