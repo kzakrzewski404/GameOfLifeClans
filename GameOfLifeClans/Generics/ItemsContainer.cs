@@ -6,27 +6,29 @@ namespace GameOfLifeClans.Generics
 {
     public class ItemsContainer<T>
     {
-        public List<T> Results { get; private set; }
-        private static Random rnd = new Random();
+        public List<T> Items { get; private set; }
 
-        public bool IsNotEmpty => Results.Count > 0;
-        public int Count => Results.Count;
-        public T PickRandom => Results[rnd.Next(0, Results.Count)];
-        
-        
-        public T PickRandomAndRemoveFromList()
-        {
-            T item = PickRandom;
-            Results.Remove(item);
-            return item;
-        }
+        private static Random _rnd = new Random();
 
-        public void Add(T item) => Results.Add(item);
+
+        public bool IsNotEmpty => Items.Count > 0;
+        public int Count => Items.Count;
+        public T PickRandom => Items[_rnd.Next(0, Items.Count)];
 
 
         public ItemsContainer()
         {
-            Results = new List<T>();
+            Items = new List<T>();
         }
+
+
+        public T PickRandomAndRemoveFromList()
+        {
+            T item = PickRandom;
+            Items.Remove(item);
+            return item;
+        }
+
+        public void Add(T item) => Items.Add(item);
     }
 }
