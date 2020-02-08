@@ -30,13 +30,13 @@ namespace GameOfLifeClans.Ai
         public void SetWhenKilledCallback(WhenKilledEventHandler callback) => WhenKilledCallback = callback;
 
 
-        public Entity(EntityId id, ClanId clan, EntityConfig config)
+        public Entity(EntityId id, ClanId clan, int health, int damage, int defence)
         {
             Id = id;
             Clan = clan;
-            Health = config.Health;
-            Damage = config.Damage;
-            Defence = config.Defence;
+            Health = health;
+            Damage = damage;
+            Defence = defence;
             _maxHealth = Health;
         }
 
