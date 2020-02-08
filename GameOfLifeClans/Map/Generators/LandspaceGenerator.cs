@@ -29,7 +29,7 @@ namespace GameOfLifeClans.Map.Generators
 
             while(currentMass < targetMass)
             {
-                ModifyTileAndCheckNeighbours(_tilesPool.PickRandom);
+                ModifyTileAndCheckNeighbours(_tilesPool.PickRandomAndRemoveFromList());
                 currentMass++;
             }
         }
