@@ -1,25 +1,20 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
-using GameOfLifeClans.Map;
-using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Map;
+using GameOfLifeClans.Map.Data;
 
 
 namespace GameOfLifeClans.Simulation
 {
     public class SimulationHandler
     {
-        public MapContainer Map { get; private set; }
-        public bool IsSimulationRunning { get; private set; }
-
-        public int EntitiesOnMap => _entitiesList.Count;
-
-        private int _headquartersOnMap;
-        private List<Entity> _entitiesList = new List<Entity>();
         private static EntityFactory _entityFactory = new EntityFactory();
         private static Random _rnd = new Random();
+        private int _headquartersOnMap;
+        private List<Entity> _entitiesList = new List<Entity>();
 
 
         public SimulationHandler()
@@ -28,22 +23,27 @@ namespace GameOfLifeClans.Simulation
         }
 
 
+        public MapContainer Map { get; private set; }
+        public bool IsSimulationRunning { get; private set; }
+        public int EntitiesOnMap => _entitiesList.Count;
+
+
         public void GenerateMap(int mapWidth, int mapHeight)
         {
-            //setting map
+            // setting map
             Map.Generate(mapWidth, mapHeight);
             IsSimulationRunning = true;
 
-            //spawning units
+            // spawning units
             _entitiesList.Clear();
             _headquartersOnMap = 0;
             for (int i = 0; i < 8; i++)
             {
-                AddHeadquarterToRandomLocation((ClanId)(i));
+                AddHeadquarterToRandomLocation((ClanId)i);
             }
 
-            //AddHeadquarterToRandomLocation(ClanId.Blue);
-            //AddHeadquarterToRandomLocation(ClanId.Red);
+            // AddHeadquarterToRandomLocation(ClanId.Blue);
+            // AddHeadquarterToRandomLocation(ClanId.Red);
         }
 
         public void CalculateStep(int numberOfSteps = 1)
@@ -81,13 +81,13 @@ namespace GameOfLifeClans.Simulation
             {
                 foundError = false;
 
-                //Never search tile for headquarter on map border
+                // Never search tile for headquarter on map border
                 xRandom = _rnd.Next(1, Map.Width - 1);
                 yRandom = _rnd.Next(1, Map.Height - 1);
-                
-                for (int x = (xRandom - 1); (x <= (xRandom + 1) && !foundError); x++)
+
+                for (int x = xRandom - 1; x <= (xRandom + 1) && !foundError; x++)
                 {
-                    for (int y = (yRandom - 1); (y <= (yRandom + 1) && !foundError); y++)
+                    for (int y = yRandom - 1; y <= (yRandom + 1) && !foundError; y++)
                     {
                         Tile check = Map.Tiles[x, y];
                         if (check.IsOccupied || !check.Terrain.IsPassable)
@@ -96,8 +96,8 @@ namespace GameOfLifeClans.Simulation
                         }
                     }
                 }
-
             } while (foundError);
+
             return Map.Tiles[xRandom, yRandom];
         }
 
