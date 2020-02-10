@@ -174,5 +174,18 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Assert
             Assert.IsTrue(headquarter.LocationX == originalX && headquarter.LocationY == originalY);
         }
+
+        [Test]
+        public void Headquarter_AfterConstructor_OccupiedTileOwnershipShouldBeTheSameAsHeadquarter()
+        {
+            //Arrange
+            _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
+            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, ClanId.Blue, TerrainId.Grass);
+
+            //Act
+
+            //Assert
+            Assert.IsTrue(headquarter.Clan == _map.Tiles[1, 1].ClanOwnership);
+        }
     }
 }
