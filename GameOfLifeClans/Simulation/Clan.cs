@@ -44,16 +44,13 @@ namespace GameOfLifeClans.Simulation
         }
 
         
-        protected void OnClanIsDestroyed()
-        {
-            ClanIsDestroyed?.Invoke(_clanId);
-        }
+        private void OnClanIsDestroyed() => ClanIsDestroyed?.Invoke(_clanId);
         
-
         private void SpawnHeadquarter(Tile tile)
         {
             EntityFactory factory = new EntityFactory();
             _headquarter = factory.Create(EntityId.Headquarter, _clanId) as Headquarter;
+            _headquarter.SetWhenKilledCallback(WhenEntityIsKilled);
             //Todo: add delegates WhenEntityIsKilled, WhenEntityIsSpawned
 
             _entitiesList.Add(_headquarter);
@@ -65,14 +62,15 @@ namespace GameOfLifeClans.Simulation
             if(entity.Id == EntityId.Headquarter)
             {
                 _isDestroyed = true;
-                OnClanIsDestroyed();
                 _entitiesList.Clear();
+                OnClanIsDestroyed();
             }
         }
 
         private void WhenEntityIsSpawned(Entity entity)
         {
             _entitiesList.Add(entity);
+            entity.SetWhenKilledCallback(WhenEntityIsKilled);
         }
     }
 }

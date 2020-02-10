@@ -20,6 +20,7 @@ namespace GameOfLifeClans.Ai
         public EntityId Id { get; private set; }
         public Tile OccupiedTile { get; private set; }
 
+
         public int LocationX => OccupiedTile.LocationX;
         public int LocationY => OccupiedTile.LocationY;
 
