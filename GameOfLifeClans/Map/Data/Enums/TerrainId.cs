@@ -5,6 +5,6 @@
         Grass,
         Sand,
         Water,
-        Mountain,
-    }
+        Mountain
+    };
 }

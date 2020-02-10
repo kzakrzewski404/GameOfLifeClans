@@ -19,8 +19,7 @@ namespace GameOfLifeClans.Map.Generators
 
         protected override int GenerateSeeds()
         {
-            // 1 seed per 25 map width
-            int targetSeeds = _rnd.Next(1, _map.Width / 10);
+            int targetSeeds = _rnd.Next(1, (_map.Width / 10)); //1 seed per 25 map width
             int generatedSeeds = 0;
 
             while (generatedSeeds != targetSeeds)
@@ -28,7 +27,6 @@ namespace GameOfLifeClans.Map.Generators
                 ModifyTerrain(_buffer.GetFromGeneratedSeed);
                 generatedSeeds++;
             }
-
             return generatedSeeds;
         }
     }

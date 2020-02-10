@@ -1,8 +1,8 @@
 ﻿using System;
 
-using GameOfLifeClans.Generics;
 using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Map.Data.Enums;
+using GameOfLifeClans.Generics;
 using GameOfLifeClans.Map.Generators.Data;
 
 
@@ -10,12 +10,12 @@ namespace GameOfLifeClans.Map.Generators
 {
     public abstract class LandspaceGenerator
     {
-        protected static TerrainFactory _terrainFactory = new TerrainFactory();
-        protected static Random _rnd = new Random();
         protected MapContainer _map;
         protected TerrainId _terrain;
         protected ItemsContainer<Tile> _tilesPool = new ItemsContainer<Tile>();
         protected TileBuffer _buffer;
+        protected static TerrainFactory _terrainFactory = new TerrainFactory();
+        protected static Random _rnd = new Random();
 
 
         public virtual void Generate(MapContainer map, TerrainId terrain)
@@ -27,7 +27,7 @@ namespace GameOfLifeClans.Map.Generators
             int targetMass = CalculateTargetTerrainMass();
             int currentMass = GenerateSeeds();
 
-            while (currentMass < targetMass)
+            while(currentMass < targetMass)
             {
                 ModifyTerrain(_buffer.GetRandom);
                 currentMass++;

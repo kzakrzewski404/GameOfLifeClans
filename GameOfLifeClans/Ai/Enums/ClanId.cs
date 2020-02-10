@@ -10,6 +10,7 @@
         Black,
         White,
         Pink,
-        NEUTRAL = 999,
-    }
+
+        _Neutral = 999
+    };
 }

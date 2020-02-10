@@ -7,7 +7,10 @@ namespace GameOfLifeClans.Map
 {
     public class MapContainer
     {
+        public int Width { get; private set; }
+        public int Height { get; private set; }
         public Tile[,] Tiles;
+
         private TerrainFactory _terrainFactory;
 
 
@@ -17,19 +20,13 @@ namespace GameOfLifeClans.Map
         }
 
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-
-
         public void Generate(int width, int height)
         {
             Width = width;
             Height = height;
             Tiles = new Tile[width, height];
             FillWithGrass();
-
-            // test mode check, unit tests use 3x3 map
-            if (width >= 50 && height >= 50)
+            if (width >= 50 && height >= 50) //test mode check, unit tests use 3x3 map
             {
                 LandspaceGenerator water = new WaterGenerator();
                 water.Generate(this, TerrainId.Water);

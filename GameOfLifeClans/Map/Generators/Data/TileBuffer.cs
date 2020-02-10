@@ -1,8 +1,8 @@
 ﻿using System;
 
-using GameOfLifeClans.Generics;
 using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Map.Data.Enums;
+using GameOfLifeClans.Generics;
 
 
 namespace GameOfLifeClans.Map.Generators.Data

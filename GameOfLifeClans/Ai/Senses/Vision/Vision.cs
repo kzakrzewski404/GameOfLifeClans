@@ -1,5 +1,5 @@
-﻿using GameOfLifeClans.Map;
-using GameOfLifeClans.Map.Data;
+﻿using GameOfLifeClans.Map.Data;
+using GameOfLifeClans.Map;
 
 
 namespace GameOfLifeClans.Ai.Senses.Vision
@@ -13,7 +13,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
 
 
         private bool IsNotCheckingOwner(Entity visionOwner, Tile target) =>
-            (visionOwner.LocationX != target.LocationX) || (visionOwner.LocationY != target.LocationY);
+            ((visionOwner.LocationX != target.LocationX) || (visionOwner.LocationY != target.LocationY));
         private bool IsTileFree(Tile target) => !target.IsOccupied && target.Terrain.IsPassable;
         private bool IsEnemy(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.Clan != visionOwner.Clan);
         private bool IsAlly(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.Clan == visionOwner.Clan);
@@ -24,6 +24,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
             map = visionOwner.OccupiedTile.Map;
 
             Result result = new Result();
+
             int minX, maxX, minY, maxY;
             SetAlgorithmBorders(visionOwner, out minX, out maxX, out minY, out maxY);
 
@@ -49,7 +50,6 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                     }
                 }
             }
-
             return result;
         }
 

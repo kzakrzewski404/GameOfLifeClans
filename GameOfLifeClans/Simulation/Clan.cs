@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using GameOfLifeClans.Ai;
-using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map.Data;
+using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai;
 
 
 namespace GameOfLifeClans.Simulation
@@ -15,6 +15,14 @@ namespace GameOfLifeClans.Simulation
         private bool _isDestroyed;
 
 
+        public event ClanIsDestroyedEventHandler ClanIsDestroyed;
+        public delegate void ClanIsDestroyedEventHandler(ClanId clanId);
+
+
+        public int EntitiesOnMap => _entitiesList.Count;
+        public bool IsAlive => !_isDestroyed;
+
+
         public Clan(ClanId clanId, Tile spawnTile)
         {
             _clanId = clanId;
@@ -22,15 +30,6 @@ namespace GameOfLifeClans.Simulation
             SpawnHeadquarter(spawnTile);
             _isDestroyed = false;
         }
-
-
-        public delegate void ClanIsDestroyedEventHandler(ClanId clanId);
-
-        public event ClanIsDestroyedEventHandler ClanIsDestroyed;
-
-
-        public int EntitiesOnMap => _entitiesList.Count;
-        public bool IsAlive => !_isDestroyed;
 
 
         public void CalculateStep()
@@ -44,26 +43,26 @@ namespace GameOfLifeClans.Simulation
             }
         }
 
-
+        
         protected void OnClanIsDestroyed()
         {
             ClanIsDestroyed?.Invoke(_clanId);
         }
-
+        
 
         private void SpawnHeadquarter(Tile tile)
         {
             EntityFactory factory = new EntityFactory();
             _headquarter = factory.Create(EntityId.Headquarter, _clanId) as Headquarter;
+            //Todo: add delegates WhenEntityIsKilled, WhenEntityIsSpawned
 
-            // Todo: add delegates WhenEntityIsKilled, WhenEntityIsSpawned
             _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
         }
 
         private void WhenEntityIsKilled(Entity entity)
         {
-            if (entity.Id == EntityId.Headquarter)
+            if(entity.Id == EntityId.Headquarter)
             {
                 _isDestroyed = true;
                 OnClanIsDestroyed();

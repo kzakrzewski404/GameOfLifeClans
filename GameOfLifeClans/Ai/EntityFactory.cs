@@ -1,5 +1,5 @@
-﻿using GameOfLifeClans.Ai.Config;
-using GameOfLifeClans.Ai.Enums;
+﻿using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Config;
 
 
 namespace GameOfLifeClans.Ai

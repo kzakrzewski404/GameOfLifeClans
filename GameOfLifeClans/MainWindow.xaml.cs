@@ -21,7 +21,7 @@ using GameOfLifeClans.Simulation;
 namespace GameOfLifeClans
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml.
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -34,7 +34,7 @@ namespace GameOfLifeClans
             InitializeComponent();
 
             _timer.Tick += On_SimulationTimerTick;
-            _timer.Interval = new TimeSpan(0, 0, 0, 0, 16); // 0.016s
+            _timer.Interval = new TimeSpan(0, 0, 0, 0, 16); //0.016s
             _renderer.SetRenderOutput(imgRenderOutput);
         }
 
