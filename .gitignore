@@ -4,5 +4,8 @@ NUnitTests/bin/*
 GameOfLifeClans/bin/*
 GameOfLifeClans/obj/*
 
+packages/StyleCop*
+packages.config
+
 *.exe
 *.cache
