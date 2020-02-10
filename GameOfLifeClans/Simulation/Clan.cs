@@ -19,6 +19,10 @@ namespace GameOfLifeClans.Simulation
         private bool _isDestroyed;
 
 
+        public event ClanIsDestroyedEventHandler ClanIsDestroyed;
+        public delegate void ClanIsDestroyedEventHandler(ClanId clanId);
+
+
         public int EntitiesOnMap => _entitiesList.Count;
         public bool IsAlive => !_isDestroyed;
 
@@ -34,12 +38,21 @@ namespace GameOfLifeClans.Simulation
 
         public void CalculateStep()
         {
-            foreach(Entity entity in _entitiesList)
+            if (IsAlive)
             {
-                entity.CalculateStep();
+                foreach (Entity entity in _entitiesList)
+                {
+                    entity.CalculateStep();
+                }
             }
         }
 
+        
+        protected void OnClanIsDestroyed()
+        {
+            ClanIsDestroyed?.Invoke(_clanId);
+        }
+        
 
         private void SpawnHeadquarter(Tile tile)
         {
@@ -52,15 +65,17 @@ namespace GameOfLifeClans.Simulation
 
         private void WhenEntityIsKilled(Entity entity)
         {
-            if(entity.GetType() == typeof(Headquarter))
+            if(entity.Id == EntityId.Headquarter)
             {
-
+                _isDestroyed = true;
+                OnClanIsDestroyed();
+                _entitiesList.Clear();
             }
         }
 
-        private void WhenEntityIsSpawned()
+        private void WhenEntityIsSpawned(Entity entity)
         {
-
+            _entitiesList.Add(entity);
         }
     }
 }
