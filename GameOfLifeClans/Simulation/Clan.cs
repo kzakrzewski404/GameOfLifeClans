@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Ai.Enums;
@@ -58,8 +54,9 @@ namespace GameOfLifeClans.Simulation
         {
             EntityFactory factory = new EntityFactory();
             _headquarter = factory.Create(EntityId.Headquarter, _clanId) as Headquarter;
-            _entitiesList.Add(_headquarter);
+            //Todo: add delegates WhenEntityIsKilled, WhenEntityIsSpawned
 
+            _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
         }
 
