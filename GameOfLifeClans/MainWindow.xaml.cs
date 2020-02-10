@@ -65,7 +65,7 @@ namespace GameOfLifeClans
         {
             if (_simulation.IsSimulationRunning)
             {
-                _simulation.CalculateStep(1);
+                _simulation.CalculateStep((int)sldSimulationSpeed.Value);
                 _renderer.Render();
             }
             else
@@ -80,7 +80,7 @@ namespace GameOfLifeClans
         {
             if (!_simulation.IsSimulationRunning || !_timer.IsEnabled)
             {
-                int numberOfClans = 5;
+                int numberOfClans = (int)sldNumberOfClans.Value;
                 _simulation.GenerateMap(100, 100, numberOfClans);
                 _renderer.LinkMapContainer(_simulation.Map, numberOfClans);
                 _renderer.Render();
