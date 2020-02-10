@@ -1,8 +1,8 @@
 ﻿using System;
 
+using GameOfLifeClans.Ai.Config;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
-using GameOfLifeClans.Ai.Config;
 
 
 namespace GameOfLifeClans.Ai
@@ -13,17 +13,21 @@ namespace GameOfLifeClans.Ai
         private int _willingnessToAttactk;
 
 
-        public Soldier(EntityId id, ClanId clan, int health, int damage, int defence) : base(id, clan, health, damage, defence)
+        public Soldier(EntityId id, ClanId clan, int health, int damage, int defence)
+            : base(id, clan, health, damage, defence)
         {
             _willingnessToAttactk = _rnd.Next(AiConfig.SOLDIER_MINIMAL_WILLIGNESS_TO_ATTACK, 100);
         }
+
+
+        private bool IsWillToAttack => _rnd.Next(0, 100) <= _willingnessToAttactk;
 
 
         public override void CalculateStep()
         {
             Result visionResult = _vision.GetResult(this);
 
-            //Attack
+            // Attack
             bool isEnemyAttacked = false;
             if (visionResult.Enemies.IsNotEmpty && (IsWillToAttack || !visionResult.FreeTiles.IsNotEmpty))
             {
@@ -31,14 +35,11 @@ namespace GameOfLifeClans.Ai
                 isEnemyAttacked = true;
             }
 
-            //Move
+            // Move
             if (!isEnemyAttacked && visionResult.FreeTiles.IsNotEmpty)
             {
                 MoveToRandomFreeTile(visionResult);
             }
         }
-
-
-        private bool IsWillToAttack => _rnd.Next(0, 100) <= _willingnessToAttactk;
     }
 }

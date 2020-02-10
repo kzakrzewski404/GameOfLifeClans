@@ -1,49 +1,50 @@
-﻿using GameOfLifeClans.Ai.Enums;
+﻿using GameOfLifeClans.Ai.Config;
+using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
-using GameOfLifeClans.Ai.Config;
 
 
 namespace GameOfLifeClans.Ai
 {
     public class Headquarter : Entity
     {
-        public delegate void WhenSpawnedEntityEventHandler(Entity spawnedEntity);
-
-        private int _spawnCounter;
         private static EntityFactory _entityFactory = new EntityFactory();
-        private WhenSpawnedEntityEventHandler WhenSpawnedCallback;
-        private WhenKilledEventHandler WhenKilledForSpawnedEntities;
+        private int _spawnCounter;
+        private WhenSpawnedEntityEventHandler _whenSpawnedCallback;
+        private WhenKilledEventHandler _whenKilledForSpawnedEntities;
 
 
-        public void SetWhenSpawnedEntityCallback(WhenSpawnedEntityEventHandler callback) => WhenSpawnedCallback = callback;
-        public void SetWhenSpawnedEntityIsKilledCallback(WhenKilledEventHandler spawnedCallback) => WhenKilledForSpawnedEntities = spawnedCallback;
-
-
-        public Headquarter(EntityId id, ClanId clanId, int health, int damage, int defence) : base(id, clanId, health, damage, defence)
+        public Headquarter(EntityId id, ClanId clanId, int health, int damage, int defence)
+            : base(id, clanId, health, damage, defence)
         {
             _spawnCounter = AiConfig.HEADQUARTER_SPAWN_TRESHOLD;
         }
 
 
+        public delegate void WhenSpawnedEntityEventHandler(Entity spawnedEntity);
+
+
+        public void SetWhenSpawnedEntityCallback(WhenSpawnedEntityEventHandler callback) => _whenSpawnedCallback = callback;
+        public void SetWhenSpawnedEntityIsKilledCallback(WhenKilledEventHandler spawnedCallback) => _whenKilledForSpawnedEntities = spawnedCallback;
+
         public override void CalculateStep()
         {
             Result visionResult = _vision.GetResult(this);
 
-            //Attack
+            // Attack
             if (visionResult.Enemies.IsNotEmpty)
             {
                 PerformAttackOnRandomEnemy(visionResult);
             }
 
-            //Spawn
+            // Spawn
             if (_spawnCounter < AiConfig.HEADQUARTER_SPAWN_TRESHOLD)
             {
                 _spawnCounter++;
             }
-            else if(visionResult.FreeTiles.IsNotEmpty)
+            else if (visionResult.FreeTiles.IsNotEmpty)
             {
                 Entity spawned = _entityFactory.Create(EntityId.Soldier, Clan);
-                spawned.SetWhenIsKilledCallback(WhenKilledForSpawnedEntities);
+                spawned.SetWhenIsKilledCallback(_whenKilledForSpawnedEntities);
                 On_WhenSpawnedEntity(spawned);
 
                 visionResult.FreeTiles.PickRandom.SetAiEntity(spawned);
@@ -54,9 +55,9 @@ namespace GameOfLifeClans.Ai
 
         protected virtual void On_WhenSpawnedEntity(Entity spawned)
         {
-            if (WhenSpawnedCallback != null)
+            if (_whenSpawnedCallback != null)
             {
-                WhenSpawnedCallback.Invoke(spawned);
+                _whenSpawnedCallback.Invoke(spawned);
             }
         }
     }
