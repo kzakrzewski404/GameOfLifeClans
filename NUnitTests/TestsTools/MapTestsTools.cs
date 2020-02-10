@@ -22,7 +22,7 @@ namespace GameOfLifeClans.UnitTests.TestsTools
             return _map.Tiles[x, y].AiEntity;
         }
 
-        public Entity AddEntityAndChangeTerrain(int x, int y, EntityId entity, ClanId clan, TerrainId terrain)
+        public Entity AddEntityAndChangeTerrain(int x, int y, EntityId entity, ClanId clan, TerrainId terrain = TerrainId.Grass)
         {
             SetTerrain(x, y, terrain);
             return AddEntity(x, y, entity, clan);
