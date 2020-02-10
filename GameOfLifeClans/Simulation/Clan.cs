@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai;
+using GameOfLifeClans.Map.Data;
 
 
 namespace GameOfLifeClans.Simulation
@@ -15,12 +15,12 @@ namespace GameOfLifeClans.Simulation
         private bool _isDestroyed;
 
 
-        public event ClanIsDestroyedEventHandler ClanIsDestroyed;
-        public delegate void ClanIsDestroyedEventHandler(ClanId clanId);
-
-
         public int EntitiesOnMap => _entitiesList.Count;
         public bool IsAlive => !_isDestroyed;
+
+
+        public event ClanIsDestroyedEventHandler ClanIsDestroyed;
+        public delegate void ClanIsDestroyedEventHandler(ClanId destroyedClanId);
 
 
         public Clan(ClanId clanId, Tile spawnTile)

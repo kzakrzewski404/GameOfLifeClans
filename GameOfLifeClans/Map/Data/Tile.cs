@@ -32,14 +32,14 @@ namespace GameOfLifeClans.Map.Data
         {
             AiEntity = aiEntity;
             AiEntity.SetOccupiedTile(this);
-            ClanOwnership = AiEntity.Clan;
+            ClanOwnership = AiEntity.ClanId;
         }
 
         public void MoveAiEntityHere(Entity invoker)
         {
             invoker.OccupiedTile.RemoveAiEntity();
             SetAiEntity(invoker);
-            ClanOwnership = invoker.Clan;
+            ClanOwnership = invoker.ClanId;
         }
     }
 }

@@ -69,8 +69,8 @@ namespace GameOfLifeClans.UnitTests.Ai
             Entity spawned = _map.Tiles[1, 2].AiEntity;
 
             //Assert
-            Assert.IsTrue(headquarter.Clan == spawned.Clan, 
-                $"Headquarter clan: {headquarter.Clan}\nSpawned clan: {spawned.Clan}");
+            Assert.IsTrue(headquarter.ClanId == spawned.ClanId, 
+                $"Headquarter clan: {headquarter.ClanId}\nSpawned clan: {spawned.ClanId}");
         }
 
         [Test]
@@ -185,7 +185,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Act
 
             //Assert
-            Assert.IsTrue(headquarter.Clan == _map.Tiles[1, 1].ClanOwnership);
+            Assert.IsTrue(headquarter.ClanId == _map.Tiles[1, 1].ClanOwnership);
         }
     }
 }
