@@ -1,11 +1,11 @@
-﻿using System.Windows.Media.Imaging;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Media.Imaging;
 
+using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
-using GameOfLifeClans.Ai.Enums;
 
 
 namespace GameOfLifeClans.Render
@@ -63,7 +63,7 @@ namespace GameOfLifeClans.Render
         }
 
 
-        Color GetOccupiedColor(ClanId id)
+        private Color GetOccupiedColor(ClanId id)
         {
             switch (id)
             {
@@ -74,20 +74,20 @@ namespace GameOfLifeClans.Render
             }
         }
 
-        Color GetTerrainColor(TerrainId id)
+        private Color GetTerrainColor(TerrainId id)
         {
             switch (id)
             {
-                //passable
+                // Passable
                 case TerrainId.Grass: return Color.YellowGreen;
                 case TerrainId.Sand: return Color.Wheat;
 
-                //impassable
+                // Impassable
                 case TerrainId.Water: return Color.RoyalBlue;
                 case TerrainId.Mountain: return Color.Gray;
 
                 default: return Color.Magenta;
-            };
+            }
         }
     }
 }
