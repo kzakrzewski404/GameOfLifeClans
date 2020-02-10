@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using GameOfLifeClans.Map.Data.Enums;
 
 
@@ -8,9 +9,6 @@ namespace GameOfLifeClans.Map.Data
     public class TerrainFactory
     {
         private Terrain[] _terrains;
-
-
-        public Terrain Create(TerrainId id) => _terrains[(int)id];
 
 
         public TerrainFactory()
@@ -29,7 +27,10 @@ namespace GameOfLifeClans.Map.Data
             }
         }
 
-        
+
+        public Terrain Create(TerrainId id) => _terrains[(int)id];
+
+
         private void InitializeTerrain(TerrainId id, bool isPassable) => _terrains[(int)id] = new Terrain(id, isPassable);
     }
 }
