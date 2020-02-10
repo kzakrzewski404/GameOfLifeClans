@@ -1,16 +1,16 @@
 ﻿namespace GameOfLifeClans.Ai.Enums
 {
-    public enum ClanId
-    {
-        Blue,
-        Red,
-        Yellow,
-        Green,
-        Purple,
-        Black,
-        White,
-        Pink,
+    //public enum ClanId
+    //{
+    //    Blue,
+    //    Red,
+    //    Yellow,
+    //    Green,
+    //    Purple,
+    //    Black,
+    //    White,
+    //    Pink,
 
-        _Neutral = 999
-    };
+    //    _Neutral = 999
+    //};
 }

@@ -16,7 +16,7 @@ namespace GameOfLifeClans.Ai
         private bool IsWillingToAttack => _rnd.Next(0, 100) <= _willingnessToAttactk;
 
 
-        public Soldier(EntityId id, ClanId clan, int health, int damage, int defence) : base(id, clan, health, damage, defence)
+        public Soldier(EntityId id, int clan, int health, int damage, int defence) : base(id, clan, health, damage, defence)
         {
             _willingnessToAttactk = _rnd.Next(AiConfig.SOLDIER_MINIMAL_WILLIGNESS_TO_ATTACK, 100);
         }

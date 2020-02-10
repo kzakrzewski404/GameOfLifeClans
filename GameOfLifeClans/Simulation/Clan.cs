@@ -13,7 +13,7 @@ namespace GameOfLifeClans.Simulation
         private List<Entity> _entitiesList = new List<Entity>();
 
 
-        public ClanId Id { get; private set; }
+        public int ClanId { get; private set; }
         public bool IsAlive { get; private set; }
 
 
@@ -24,9 +24,9 @@ namespace GameOfLifeClans.Simulation
         public delegate void ClanIsDestroyedEventHandler(Clan invoker);
 
 
-        public Clan(ClanId clanId, Tile spawnTile)
+        public Clan(int clanId, Tile spawnTile)
         {
-            Id = clanId;
+            ClanId = clanId;
             IsAlive = true;
             _entitiesList.Clear();
             SpawnHeadquarter(spawnTile);
@@ -50,7 +50,7 @@ namespace GameOfLifeClans.Simulation
         private void SpawnHeadquarter(Tile tile)
         {
             EntityFactory factory = new EntityFactory();
-            _headquarter = factory.Create(EntityId.Headquarter, Id) as Headquarter;
+            _headquarter = factory.Create(EntityId.Headquarter, ClanId) as Headquarter;
             _headquarter.SetWhenIsKilledCallback(WhenEntityIsKilled);
             _headquarter.SetWhenEntityIsSpawnedCallback(WhenEntityIsSpawned);
 

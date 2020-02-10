@@ -11,7 +11,7 @@ namespace GameOfLifeClans.Map.Data
         public Terrain Terrain { get; private set; }
         public Entity AiEntity { get; private set; }
         public MapContainer Map { get; private set; }
-        public ClanId ClanOwnership { get; private set; }
+        public int ClanOwnership { get; private set; }
 
         public bool IsOccupied => !(AiEntity == null);
         public void RemoveAiEntity() => AiEntity = null;
@@ -24,7 +24,7 @@ namespace GameOfLifeClans.Map.Data
             LocationY = y;
             Map = map;
             SetTerrain(terrain);
-            ClanOwnership = ClanId._Neutral;
+            ClanOwnership = -1;
         }
 
 

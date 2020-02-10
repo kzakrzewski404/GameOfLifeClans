@@ -15,7 +15,7 @@ namespace GameOfLifeClans.Ai
         public delegate void WhenEntityIsSpawnedCallback(Entity spawnedEntity);
 
 
-        public Headquarter(EntityId id, ClanId clanId, int health, int damage, int defence) 
+        public Headquarter(EntityId id, int clanId, int health, int damage, int defence) 
             : base(id, clanId, health, damage, defence)
         {
             // Force entity spawn on first CalculateStep()

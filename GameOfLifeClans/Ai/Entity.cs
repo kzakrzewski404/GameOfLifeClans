@@ -16,7 +16,7 @@ namespace GameOfLifeClans.Ai
         public int Health { get; private set; }
         public int Damage { get; private set; }
         public int Defence { get; private set; }
-        public ClanId ClanId { get; private set; }
+        public int ClanId { get; private set; }
         public EntityId Id { get; private set; }
         public Tile OccupiedTile { get; private set; }
 
@@ -28,10 +28,10 @@ namespace GameOfLifeClans.Ai
         public delegate void WhenKilledCallback(Entity entity);
 
 
-        public Entity(EntityId id, ClanId clan, int health, int damage, int defence)
+        public Entity(EntityId id, int clanId, int health, int damage, int defence)
         {
             Id = id;
-            ClanId = clan;
+            ClanId = clanId;
             Health = health;
             Damage = damage;
             Defence = defence;

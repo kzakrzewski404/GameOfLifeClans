@@ -6,7 +6,7 @@ namespace GameOfLifeClans.Ai
 {
     public class EntityFactory
     {
-        public Entity Create(EntityId entityId, ClanId clanId)
+        public Entity Create(EntityId entityId, int clanId)
         {
             switch (entityId)
             {

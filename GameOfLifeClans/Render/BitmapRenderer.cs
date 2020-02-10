@@ -3,8 +3,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
+using GameOfLifeClans.Map.Data;
 
 
 namespace GameOfLifeClans.Render
@@ -32,17 +32,18 @@ namespace GameOfLifeClans.Render
             {
                 for (int y = 0; y < _map.Height; y++)
                 {
-                    if (_map.Tiles[x, y].IsOccupied)
+                    Tile rendered = _map.Tiles[x, y];
+                    if (rendered.IsOccupied)
                     {
-                        _canvas.SetPixel(x, y, _colors.GetEntityColor(_map.Tiles[x, y].AiEntity.ClanId, _map.Tiles[x, y].AiEntity.Id));
+                        _canvas.SetPixel(x, y, _colors.GetEntityColor(rendered.AiEntity.ClanId));
                     }
-                    else if (_map.Tiles[x, y].ClanOwnership != ClanId._Neutral)
+                    else if (rendered.ClanOwnership != -1)
                     {
-                        _canvas.SetPixel(x, y, _colors.GetTerrainOwnershipColor(_map.Tiles[x, y].ClanOwnership));
+                        _canvas.SetPixel(x, y, _colors.GetClanTerritoryColor(rendered.ClanOwnership));
                     }
                     else
                     {
-                        _canvas.SetPixel(x, y, _colors.GetTerrainColor(_map.Tiles[x, y].Terrain.Id));
+                        _canvas.SetPixel(x, y, _colors.GetTerrainColor(rendered.Terrain.Id));
                     }
                 }
             }

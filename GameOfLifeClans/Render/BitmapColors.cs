@@ -35,13 +35,13 @@ namespace GameOfLifeClans.Render
         }
 
 
-        public Color GetEntityColor(ClanId clan, EntityId id) => _entities[(int)(clan), (int)(id)]; //old
+        public Color GetEntityColor(int clan, EntityId id) => _entities[(int)(clan), (int)(id)]; //old
 
         public Color GetEntityColor(int clanId) => _clanColors[clanId, (int)ColorEntry.Entity];
 
         public Color GetClanTerritoryColor(int clanId) => _clanColors[clanId, (int)ColorEntry.Territory];
 
-        public Color GetTerrainOwnershipColor(ClanId clan) => _terrainOwnerships[(int)(clan)]; //old
+        public Color GetTerrainOwnershipColor(int clan) => _terrainOwnerships[(int)(clan)]; //old
 
         public Color GetTerrainColor(TerrainId id) => _terrains[(int)(id)];
 
@@ -71,14 +71,14 @@ namespace GameOfLifeClans.Render
             _entities = new Color[NUMBER_OF_CLANS, NUMBER_OF_ENTITIES];
             _terrainOwnerships = new Color[NUMBER_OF_CLANS];
 
-            CreateEntitiesColorScheme(ClanId.Blue,      Color.FromArgb(83, 99, 148),    Color.FromArgb(0, 83, 196),     Color.FromArgb(0, 162, 255));
-            CreateEntitiesColorScheme(ClanId.Red,       Color.FromArgb(148, 89, 83),    Color.FromArgb(166, 0, 0),      Color.FromArgb(255, 0, 0));
-            CreateEntitiesColorScheme(ClanId.Yellow,    Color.FromArgb(138, 148, 83),   Color.FromArgb(163, 174, 0),    Color.FromArgb(239, 255, 0));
-            CreateEntitiesColorScheme(ClanId.Green,     Color.FromArgb(87, 148, 83),    Color.FromArgb(0, 160, 24),     Color.FromArgb(0, 219, 33));
-            CreateEntitiesColorScheme(ClanId.Purple,    Color.FromArgb(122, 83, 148),    Color.FromArgb(121, 0, 166),    Color.FromArgb(181, 13, 243));
-            CreateEntitiesColorScheme(ClanId.Black,     Color.FromArgb(48, 48, 48),    Color.FromArgb(43, 43, 43),     Color.FromArgb(60, 60, 60));
-            CreateEntitiesColorScheme(ClanId.White,     Color.FromArgb(190, 190, 190),    Color.FromArgb(160, 160, 160),  Color.FromArgb(240, 240, 240));
-            CreateEntitiesColorScheme(ClanId.Pink,      Color.FromArgb(148, 83, 136),    Color.FromArgb(152, 93, 156),   Color.FromArgb(247, 127, 255));
+            CreateEntitiesColorScheme(0,      Color.FromArgb(83, 99, 148),    Color.FromArgb(0, 83, 196),     Color.FromArgb(0, 162, 255));
+            CreateEntitiesColorScheme(1,       Color.FromArgb(148, 89, 83),    Color.FromArgb(166, 0, 0),      Color.FromArgb(255, 0, 0));
+            CreateEntitiesColorScheme(2,    Color.FromArgb(138, 148, 83),   Color.FromArgb(163, 174, 0),    Color.FromArgb(239, 255, 0));
+            CreateEntitiesColorScheme(3,     Color.FromArgb(87, 148, 83),    Color.FromArgb(0, 160, 24),     Color.FromArgb(0, 219, 33));
+            CreateEntitiesColorScheme(4,    Color.FromArgb(122, 83, 148),    Color.FromArgb(121, 0, 166),    Color.FromArgb(181, 13, 243));
+            CreateEntitiesColorScheme(5,     Color.FromArgb(48, 48, 48),    Color.FromArgb(43, 43, 43),     Color.FromArgb(60, 60, 60));
+            CreateEntitiesColorScheme(6,     Color.FromArgb(190, 190, 190),    Color.FromArgb(160, 160, 160),  Color.FromArgb(240, 240, 240));
+            CreateEntitiesColorScheme(7,      Color.FromArgb(148, 83, 136),    Color.FromArgb(152, 93, 156),   Color.FromArgb(247, 127, 255));
         }
 
         private void InitializeTerrainsColors()
@@ -94,7 +94,7 @@ namespace GameOfLifeClans.Render
             _terrains[(int)TerrainId.Mountain] = Color.FromArgb(71, 55, 48);
         }
 
-        private void CreateEntitiesColorScheme(ClanId id, Color terrainOwnership, Color headquarter, Color soldier)
+        private void CreateEntitiesColorScheme(int id, Color terrainOwnership, Color headquarter, Color soldier)
         {
             _terrainOwnerships[(int)id] = terrainOwnership;
             _entities[(int)id, (int)EntityId.Headquarter] = headquarter;

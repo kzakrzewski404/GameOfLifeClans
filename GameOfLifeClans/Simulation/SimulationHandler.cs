@@ -31,10 +31,10 @@ namespace GameOfLifeClans.Simulation
             Map.Generate(mapWidth, mapHeight);
 
             _clansList.Clear();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < numberOfClans; i++)
             {
                 Tile headquarterTile = FindTileForHeadquarter();
-                Clan clan = new Clan((ClanId)i, headquarterTile);
+                Clan clan = new Clan(i, headquarterTile);
                 clan.ClanIsDestroyed += WhenClanIsDestroyed;
                 _clansList.Add(clan);
             }
