@@ -1,11 +1,10 @@
-﻿using System.Windows.Media.Imaging;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Media.Imaging;
 
-using GameOfLifeClans.Map;
-using GameOfLifeClans.Map.Data.Enums;
 using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Map;
 
 
 namespace GameOfLifeClans.Render
@@ -17,13 +16,13 @@ namespace GameOfLifeClans.Render
         private System.Windows.Controls.Image _renderOutput;
 
 
-        public void TestCreateCanvas() => _canvas = new Bitmap(100, 100);
         public void SetRenderOutput(System.Windows.Controls.Image uiImage) => _renderOutput = uiImage;
 
 
-        public override void LinkMapContainer(MapContainer map)
+        public override void LinkMapContainer(MapContainer map, int numberOfClans)
         {
-            base.LinkMapContainer(map);
+            base.LinkMapContainer(map, numberOfClans);
+            _colors.PrepareClanColors(numberOfClans);
             _canvas = new Bitmap(map.Width, map.Height);
         }
 
@@ -60,34 +59,6 @@ namespace GameOfLifeClans.Render
                 bitmap.EndInit();
                 _renderOutput.Source = bitmap;
             }
-        }
-
-
-        Color GetOccupiedColor(ClanId id)
-        {
-            switch (id)
-            {
-                case ClanId.Blue: return Color.DeepSkyBlue;
-                case ClanId.Red: return Color.Red;
-
-                default: return Color.White;
-            }
-        }
-
-        Color GetTerrainColor(TerrainId id)
-        {
-            switch (id)
-            {
-                //passable
-                case TerrainId.Grass: return Color.YellowGreen;
-                case TerrainId.Sand: return Color.Wheat;
-
-                //impassable
-                case TerrainId.Water: return Color.RoyalBlue;
-                case TerrainId.Mountain: return Color.Gray;
-
-                default: return Color.Magenta;
-            };
         }
     }
 }

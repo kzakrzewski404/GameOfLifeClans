@@ -1,33 +1,70 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
-using GameOfLifeClans.Map.Data.Enums;
 using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Map.Data.Enums;
 
 
 namespace GameOfLifeClans.Render
 {
+    enum ColorEntry { Entity, Territory }
+
     public class BitmapColors
     {
-        private Color[,] _entities;
-        private Color[] _terrainOwnerships;
+        private const int CLAN_BASE_COLOR_RANGE_MIN = 50;
+        private const int CLAN_BASE_COLOR_RANGE_MAX = 150;
+        private const int CLAN_ENTITY_COLOR_MODIFIER = 50;
+        private static Random _rnd = new Random();
+        private Color[,] _clanColors;
         private Color[] _terrains;
 
+        private Color[,] _entities;
+        private Color[] _terrainOwnerships;
         private const int NUMBER_OF_ENTITIES = 2;
         private const int NUMBER_OF_CLANS = 8;
         private const int NUMBER_OF_TERRAINS = 4;
 
 
-        public Color GetEntityColor(ClanId clan, EntityId id) => _entities[(int)(clan), (int)(id)];
-        public Color GetTerrainOwnershipColor(ClanId clan) => _terrainOwnerships[(int)(clan)];
-        public Color GetTerrainColor(TerrainId id) => _terrains[(int)(id)];
+        private int RandomClanSubcolor => _rnd.Next(CLAN_BASE_COLOR_RANGE_MIN, CLAN_BASE_COLOR_RANGE_MAX);
 
 
         public BitmapColors()
         {
-            InitializeEntitiesColors();
+            InitializeEntitiesColors(); //old
             InitializeTerrainsColors();
         }
 
+
+        public Color GetEntityColor(ClanId clan, EntityId id) => _entities[(int)(clan), (int)(id)]; //old
+
+        public Color GetEntityColor(int clanId) => _clanColors[clanId, (int)ColorEntry.Entity];
+
+        public Color GetClanTerritoryColor(int clanId) => _clanColors[clanId, (int)ColorEntry.Territory];
+
+        public Color GetTerrainOwnershipColor(ClanId clan) => _terrainOwnerships[(int)(clan)]; //old
+
+        public Color GetTerrainColor(TerrainId id) => _terrains[(int)(id)];
+
+        public void PrepareClanColors(int numberOfClans)
+        {
+            _clanColors = new Color[numberOfClans, 2];
+
+            for (int i = 0; i < numberOfClans; i++)
+            {
+                _clanColors[i, (int)ColorEntry.Territory] = GenerateClanTerritoryColor();
+                _clanColors[i, (int)ColorEntry.Entity] = GenerateClanEntityColorFromTerritory(ref _clanColors[i, (int)ColorEntry.Territory]);
+            }
+        }
+
+
+        private Color GenerateClanTerritoryColor() => Color.FromArgb(RandomClanSubcolor, RandomClanSubcolor, RandomClanSubcolor);
+
+        private Color GenerateClanEntityColorFromTerritory(ref Color territory)
+        {
+            return Color.FromArgb(territory.R + CLAN_ENTITY_COLOR_MODIFIER, 
+                                  territory.G + CLAN_ENTITY_COLOR_MODIFIER, 
+                                  territory.B + CLAN_ENTITY_COLOR_MODIFIER);
+        }
 
         private void InitializeEntitiesColors()
         {

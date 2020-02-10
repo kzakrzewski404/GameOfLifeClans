@@ -10,7 +10,7 @@ namespace GameOfLifeClans.Render
         protected MapContainer _map;
 
 
-        public virtual void LinkMapContainer(MapContainer map) => _map = map;
+        public virtual void LinkMapContainer(MapContainer map, int numberOfClans) => _map = map;
 
 
         public abstract void Render();

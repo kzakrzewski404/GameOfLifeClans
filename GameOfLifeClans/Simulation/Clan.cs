@@ -32,6 +32,7 @@ namespace GameOfLifeClans.Simulation
             SpawnHeadquarter(spawnTile);
         }
 
+
         public void CalculateStep()
         {
             if (IsAlive)
