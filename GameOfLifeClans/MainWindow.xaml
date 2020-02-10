@@ -21,7 +21,17 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="btnRunSimulation" Grid.Row="0" Content="Run simulation" Margin="10,20,10,20" Click="RunSimulation_Click"/>
-            <Button x:Name="btnGenerateMap" Grid.Row="4" Content="Generate map" Margin="10,20,10,20" Click="GenerateMap_Click"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Number of clans:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Slider Grid.Row="1" x:Name="sldNumberOfClans" Minimum="2" Maximum="20" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <Label Grid.Row="2" Content="{Binding ElementName=sldNumberOfClans, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
+            </Grid>
+            <Button x:Name="btnGenerateMap" Grid.Row="3" Content="Generate map" Margin="10,20,10,20" Click="GenerateMap_Click"/>
         </Grid>
         <!--render area-->
         <Rectangle Grid.Column="1" Grid.Row="0" Fill="#202020"/>
