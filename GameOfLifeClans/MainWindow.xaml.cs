@@ -71,6 +71,7 @@ namespace GameOfLifeClans
             else
             {
                 MessageBox.Show("Simulation finished");
+                _timer.Stop();
                 _renderer.Render();
             }
         }

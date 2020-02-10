@@ -32,7 +32,6 @@ namespace GameOfLifeClans.Simulation
             SpawnHeadquarter(spawnTile);
         }
 
-
         public void CalculateStep()
         {
             if (IsAlive)
@@ -60,17 +59,21 @@ namespace GameOfLifeClans.Simulation
 
         private void WhenEntityIsKilled(Entity entity)
         {
-            _entitiesList.Remove(entity);
+            // If headquarter is still alive, just remove entity from list, whole clan removal is below
+            if (IsAlive)
+            {
+                _entitiesList.Remove(entity);
+            }
 
             if(entity.Id == EntityId.Headquarter)
             {
                 IsAlive = false;
 
-                for (int i = 0; i < _entitiesList.Count; i++)
+                foreach(Entity clanMember in _entitiesList)
                 {
-                    // Force kill all remaining entities of this clan
-                    _entitiesList[i].DealDamage(0, forceKill:true);
+                    clanMember.DealDamage(0, forceKill:true);
                 }
+
                 _entitiesList.Clear();
                 OnClanIsDestroyed();
             }
