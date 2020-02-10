@@ -23,7 +23,7 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        public void SetWhenSpawnedEntityCallback(WhenEntityIsSpawnedCallback callback) => _whenEntityIsSpawnedCallback = callback;
+        public void SetWhenEntityIsSpawnedCallback(WhenEntityIsSpawnedCallback callback) => _whenEntityIsSpawnedCallback = callback;
 
         public override void CalculateStep()
         {

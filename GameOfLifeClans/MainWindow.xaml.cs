@@ -68,6 +68,11 @@ namespace GameOfLifeClans
                 _simulation.CalculateStep(1);
                 _renderer.Render();
             }
+            else
+            {
+                MessageBox.Show("Simulation finished");
+                _renderer.Render();
+            }
         }
 
         private void GenerateMap_Click(object sender, RoutedEventArgs e)

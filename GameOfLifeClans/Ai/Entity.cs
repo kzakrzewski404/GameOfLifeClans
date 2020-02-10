@@ -10,7 +10,7 @@ namespace GameOfLifeClans.Ai
         protected static Vision _vision = new Vision();
         protected static ulong _idCounter = 0;
         protected int _maxHealth;
-        protected WhenKilledCallback _whenKilledCallback;
+        protected WhenKilledCallback _whenIsKilledCallback;
 
 
         public int Health { get; private set; }
@@ -43,11 +43,18 @@ namespace GameOfLifeClans.Ai
 
         public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
 
-        public void SetWhenKilledCallback(WhenKilledCallback callback) => _whenKilledCallback = callback;
+        public void SetWhenIsKilledCallback(WhenKilledCallback callback) => _whenIsKilledCallback = callback;
 
-        public virtual void DealDamage(int damage)
+        public virtual void DealDamage(int damage, bool forceKill = false)
         {
-            Health -= damage;
+            if (forceKill)
+            {
+                Health = 0;
+            }
+            else
+            {
+                Health -= damage;
+            }
 
             if (Health <= 0)
             {
@@ -57,7 +64,7 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        protected virtual void On_WhenKilled() => _whenKilledCallback?.Invoke(this);
+        protected virtual void On_WhenKilled() => _whenIsKilledCallback?.Invoke(this);
 
         protected virtual void PerformAttackOnRandomEnemy(Result visionResult)
         {

@@ -9,26 +9,27 @@ namespace GameOfLifeClans.Simulation
 {
     public class Clan
     {
-        private ClanId _clanId;
         private Headquarter _headquarter;
         private List<Entity> _entitiesList = new List<Entity>();
-        private bool _isDestroyed;
+
+
+        public ClanId Id { get; private set; }
+        public bool IsAlive { get; private set; }
 
 
         public int EntitiesOnMap => _entitiesList.Count;
-        public bool IsAlive => !_isDestroyed;
 
 
         public event ClanIsDestroyedEventHandler ClanIsDestroyed;
-        public delegate void ClanIsDestroyedEventHandler(ClanId destroyedClanId);
+        public delegate void ClanIsDestroyedEventHandler(Clan invoker);
 
 
         public Clan(ClanId clanId, Tile spawnTile)
         {
-            _clanId = clanId;
+            Id = clanId;
+            IsAlive = true;
             _entitiesList.Clear();
             SpawnHeadquarter(spawnTile);
-            _isDestroyed = false;
         }
 
 
@@ -36,22 +37,22 @@ namespace GameOfLifeClans.Simulation
         {
             if (IsAlive)
             {
-                foreach (Entity entity in _entitiesList)
+                for (int i = 0; i < _entitiesList.Count; i++)
                 {
-                    entity.CalculateStep();
+                    _entitiesList[i].CalculateStep();
                 }
             }
         }
 
         
-        private void OnClanIsDestroyed() => ClanIsDestroyed?.Invoke(_clanId);
+        private void OnClanIsDestroyed() => ClanIsDestroyed?.Invoke(this);
         
         private void SpawnHeadquarter(Tile tile)
         {
             EntityFactory factory = new EntityFactory();
-            _headquarter = factory.Create(EntityId.Headquarter, _clanId) as Headquarter;
-            _headquarter.SetWhenKilledCallback(WhenEntityIsKilled);
-            //Todo: add delegates WhenEntityIsKilled, WhenEntityIsSpawned
+            _headquarter = factory.Create(EntityId.Headquarter, Id) as Headquarter;
+            _headquarter.SetWhenIsKilledCallback(WhenEntityIsKilled);
+            _headquarter.SetWhenEntityIsSpawnedCallback(WhenEntityIsSpawned);
 
             _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
@@ -59,9 +60,17 @@ namespace GameOfLifeClans.Simulation
 
         private void WhenEntityIsKilled(Entity entity)
         {
+            _entitiesList.Remove(entity);
+
             if(entity.Id == EntityId.Headquarter)
             {
-                _isDestroyed = true;
+                IsAlive = false;
+
+                for (int i = 0; i < _entitiesList.Count; i++)
+                {
+                    // Force kill all remaining entities of this clan
+                    _entitiesList[i].DealDamage(0, forceKill:true);
+                }
                 _entitiesList.Clear();
                 OnClanIsDestroyed();
             }
@@ -70,7 +79,7 @@ namespace GameOfLifeClans.Simulation
         private void WhenEntityIsSpawned(Entity entity)
         {
             _entitiesList.Add(entity);
-            entity.SetWhenKilledCallback(WhenEntityIsKilled);
+            entity.SetWhenIsKilledCallback(WhenEntityIsKilled);
         }
     }
 }
