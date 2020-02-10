@@ -49,5 +49,18 @@ namespace GameOfLifeClans.Simulation
 
             tile.SetAiEntity(_headquarter);
         }
+
+        private void WhenEntityIsKilled(Entity entity)
+        {
+            if(entity.GetType() == typeof(Headquarter))
+            {
+
+            }
+        }
+
+        private void WhenEntityIsSpawned()
+        {
+
+        }
     }
 }
