@@ -3,6 +3,6 @@
     public enum EntityId
     {
         Headquarter,
-        Soldier
-    };
+        Soldier,
+    }
 }

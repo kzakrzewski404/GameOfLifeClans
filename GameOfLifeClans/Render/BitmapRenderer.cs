@@ -37,7 +37,7 @@ namespace GameOfLifeClans.Render
                     {
                         _canvas.SetPixel(x, y, _colors.GetEntityColor(_map.Tiles[x, y].AiEntity.Clan, _map.Tiles[x, y].AiEntity.Id));
                     }
-                    else if (_map.Tiles[x, y].ClanOwnership != ClanId._Neutral)
+                    else if (_map.Tiles[x, y].ClanOwnership != ClanId.NEUTRAL)
                     {
                         _canvas.SetPixel(x, y, _colors.GetTerrainOwnershipColor(_map.Tiles[x, y].ClanOwnership));
                     }
