@@ -27,25 +27,25 @@ namespace GameOfLifeClans.Ai
 
         public override void CalculateStep()
         {
-            Result visionResult = _vision.GetResult(this);
+            IReadableResult visionResult = _vision.GetResult(this);
 
-            //Attack
-            if (visionResult.Enemies.IsNotEmpty)
+            // Attack
+            if (visionResult.IsEnemyFound)
             {
-                PerformAttackOnRandomEnemy(visionResult);
+                AttackEnemy(visionResult.GetRandomEnemy());
             }
 
-            //Spawn
+            // Spawn
             if (_spawnTimeCounter < AiConfig.HEADQUARTER_SPAWN_TRESHOLD)
             {
                 _spawnTimeCounter++;
             }
-            else if(visionResult.FreeTiles.IsNotEmpty)
+            else if(visionResult.IsFreeTileFound)
             {
                 Entity spawned = _entityFactory.Create(EntityId.Soldier, this.ClanId);
                 On_WhenEntityIsSpawned(spawned);
 
-                visionResult.FreeTiles.PickRandom.SetAiEntity(spawned);
+                visionResult.GetRandomFreeTile().SetAiEntity(spawned);
                 _spawnTimeCounter = 0;
             }
         }
