@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using GameOfLifeClans.Map;
+using GameOfLifeClans.Map.Config;
 using GameOfLifeClans.Map.Data;
 
 
@@ -35,8 +36,8 @@ namespace GameOfLifeClans.Simulation
             {
                 Tile headquarterTile = FindTileForHeadquarter();
                 Clan clan = new Clan(i, headquarterTile);
-                clan.ClanIsDestroyed += WhenClanIsDestroyed;
-                clan.ConqueredOtherClansTerritory += WhenOtherClansTerritoryIsConquered;
+                clan.ClanIsDestroyed += NotifyWhenClanIsDestroyed;
+                clan.ConqueredOtherClansTerritory += NotifyWhenOtherClansTerritoryIsConquered;
                 _clansList.Add(clan);
             }
         }
@@ -56,13 +57,13 @@ namespace GameOfLifeClans.Simulation
         }
 
 
-        private void WhenClanIsDestroyed(Clan destroyed) => _clansList.Remove(destroyed);
+        private void NotifyWhenClanIsDestroyed(Clan destroyed) => _clansList.Remove(destroyed);
 
-        private void WhenOtherClansTerritoryIsConquered(int loserId)
+        private void NotifyWhenOtherClansTerritoryIsConquered(int clanIdThatLostHisTerritory)
         {
-            if (loserId >= 0)
+            if (clanIdThatLostHisTerritory != MapConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
             {
-                Clan loser = _clansList.FirstOrDefault(x => x.Id == loserId);
+                Clan loser = _clansList.FirstOrDefault(x => x.Id == clanIdThatLostHisTerritory);
                 loser?.Territory.Lose();
             }
         }

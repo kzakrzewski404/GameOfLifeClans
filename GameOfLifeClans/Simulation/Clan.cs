@@ -69,15 +69,14 @@ namespace GameOfLifeClans.Simulation
         {
             EntityFactory factory = new EntityFactory();
             _headquarter = factory.Create(EntityId.Headquarter, Id) as Headquarter;
-            _headquarter.SetWhenIsKilledCallback(WhenEntityIsKilled);
+            _headquarter.SetWhenIsKilledCallback(NotifyWhenEntityIsKilled);
 
             _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
         }
 
-        private void WhenEntityIsKilled(Entity killed)
+        private void NotifyWhenEntityIsKilled(Entity killed)
         {
-            // If headquarter is still alive, just remove entity from list, whole clan removal is below
             if (_isAlive)
             {
                 killed.OccupiedTile.RemoveAiEntity();
@@ -101,7 +100,7 @@ namespace GameOfLifeClans.Simulation
         private void AddSpawnedEntityToClan(Entity entity)
         {
             _entitiesList.Add(entity);
-            entity.SetWhenIsKilledCallback(WhenEntityIsKilled);
+            entity.SetWhenIsKilledCallback(NotifyWhenEntityIsKilled);
         }
     }
 }
