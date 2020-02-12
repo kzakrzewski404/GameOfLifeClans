@@ -5,7 +5,7 @@ using GameOfLifeClans.Map.Data;
 
 namespace GameOfLifeClans.Ai
 {
-    public abstract class Entity
+    public abstract class Entity : IAttackable, IForceKillable
     {
         protected static Vision _vision = new Vision();
         protected static ulong _idCounter = 0;
@@ -41,11 +41,11 @@ namespace GameOfLifeClans.Ai
 
         public abstract void CalculateStep();
 
-        public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
+        public void DealDamage(int damage) => TakeDamage(damage);
 
-        public void SetWhenIsKilledCallback(WhenKilledCallback callback) => _whenIsKilledCallback = callback;
+        public void ForceKill() => TakeDamage(0, forceKill:true);
 
-        public virtual void DealDamage(int damage, bool forceKill = false)
+        protected virtual void TakeDamage(int damage, bool forceKill = false)
         {
             if (forceKill)
             {
@@ -64,16 +64,16 @@ namespace GameOfLifeClans.Ai
         }
 
 
+
+        public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
+
+        public void SetWhenIsKilledCallback(WhenKilledCallback callback) => _whenIsKilledCallback = callback;
+
+
         protected virtual void On_WhenKilled() => _whenIsKilledCallback?.Invoke(this);
 
-        protected virtual void PerformAttackOnRandomEnemy(Result visionResult)
-        {
-            visionResult.Enemies.PickRandom.DealDamage(Damage);
-        }
+        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage(Damage);
 
-        protected virtual void MoveToRandomFreeTile(Result visionResult)
-        {
-            visionResult.FreeTiles.PickRandom.MoveAiEntityHere(this);
-        }
+        protected virtual void MoveToTile(Tile tile) => tile.MoveAiEntityHere(this);
     }
 }
