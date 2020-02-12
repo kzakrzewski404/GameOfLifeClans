@@ -61,6 +61,8 @@
     <Compile Include="Ai\EntityFactory.cs" />
     <Compile Include="Ai\Enums\EntityId.cs" />
     <Compile Include="Ai\Headquarter.cs" />
+    <Compile Include="Ai\Senses\Vision\IResultCreator.cs" />
+    <Compile Include="Ai\Senses\Vision\IResultReader.cs" />
     <Compile Include="Generics\ItemsContainer.cs" />
     <Compile Include="Ai\Senses\Vision\Result.cs" />
     <Compile Include="Ai\Senses\Vision\Vision.cs" />
