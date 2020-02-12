@@ -1,7 +1,7 @@
 ﻿using System;
 
-using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Config;
+using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
 
 
@@ -24,20 +24,20 @@ namespace GameOfLifeClans.Ai
 
         public override void CalculateStep()
         {
-            Result visionResult = _vision.GetResult(this);
+            IReadableResult visionResult = _vision.GetResult(this);
 
-            //Attack
+            // Attack
             bool isEnemyAttacked = false;
-            if (visionResult.Enemies.IsNotEmpty && (IsWillingToAttack || !visionResult.FreeTiles.IsNotEmpty))
+            if (visionResult.IsEnemyFound && (IsWillingToAttack || !visionResult.IsFreeTileFound))
             {
-                PerformAttackOnRandomEnemy(visionResult);
+                AttackEnemy(visionResult.GetRandomEnemy());
                 isEnemyAttacked = true;
             }
 
-            //Move
-            if (!isEnemyAttacked && visionResult.FreeTiles.IsNotEmpty)
+            // Move
+            if (!isEnemyAttacked && visionResult.IsFreeTileFound)
             {
-                MoveToRandomFreeTile(visionResult);
+                MoveToTile(visionResult.GetRandomFreeTile());
             }
         }
     }
