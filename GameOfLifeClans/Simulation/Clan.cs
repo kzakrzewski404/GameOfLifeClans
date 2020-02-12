@@ -22,7 +22,9 @@ namespace GameOfLifeClans.Simulation
 
 
         public event ClanIsDestroyedEventHandler ClanIsDestroyed;
+        public event OtherClansTerritoryIsConqueredEventHandler OtherClansTerritoryIsConquered;
         public delegate void ClanIsDestroyedEventHandler(Clan invoker);
+        public delegate void OtherClansTerritoryIsConqueredEventHandler(int loserClanId);
 
 
         public Clan(int clanId, Tile spawnTile)
@@ -47,7 +49,9 @@ namespace GameOfLifeClans.Simulation
         }
 
         
-        private void OnClanIsDestroyed() => ClanIsDestroyed?.Invoke(this);
+        private void On_ClanIsDestroyed() => ClanIsDestroyed?.Invoke(this);
+
+        private void On_OtherClansTerritoryIsConquered(int loserId) => OtherClansTerritoryIsConquered?.Invoke(loserId);
         
         private void SpawnHeadquarter(Tile tile)
         {
@@ -55,6 +59,7 @@ namespace GameOfLifeClans.Simulation
             _headquarter = factory.Create(EntityId.Headquarter, ClanId) as Headquarter;
             _headquarter.SetWhenIsKilledCallback(WhenEntityIsKilled);
             _headquarter.SetWhenEntityIsSpawnedCallback(WhenEntityIsSpawned);
+            _headquarter.SetWhenConqueredTerritoryCallback(WhenConqueredNewTerritory);
 
             _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
@@ -78,7 +83,7 @@ namespace GameOfLifeClans.Simulation
                 }
 
                 _entitiesList.Clear();
-                OnClanIsDestroyed();
+                On_ClanIsDestroyed();
             }
         }
 
@@ -86,6 +91,13 @@ namespace GameOfLifeClans.Simulation
         {
             _entitiesList.Add(entity);
             entity.SetWhenIsKilledCallback(WhenEntityIsKilled);
+            entity.SetWhenConqueredTerritoryCallback(WhenConqueredNewTerritory);
+        }
+
+        private void WhenConqueredNewTerritory(int clanThatLostTerritory)
+        {
+            Territory.GainTerritory();
+            On_OtherClansTerritoryIsConquered(clanThatLostTerritory);
         }
     }
 }
