@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
-using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data;
 
@@ -56,6 +56,15 @@ namespace GameOfLifeClans.Simulation
 
 
         private void WhenClanIsDestroyed(Clan destroyed) => _clansList.Remove(destroyed);
+
+        private void WhenTerritoryOwnershipIsChanged(int conquerorId, int loserId)
+        {
+            Clan conqueror = _clansList.First(x => x.ClanId == conquerorId);
+            conqueror?.Territory.GainTerritory();
+
+            Clan loser = _clansList.First(x => x.ClanId == loserId);
+            loser?.Territory.LoseTerritory();
+        }
 
         private Tile FindTileForHeadquarter()
         {

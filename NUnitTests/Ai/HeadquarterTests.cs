@@ -185,7 +185,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Act
 
             //Assert
-            Assert.IsTrue(headquarter.ClanId == _map.Tiles[1, 1].ClanOwnership);
+            Assert.IsTrue(headquarter.ClanId == _map.Tiles[1, 1].ClanOwnershipId);
         }
     }
 }

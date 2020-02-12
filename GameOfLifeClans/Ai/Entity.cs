@@ -8,6 +8,7 @@ namespace GameOfLifeClans.Ai
     public abstract class Entity : IAttackable, IForceKillable
     {
         protected static Vision _vision = new Vision();
+        protected static WhenConqueredTerritoryEventHandler whenConqueredTerritoryEventHandler;
         protected WhenKilledCallback _whenIsKilledCallback;
 
 
@@ -23,7 +24,10 @@ namespace GameOfLifeClans.Ai
         public int LocationY => OccupiedTile.LocationY;
 
 
+        public event WhenConqueredTerritoryEventHandler TerritoryConquered;
+
         public delegate void WhenKilledCallback(Entity entity);
+        public delegate void WhenConqueredTerritoryEventHandler(int conquerorId, int loserId);
 
 
         public Entity(EntityId id, int clanId, int health, int damage, int defence)
@@ -42,6 +46,27 @@ namespace GameOfLifeClans.Ai
 
         public void ForceKill() => TakeDamage(0, forceKill:true);
 
+        public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
+
+        public void SetWhenIsKilledCallback(WhenKilledCallback callback) => _whenIsKilledCallback = callback;
+
+
+        protected virtual void On_WhenKilled() => _whenIsKilledCallback?.Invoke(this);
+
+        protected virtual void On_WhenConqueredTerritory(int conquerorId, int loserId) => TerritoryConquered?.Invoke(conquerorId, loserId);
+
+        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage(Damage);
+
+        protected virtual void MoveToTile(IOccupiable targetTile)
+        {
+            if (targetTile.ClanOwnershipId != this.ClanId)
+            {
+                On_WhenConqueredTerritory(this.ClanId, targetTile.ClanOwnershipId);
+            }
+
+            targetTile.MoveHere(this);
+        }
+
         protected virtual void TakeDamage(int damage, bool forceKill = false)
         {
             if (forceKill)
@@ -59,18 +84,5 @@ namespace GameOfLifeClans.Ai
                 On_WhenKilled();
             }
         }
-
-
-
-        public void SetOccupiedTile(Tile tile) => OccupiedTile = tile;
-
-        public void SetWhenIsKilledCallback(WhenKilledCallback callback) => _whenIsKilledCallback = callback;
-
-
-        protected virtual void On_WhenKilled() => _whenIsKilledCallback?.Invoke(this);
-
-        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage(Damage);
-
-        protected virtual void MoveToTile(IOccupiable tile) => tile.MoveHere(this);
     }
 }

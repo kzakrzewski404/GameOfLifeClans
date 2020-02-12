@@ -37,9 +37,9 @@ namespace GameOfLifeClans.Render
                     {
                         _canvas.SetPixel(x, y, _colors.GetEntityColor(rendered.AiEntity.ClanId));
                     }
-                    else if (rendered.ClanOwnership != -1)
+                    else if (rendered.ClanOwnershipId != -1)
                     {
-                        _canvas.SetPixel(x, y, _colors.GetClanTerritoryColor(rendered.ClanOwnership));
+                        _canvas.SetPixel(x, y, _colors.GetClanTerritoryColor(rendered.ClanOwnershipId));
                     }
                     else
                     {

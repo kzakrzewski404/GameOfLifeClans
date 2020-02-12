@@ -15,6 +15,7 @@ namespace GameOfLifeClans.Simulation
 
         public int ClanId { get; private set; }
         public bool IsAlive { get; private set; }
+        public TerritoryControl Territory { get; private set; }
 
 
         public int EntitiesOnMap => _entitiesList.Count;
@@ -26,6 +27,7 @@ namespace GameOfLifeClans.Simulation
 
         public Clan(int clanId, Tile spawnTile)
         {
+            Territory = new TerritoryControl();
             ClanId = clanId;
             IsAlive = true;
             _entitiesList.Clear();
