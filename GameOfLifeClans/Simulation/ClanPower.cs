@@ -1,4 +1,4 @@
-﻿namespace GameOfLifeClans.Ai
+﻿namespace GameOfLifeClans.Simulation
 {
     public class ClanPower
     {

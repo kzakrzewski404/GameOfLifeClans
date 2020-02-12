@@ -23,7 +23,9 @@ namespace GameOfLifeClans.Ai
         public int LocationX => OccupiedTile.LocationX;
         public int LocationY => OccupiedTile.LocationY;
 
-
+        /// <summary>
+        /// common event for all entities in simulation
+        /// </summary>
         public event WhenConqueredTerritoryEventHandler TerritoryConquered;
 
         public delegate void WhenKilledCallback(Entity entity);
