@@ -6,10 +6,10 @@ using GameOfLifeClans.Map.Data;
 
 namespace GameOfLifeClans.UnitTests.Ai.Senses
 {
-    public class VisionItemContainerTests
+    public class ResultTests
     {
         [Test]
-        public void When_NothingInList_Expect_IsNotEmpty_False()
+        public void IsNotEmpty_NothingInList_ReturnsFalse()
         {
             //Arrange
             Result result = new Result();
@@ -21,7 +21,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_OneFreeTileInList_Expect_IsNotEmpty_True()
+        public void IsNotEmpty_OneFreeTileInList_Expect_IsNotEmpty_True()
         {
             //Arrange
             Result result = new Result();
