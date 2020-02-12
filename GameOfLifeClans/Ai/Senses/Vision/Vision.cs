@@ -9,7 +9,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         private MapContainer map;
 
 
-        public ICreatableResult GetResult(Entity visionOwner) => GenerateResult(visionOwner);
+        public IReadableResult GetResult(Entity visionOwner) => GenerateResult(visionOwner);
 
 
         private bool IsNotCheckingOwner(Entity visionOwner, Tile target) =>
@@ -19,7 +19,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         private bool IsAlly(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.ClanId == visionOwner.ClanId);
 
 
-        private ICreatableResult GenerateResult(Entity visionOwner)
+        private IReadableResult GenerateResult(Entity visionOwner)
         {
             map = visionOwner.OccupiedTile.Map;
 
@@ -37,20 +37,20 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                     {
                         if (IsTileFree(currentTile))
                         {
-                            result.FreeTiles.Add(currentTile);
+                            result.AddFreeTile(currentTile);
                         }
                         else if (IsAlly(visionOwner, currentTile))
                         {
-                            result.Allies.Add(currentTile.AiEntity);
+                            result.AddAlly(currentTile.AiEntity);
                         }
                         else if (IsEnemy(visionOwner, currentTile))
                         {
-                            result.Enemies.Add(currentTile.AiEntity);
+                            result.AddEnemy(currentTile.AiEntity);
                         }
                     }
                 }
             }
-            return result;
+            return result as IReadableResult;
         }
 
         private void SetAlgorithmBorders(Entity visionOwner, out int minX, out int maxX, out int minY, out int maxY)
