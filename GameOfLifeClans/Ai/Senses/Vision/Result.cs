@@ -33,7 +33,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
 
         public void AddEnemy(Entity enemy) => Enemies.Add(enemy);
 
-        public Entity GetRandomEnemy() => Enemies.PickRandom;
+        public IAttackable GetRandomEnemy() => Enemies.PickRandom;
 
         public Entity GetRandomAlly() => Allies.PickRandom;
 

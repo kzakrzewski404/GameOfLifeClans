@@ -12,7 +12,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         int NumberOfAllies { get; }
         int NumberOfFreeTiles { get; }
 
-        Entity GetRandomEnemy();
+        IAttackable GetRandomEnemy();
         Entity GetRandomAlly();
         Tile GetRandomFreeTile();
     }

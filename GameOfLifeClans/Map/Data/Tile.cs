@@ -1,10 +1,9 @@
 ﻿using GameOfLifeClans.Ai;
-using GameOfLifeClans.Ai.Enums;
 
 
 namespace GameOfLifeClans.Map.Data
 {
-    public class Tile
+    public class Tile : IOccupiable
     {
         public int LocationX { get; private set; }
         public int LocationY { get; private set; }
@@ -35,7 +34,7 @@ namespace GameOfLifeClans.Map.Data
             ClanOwnership = AiEntity.ClanId;
         }
 
-        public void MoveAiEntityHere(Entity invoker)
+        public void MoveHere(Entity invoker)
         {
             invoker.OccupiedTile.RemoveAiEntity();
             SetAiEntity(invoker);

@@ -8,8 +8,6 @@ namespace GameOfLifeClans.Ai
     public abstract class Entity : IAttackable, IForceKillable
     {
         protected static Vision _vision = new Vision();
-        protected static ulong _idCounter = 0;
-        protected int _maxHealth;
         protected WhenKilledCallback _whenIsKilledCallback;
 
 
@@ -35,7 +33,6 @@ namespace GameOfLifeClans.Ai
             Health = health;
             Damage = damage;
             Defence = defence;
-            _maxHealth = Health;
         }
 
 
@@ -74,6 +71,6 @@ namespace GameOfLifeClans.Ai
 
         protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage(Damage);
 
-        protected virtual void MoveToTile(Tile tile) => tile.MoveAiEntityHere(this);
+        protected virtual void MoveToTile(IOccupiable tile) => tile.MoveHere(this);
     }
 }

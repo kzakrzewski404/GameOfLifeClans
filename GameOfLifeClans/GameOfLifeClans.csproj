@@ -69,6 +69,7 @@
     <Compile Include="Ai\Senses\Vision\Result.cs" />
     <Compile Include="Ai\Senses\Vision\Vision.cs" />
     <Compile Include="Ai\Soldier.cs" />
+    <Compile Include="Map\Data\IOccupiable.cs" />
     <Compile Include="Map\Data\Terrain.cs" />
     <Compile Include="Map\Data\TerrainFactory.cs" />
     <Compile Include="Map\Data\Tile.cs" />
