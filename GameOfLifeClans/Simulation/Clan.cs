@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map.Data;
 
 
@@ -70,9 +70,9 @@ namespace GameOfLifeClans.Simulation
             {
                 IsAlive = false;
 
-                foreach(Entity clanMember in _entitiesList)
+                foreach(IForceKillable clanMember in _entitiesList)
                 {
-                    clanMember.DealDamage(0, forceKill:true);
+                    clanMember.ForceKill();
                 }
 
                 _entitiesList.Clear();
