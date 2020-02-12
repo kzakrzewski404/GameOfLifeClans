@@ -17,7 +17,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Arrange
 
             //Act
-            Entity entity = _factory.Create(EntityId.Headquarter, ClanId.Red);
+            Entity entity = _factory.Create(EntityId.Headquarter, 0);
 
             //Assert
             Assert.IsTrue(entity.GetType() == typeof(Headquarter));
@@ -29,7 +29,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             //Arrange
 
             //Act
-            Entity entity = _factory.Create(EntityId.Soldier, ClanId.Red);
+            Entity entity = _factory.Create(EntityId.Soldier, 0);
 
             //Assert
             Assert.IsTrue(entity.GetType() == typeof(Soldier));
