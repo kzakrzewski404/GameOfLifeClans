@@ -1,11 +1,12 @@
 using NUnit.Framework;
 
 using GameOfLifeClans.Ai;
-using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Ai.Enums;
+using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
-using GameOfLifeClans.Map.Data;
+
+using GameOfLifeClans.UnitTests.TestsTools;
 
 
 namespace GameOfLifeClans.UnitTests.Ai.Senses
@@ -13,45 +14,16 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
     public class VisionTests
     {
         private MapContainer _map;
-        private Vision _vision;
-        private TerrainFactory _terrainFactory;
-
-        private void GenerateNewMap3x3WithFill(TerrainId id)
-        {
-            _map.Generate(3, 3);
-            FillMapWith(id);
-        }
-
-        private void FillMapWith(TerrainId id)
-        {
-            for (int x = 0; x < 3; x++)
-            {
-                for (int y = 0; y < 3; y++)
-                {
-                    SetTerrain(x, y, id);
-                }
-            }
-        }
-        private void AddAiIntoTile(int x, int y, ClanId id) => _map.Tiles[x, y].SetAiEntity(new Headquarter(EntityId.Headquarter, id, 100, 100, 0));
-        private void SetTerrain(int x, int y, TerrainId id) => _map.Tiles[x, y].SetTerrain(_terrainFactory.Create(id));
-
-
-        [OneTimeSetUp]
-        public void Init()
-        {
-            _map = new MapContainer();
-            _vision = new Vision();
-            _terrainFactory = new TerrainFactory();
-        }
+        private Vision _vision = new Vision();
+        private MapTestsTools _tools = new MapTestsTools();
 
 
         [Test]
-        public void When_SurroundedByAllUnoccupiedAndPassableTiles_Expect_Free8Allies0Enemies0()
+        public void GetResult_SurroundedByAllUnoccupiedAndPassableTiles_ResultShouldContainFree8Allies0Enemies0()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[1, 1].SetAiEntity(entity);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -61,13 +33,11 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_SurroundedByAllImpassableTiles_Expect_Free0Allies0Enemies0()
+        public void GetResult_SurroundedByAllImpassableTiles_ResultShouldContainFree0Allies0Enemies0()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Water);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100, 0);
-            _map.Tiles[1, 1].SetAiEntity(entity);
-            SetTerrain(1, 1, TerrainId.Grass);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Water);
+            Entity entity = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -77,15 +47,15 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_SurroundedByThreeImpassableTiles_Expect_Free5Allies0Enemies0()
+        public void GetResult_SurroundedByThreeImpassableTiles_ResultShouldContainFree5Allies0Enemies0()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100, 0);
-            _map.Tiles[1, 1].SetAiEntity(entity);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+
             for (int x = 0; x < 3; x++)
             {
-                SetTerrain(x, 0, TerrainId.Water);
+                _tools.SetTerrain(x, 0, TerrainId.Water);
             }
 
             //Act
@@ -96,13 +66,12 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_SurroundedByOneEnemyAndAllPassableTiles_Expect_Free7Allies0Enemies1()
+        public void GetResult_SurroundedByOneEnemyAndAllPassableTiles_ResultShouldContainFree7Allies0Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[1, 1].SetAiEntity(entity);
-            AddAiIntoTile(0, 0, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(0, 0, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -112,14 +81,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_SurroundedByOneEnemyOneAllyAndAllPassableTiles_Expect_Free6Allies1Enemies1()
+        public void GetResult_SurroundedByOneEnemyOneAllyAndAllPassableTiles_ResultShouldContainFree6Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[1, 1].SetAiEntity(entity);
-            AddAiIntoTile(0, 0, ClanId.Red);
-            AddAiIntoTile(0, 1, ClanId.Blue);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(0, 1, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -128,15 +96,14 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Assert.IsTrue((result.FreeTiles.Count == 6) && (result.Allies.Count == 1) && (result.Enemies.Count == 1));
         }
 
-        public void When_SurroundedByThreeAlliesAndImpassableTiles_Expect_Free0Allies3Enemies0()
+        public void GetResult_SurroundedByThreeAlliesAndImpassableTiles_ResultShouldContainFree0Allies3Enemies0()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Water);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[1, 1].SetAiEntity(entity);
-            AddAiIntoTile(0, 0, ClanId.Blue);
-            AddAiIntoTile(0, 1, ClanId.Blue);
-            AddAiIntoTile(0, 2, ClanId.Blue);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Water);
+            Entity entity = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity ally1 = _tools.AddEntityAndChangeTerrain(0, 0, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity ally2 = _tools.AddEntityAndChangeTerrain(0, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity ally3 = _tools.AddEntityAndChangeTerrain(0, 2, EntityId.Headquarter, 0, TerrainId.Grass);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -146,14 +113,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_InTopLeftCornerSurroundedByOneEnemyOneAlly_Expect_Free1Allies1Enemies1()
+        public void GetResult_InTopLeftCornerSurroundedByOneEnemyOneAlly_ResultShouldContainFree1Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[0, 0].SetAiEntity(entity);
-            AddAiIntoTile(0, 1, ClanId.Blue);
-            AddAiIntoTile(1, 0, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(0, 1, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(1, 0, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -163,14 +129,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_InTopRightCornerSurroundedByOneEnemyOneAlly_Expect_Free1Allies1Enemies1()
+        public void GetResult_InTopRightCornerSurroundedByOneEnemyOneAlly_ResultShouldContainFree1Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[2, 0].SetAiEntity(entity);
-            AddAiIntoTile(1, 0, ClanId.Blue);
-            AddAiIntoTile(2, 1, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(2, 0, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(1, 0, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(2, 1, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -180,14 +145,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_InBottomLeftCornerSurroundedByOneEnemyOneAlly_Expect_Free1Allies1Enemies1()
+        public void GetResult_InBottomLeftCornerSurroundedByOneEnemyOneAlly_ResultShouldContainFree1Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[0, 2].SetAiEntity(entity);
-            AddAiIntoTile(0, 1, ClanId.Blue);
-            AddAiIntoTile(1, 2, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(0, 2, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(0, 1, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(1, 2, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -197,14 +161,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_InBottomRightCornerSurroundedByOneEnemyOneAlly_Expect_Free1Allies1Enemies1()
+        public void GetResult_InBottomRightCornerSurroundedByOneEnemyOneAlly_ResultShouldContainFree1Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[2, 2].SetAiEntity(entity);
-            AddAiIntoTile(2, 1, ClanId.Blue);
-            AddAiIntoTile(1, 2, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(2, 2, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(2, 1, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(1, 2, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -214,14 +177,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_OnLeftBorderSurroundedByOneEnemyOneAlly_Expect_Free3Allies1Enemies1()
+        public void GetResult_OnLeftBorderSurroundedByOneEnemyOneAlly_ResultShouldContainFree3Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[0, 1].SetAiEntity(entity);
-            AddAiIntoTile(0, 0, ClanId.Blue);
-            AddAiIntoTile(0, 2, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(0, 1, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(0, 2, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -231,14 +193,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_OnBottomBorderSurroundedByOneEnemyOneAlly_Expect_Free3Allies1Enemies1()
+        public void GetResult_OnBottomBorderSurroundedByOneEnemyOneAlly_ResultShouldContainFree3Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[1, 2].SetAiEntity(entity);
-            AddAiIntoTile(0, 2, ClanId.Blue);
-            AddAiIntoTile(2, 2, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(1, 2, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(0, 2, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(2, 2, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -248,14 +209,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_OnRightBorderSurroundedByOneEnemyOneAlly_Expect_Free3Allies1Enemies1()
+        public void GetResult_OnRightBorderSurroundedByOneEnemyOneAlly_ResultShouldContainFree3Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[2, 1].SetAiEntity(entity);
-            AddAiIntoTile(2, 0, ClanId.Blue);
-            AddAiIntoTile(2, 2, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(2, 1, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(2, 0, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(2, 2, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
@@ -265,14 +225,13 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         }
 
         [Test]
-        public void When_OnTopBorderSurroundedByOneEnemyOneAlly_Expect_Free3Allies1Enemies1()
+        public void GetResult_OnTopBorderSurroundedByOneEnemyOneAlly_ResultShouldContainFree3Allies1Enemies1()
         {
             //Arange
-            GenerateNewMap3x3WithFill(TerrainId.Grass);
-            Entity entity = new Headquarter(EntityId.Headquarter, ClanId.Blue, 100, 100,0);
-            _map.Tiles[1, 0].SetAiEntity(entity);
-            AddAiIntoTile(0, 0, ClanId.Blue);
-            AddAiIntoTile(2, 0, ClanId.Red);
+            _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
+            Entity entity = _tools.AddEntity(1, 0, EntityId.Headquarter, 0);
+            Entity ally = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
+            Entity enemy = _tools.AddEntity(2, 0, EntityId.Headquarter, 1);
 
             //Act
             Result result = _vision.GetResult(entity);
