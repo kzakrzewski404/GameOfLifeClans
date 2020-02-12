@@ -1,4 +1,5 @@
-﻿using GameOfLifeClans.Ai.Enums;
+﻿using GameOfLifeClans.Ai.Data;
+using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map.Data;
 
@@ -8,7 +9,6 @@ namespace GameOfLifeClans.Ai
     public abstract class Entity : IAttackable, IForceKillable
     {
         protected static Vision _vision = new Vision();
-        protected WhenConqueredTerritoryCallback _whenConqueredTerritoryCallback;
         protected WhenKilledCallback _whenIsKilledCallback;
 
 
@@ -25,7 +25,6 @@ namespace GameOfLifeClans.Ai
 
 
         public delegate void WhenKilledCallback(Entity entity);
-        public delegate void WhenConqueredTerritoryCallback(int clanThatLostTerritory);
 
 
         public Entity(EntityId id, int clanId, int health, int damage, int defence)
@@ -38,7 +37,7 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        public abstract void CalculateStep();
+        public abstract StepSummary CalculateStep();
 
         public void DealDamage(int damage) => TakeDamage(damage);
 
@@ -48,20 +47,16 @@ namespace GameOfLifeClans.Ai
 
         public void SetWhenIsKilledCallback(WhenKilledCallback callback) => _whenIsKilledCallback = callback;
 
-        public void SetWhenConqueredTerritoryCallback(WhenConqueredTerritoryCallback callback) => _whenConqueredTerritoryCallback = callback;
 
-
-        protected virtual void On_WhenKilled() => _whenIsKilledCallback?.Invoke(this);
-
-        protected virtual void On_WhenConqueredTerritory(int loserId) => _whenConqueredTerritoryCallback?.Invoke(loserId);
+        protected virtual void OnWhenKilled() => _whenIsKilledCallback?.Invoke(this);
 
         protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage(Damage);
 
-        protected virtual void MoveToTile(IOccupiable targetTile)
+        protected virtual void MoveToTile(IOccupiable targetTile, ref StepSummary summary)
         {
             if (targetTile.ClanOwnershipId != this.ClanId)
             {
-                On_WhenConqueredTerritory(targetTile.ClanOwnershipId);
+                summary.AddConqueredTerrainInfo(targetTile.ClanOwnershipId);
             }
 
             targetTile.MoveHere(this);
@@ -80,8 +75,7 @@ namespace GameOfLifeClans.Ai
 
             if (Health <= 0)
             {
-                OccupiedTile.RemoveAiEntity();
-                On_WhenKilled();
+                OnWhenKilled();
             }
         }
     }

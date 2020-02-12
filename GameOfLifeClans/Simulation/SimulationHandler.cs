@@ -36,7 +36,7 @@ namespace GameOfLifeClans.Simulation
                 Tile headquarterTile = FindTileForHeadquarter();
                 Clan clan = new Clan(i, headquarterTile);
                 clan.ClanIsDestroyed += WhenClanIsDestroyed;
-                clan.OtherClansTerritoryIsConquered += WhenOtherClansTerritoryIsConquered;
+                clan.ConqueredOtherClansTerritory += WhenOtherClansTerritoryIsConquered;
                 _clansList.Add(clan);
             }
         }
@@ -62,8 +62,8 @@ namespace GameOfLifeClans.Simulation
         {
             if (loserId >= 0)
             {
-                Clan loser = _clansList.First(x => x.ClanId == loserId);
-                loser?.Territory.LoseTerritory();
+                Clan loser = _clansList.FirstOrDefault(x => x.Id == loserId);
+                loser?.Territory.Lose();
             }
         }
 

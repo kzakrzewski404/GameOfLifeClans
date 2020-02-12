@@ -1,6 +1,7 @@
 ﻿using System;
 
 using GameOfLifeClans.Ai.Config;
+using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
 
@@ -22,8 +23,9 @@ namespace GameOfLifeClans.Ai
         }
 
 
-        public override void CalculateStep()
+        public override StepSummary CalculateStep()
         {
+            StepSummary summary = new StepSummary();
             IReadableResult visionResult = _vision.GetResult(this);
 
             // Attack
@@ -37,8 +39,10 @@ namespace GameOfLifeClans.Ai
             // Move
             if (!isEnemyAttacked && visionResult.IsFreeTileFound)
             {
-                MoveToTile(visionResult.GetRandomFreeTile());
+                MoveToTile(visionResult.GetRandomFreeTile(), ref summary);
             }
+
+            return summary;
         }
     }
 }

@@ -11,7 +11,7 @@
         }
 
 
-        public void GainTerritory() => ConqueredTerritories++;
-        public void LoseTerritory() => ConqueredTerritories--;
+        public void Gain() => ConqueredTerritories++;
+        public void Lose() => ConqueredTerritories--;
     }
 }

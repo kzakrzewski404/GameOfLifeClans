@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map.Data;
 
@@ -11,10 +12,10 @@ namespace GameOfLifeClans.Simulation
     {
         private Headquarter _headquarter;
         private List<Entity> _entitiesList = new List<Entity>();
+        private bool _isAlive;
 
 
-        public int ClanId { get; private set; }
-        public bool IsAlive { get; private set; }
+        public int Id { get; private set; }
         public TerritoryControl Territory { get; private set; }
 
 
@@ -22,16 +23,16 @@ namespace GameOfLifeClans.Simulation
 
 
         public event ClanIsDestroyedEventHandler ClanIsDestroyed;
-        public event OtherClansTerritoryIsConqueredEventHandler OtherClansTerritoryIsConquered;
+        public event ConqueredOtherClansTerritoryEventHandler ConqueredOtherClansTerritory;
         public delegate void ClanIsDestroyedEventHandler(Clan invoker);
-        public delegate void OtherClansTerritoryIsConqueredEventHandler(int loserClanId);
+        public delegate void ConqueredOtherClansTerritoryEventHandler(int clanIdThatLostTerritory);
 
 
         public Clan(int clanId, Tile spawnTile)
         {
             Territory = new TerritoryControl();
-            ClanId = clanId;
-            IsAlive = true;
+            Id = clanId;
+            _isAlive = true;
             _entitiesList.Clear();
             SpawnHeadquarter(spawnTile);
         }
@@ -39,43 +40,53 @@ namespace GameOfLifeClans.Simulation
 
         public void CalculateStep()
         {
-            if (IsAlive)
+            if (_isAlive)
             {
                 for (int i = 0; i < _entitiesList.Count; i++)
                 {
-                    _entitiesList[i].CalculateStep();
+                    StepSummary summary = _entitiesList[i].CalculateStep();
+
+                    if (summary.HasSpawnedEntity)
+                    {
+                        AddSpawnedEntityToClan(summary.SpawnedEntitiy);
+                    }
+
+                    if (summary.HasConqueredTerrain)
+                    {
+                        Territory.Gain();
+                        OnOtherClansTerritoryIsConquered(summary.ConqueredTerrainPreviousClanOwnerId);
+                    }
                 }
             }
         }
 
         
-        private void On_ClanIsDestroyed() => ClanIsDestroyed?.Invoke(this);
+        private void OnClanIsDestroyed() => ClanIsDestroyed?.Invoke(this);
 
-        private void On_OtherClansTerritoryIsConquered(int loserId) => OtherClansTerritoryIsConquered?.Invoke(loserId);
+        private void OnOtherClansTerritoryIsConquered(int clanIdThatLostTerritory) => ConqueredOtherClansTerritory?.Invoke(clanIdThatLostTerritory);
         
         private void SpawnHeadquarter(Tile tile)
         {
             EntityFactory factory = new EntityFactory();
-            _headquarter = factory.Create(EntityId.Headquarter, ClanId) as Headquarter;
+            _headquarter = factory.Create(EntityId.Headquarter, Id) as Headquarter;
             _headquarter.SetWhenIsKilledCallback(WhenEntityIsKilled);
-            _headquarter.SetWhenEntityIsSpawnedCallback(WhenEntityIsSpawned);
-            _headquarter.SetWhenConqueredTerritoryCallback(WhenConqueredNewTerritory);
 
             _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
         }
 
-        private void WhenEntityIsKilled(Entity entity)
+        private void WhenEntityIsKilled(Entity killed)
         {
             // If headquarter is still alive, just remove entity from list, whole clan removal is below
-            if (IsAlive)
+            if (_isAlive)
             {
-                _entitiesList.Remove(entity);
+                killed.OccupiedTile.RemoveAiEntity();
+                _entitiesList.Remove(killed);
             }
 
-            if(entity.Id == EntityId.Headquarter)
+            if(killed.Id == EntityId.Headquarter)
             {
-                IsAlive = false;
+                _isAlive = false;
 
                 foreach(IForceKillable clanMember in _entitiesList)
                 {
@@ -83,21 +94,14 @@ namespace GameOfLifeClans.Simulation
                 }
 
                 _entitiesList.Clear();
-                On_ClanIsDestroyed();
+                OnClanIsDestroyed();
             }
         }
 
-        private void WhenEntityIsSpawned(Entity entity)
+        private void AddSpawnedEntityToClan(Entity entity)
         {
             _entitiesList.Add(entity);
             entity.SetWhenIsKilledCallback(WhenEntityIsKilled);
-            entity.SetWhenConqueredTerritoryCallback(WhenConqueredNewTerritory);
-        }
-
-        private void WhenConqueredNewTerritory(int clanThatLostTerritory)
-        {
-            Territory.GainTerritory();
-            On_OtherClansTerritoryIsConquered(clanThatLostTerritory);
         }
     }
 }

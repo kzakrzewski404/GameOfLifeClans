@@ -1,5 +1,6 @@
-﻿using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Config;
+﻿using GameOfLifeClans.Ai.Config;
+using GameOfLifeClans.Ai.Data;
+using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
 
 
@@ -8,25 +9,20 @@ namespace GameOfLifeClans.Ai
     public class Headquarter : Entity
     {
         private static EntityFactory _entityFactory = new EntityFactory();
-        private int _spawnTimeCounter;
-        private WhenEntityIsSpawnedCallback _whenEntityIsSpawnedCallback;
-
-
-        public delegate void WhenEntityIsSpawnedCallback(Entity spawnedEntity);
+        private int _nextSpawnCounter;
 
 
         public Headquarter(EntityId id, int clanId, int health, int damage, int defence) 
             : base(id, clanId, health, damage, defence)
         {
             // Force entity spawn on first CalculateStep()
-            _spawnTimeCounter = AiConfig.HEADQUARTER_SPAWN_TRESHOLD;
+            _nextSpawnCounter = AiConfig.HEADQUARTER_SPAWN_TRESHOLD;
         }
 
 
-        public void SetWhenEntityIsSpawnedCallback(WhenEntityIsSpawnedCallback callback) => _whenEntityIsSpawnedCallback = callback;
-
-        public override void CalculateStep()
+        public override StepSummary CalculateStep()
         {
+            StepSummary summary = new StepSummary();
             IReadableResult visionResult = _vision.GetResult(this);
 
             // Attack
@@ -36,21 +32,20 @@ namespace GameOfLifeClans.Ai
             }
 
             // Spawn
-            if (_spawnTimeCounter < AiConfig.HEADQUARTER_SPAWN_TRESHOLD)
+            if (_nextSpawnCounter < AiConfig.HEADQUARTER_SPAWN_TRESHOLD)
             {
-                _spawnTimeCounter++;
+                _nextSpawnCounter++;
             }
             else if(visionResult.IsFreeTileFound)
             {
                 Entity spawned = _entityFactory.Create(EntityId.Soldier, this.ClanId);
-                On_WhenEntityIsSpawned(spawned);
+                summary.AddSpawnedEntityInfo(spawned);
 
                 visionResult.GetRandomFreeTile().SetAiEntity(spawned);
-                _spawnTimeCounter = 0;
+                _nextSpawnCounter = 0;
             }
+
+            return summary;
         }
-
-
-        private void On_WhenEntityIsSpawned(Entity spawned) => _whenEntityIsSpawnedCallback?.Invoke(spawned);
     }
 }
