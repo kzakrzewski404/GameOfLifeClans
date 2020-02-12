@@ -12,7 +12,7 @@ namespace GameOfLifeClans.UnitTests.Ai
 
 
         [Test]
-        public void Should_ReturnCorrectObject_Typeof_Headquarter()
+        public void Create_Headquarter_ObjectIsTypeOfHeadquarter()
         {
             //Arrange
 
@@ -24,7 +24,7 @@ namespace GameOfLifeClans.UnitTests.Ai
         }
 
         [Test]
-        public void Should_ReturnCorrectObject_Typeof_Soldier()
+        public void Create_Soldier_ObjectIsTypeOfSoldier()
         {
             //Arrange
 
