@@ -3,7 +3,7 @@
 
 namespace GameOfLifeClans.Ai.Senses.Vision
 {
-    public interface IResultReader
+    public interface IReadableResult
     {
         bool IsEnemyFound { get; }
         bool IsAllyFound { get; }

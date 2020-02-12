@@ -3,7 +3,7 @@
 
 namespace GameOfLifeClans.Ai.Senses.Vision
 {
-    public interface IResultCreator
+    public interface ICreatableResult
     {
         void AddFreeTile(Tile tile);
         void AddAlly(Entity ally);

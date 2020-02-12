@@ -4,7 +4,7 @@ using GameOfLifeClans.Map.Data;
 
 namespace GameOfLifeClans.Ai.Senses.Vision
 {
-    public class Result : IResultCreator, IResultReader
+    public class Result : ICreatableResult, IReadableResult
     {
         private ItemsContainer<Tile> _freeTiles;
         private ItemsContainer<Entity> _allies;
