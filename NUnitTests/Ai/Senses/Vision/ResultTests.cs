@@ -9,7 +9,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
     public class ResultTests
     {
         [Test]
-        public void IsNotEmpty_NothingInList_ReturnsFalse()
+        public void IsEnemyFound_NothingInList_ReturnsFalse()
         {
             //Arrange
             Result result = new Result();
@@ -17,7 +17,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             //Act
 
             //Assert
-            Assert.IsFalse(result.Allies.IsNotEmpty);
+            Assert.IsTrue(!result.IsEnemyFound);
         }
 
         [Test]
