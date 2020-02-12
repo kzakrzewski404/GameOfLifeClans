@@ -14,6 +14,9 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         public bool IsEnemyFound => _enemies.IsNotEmpty;
         public bool IsAllyFound => _allies.IsNotEmpty;
         public bool IsFreeTileFound => _freeTiles.IsNotEmpty;
+        public int NumberOfEnemies => _enemies.Count;
+        public int NumberOfAllies => _allies.Count;
+        public int NumberOfFreeTiles => _freeTiles.Count;
 
 
         public Result()

@@ -8,6 +8,9 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         bool IsEnemyFound { get; }
         bool IsAllyFound { get; }
         bool IsFreeTileFound { get; }
+        int NumberOfEnemies { get; }
+        int NumberOfAllies { get; }
+        int NumberOfFreeTiles { get; }
 
         Entity GetRandomEnemy();
         Entity GetRandomAlly();
