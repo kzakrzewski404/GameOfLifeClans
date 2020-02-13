@@ -8,18 +8,18 @@ using GameOfLifeClans.Map.Data;
 
 namespace GameOfLifeClans.Simulation
 {
-    public class Clan
+    public class Clan : IClanInfo
     {
         private Headquarter _headquarter;
         private List<Entity> _entitiesList = new List<Entity>();
         private bool _isAlive;
 
-
         public int Id { get; private set; }
-        public TerritoryControl Territory { get; private set; }
-
 
         public int EntitiesOnMap => _entitiesList.Count;
+        public IClanStrengthController StrengthController { get; private set; }
+        public IClanStrength Strength => StrengthController;
+
 
 
         public event ClanIsDestroyedEventHandler ClanIsDestroyed;
@@ -30,7 +30,7 @@ namespace GameOfLifeClans.Simulation
 
         public Clan(int clanId, Tile spawnTile)
         {
-            Territory = new TerritoryControl();
+            StrengthController = new ClanStrength();
             Id = clanId;
             _isAlive = true;
             _entitiesList.Clear();
@@ -53,7 +53,7 @@ namespace GameOfLifeClans.Simulation
 
                     if (summary.HasConqueredTerritory)
                     {
-                        Territory.Gain();
+                        StrengthController.GainTerritory();
                         OnOtherClansTerritoryIsConquered(summary.PreviousTileClanOwnerId);
                     }
                 }
@@ -73,6 +73,7 @@ namespace GameOfLifeClans.Simulation
 
             _entitiesList.Add(_headquarter);
             tile.SetAiEntity(_headquarter);
+            StrengthController.GainTerritory();
         }
 
         private void NotifyWhenEntityIsKilled(Entity killed)
