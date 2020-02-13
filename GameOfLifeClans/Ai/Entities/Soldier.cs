@@ -3,6 +3,7 @@
 using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Entities.Config;
 using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Simulation.Clan;
 
 
 namespace GameOfLifeClans.Ai.Entities
@@ -16,7 +17,7 @@ namespace GameOfLifeClans.Ai.Entities
         private bool IsWillingToAttack => _rnd.Next(0, 100) <= _willingnessToAttactk;
 
 
-        public Soldier(int clanId, SpawnStats stats, IVisionSense visionSense) : base(clanId, stats, visionSense)
+        public Soldier(IClanInfo myClan, SpawnStats stats, IVisionSense visionSense) : base(myClan, stats, visionSense)
         {
             _willingnessToAttactk = _rnd.Next(Behaviour.SOLDIER_MINIMAL_WILLIGNESS_TO_ATTACK, 100);
         }

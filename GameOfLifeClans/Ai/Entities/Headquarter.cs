@@ -2,6 +2,7 @@
 using GameOfLifeClans.Ai.Entities.Config;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Simulation.Clan;
 
 
 namespace GameOfLifeClans.Ai.Entities
@@ -12,7 +13,7 @@ namespace GameOfLifeClans.Ai.Entities
         private int _nextSpawnCounter;
 
 
-        public Headquarter(int clanId, SpawnStats stats, IVisionSense visionSense) : base(clanId, stats, visionSense)
+        public Headquarter(IClanInfo myClan, SpawnStats stats, IVisionSense visionSense) : base(myClan, stats, visionSense)
         {
             // Force entity spawn on first CalculateStep()
             _nextSpawnCounter = Behaviour.HEADQUARTER_SPAWN_TRESHOLD;
@@ -37,7 +38,7 @@ namespace GameOfLifeClans.Ai.Entities
             }
             else if(visionResult.IsFreeTileFound)
             {
-                Entity spawned = _entityFactory.Create(EntityId.Soldier, this.ClanId);
+                Entity spawned = _entityFactory.Create(EntityId.Soldier, this.ClanInfo);
                 summary.AddSpawnedEntityInfo(spawned);
 
                 visionResult.GetRandomFreeTile().SetAiEntity(spawned);

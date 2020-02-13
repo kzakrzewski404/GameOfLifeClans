@@ -68,7 +68,7 @@ namespace GameOfLifeClans.Simulation.Clan
         private void SpawnHeadquarter(Tile tile)
         {
             EntityFactory factory = new EntityFactory();
-            _headquarter = factory.Create(EntityId.Headquarter, Id) as Headquarter;
+            _headquarter = factory.Create(EntityId.Headquarter, this) as Headquarter;
             _headquarter.SetWhenIsKilledCallback(NotifyWhenEntityIsKilled);
 
             _entitiesList.Add(_headquarter);

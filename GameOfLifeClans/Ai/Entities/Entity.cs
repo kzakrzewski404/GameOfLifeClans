@@ -2,6 +2,7 @@
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map.Data;
+using GameOfLifeClans.Simulation.Clan;
 
 
 namespace GameOfLifeClans.Ai.Entities
@@ -15,8 +16,8 @@ namespace GameOfLifeClans.Ai.Entities
         public int Health { get; private set; }
         public int Damage { get; private set; }
         public int Defence { get; private set; }
-        public int ClanId { get; private set; }
         public EntityId Id { get; private set; }
+        public IClanInfo ClanInfo { get; private set; }
         public Tile OccupiedTile { get; private set; }
 
 
@@ -27,9 +28,9 @@ namespace GameOfLifeClans.Ai.Entities
         public delegate void WhenKilledCallback(Entity entity);
 
 
-        public Entity(int clanId, SpawnStats stats, IVisionSense visionSense)
+        public Entity(IClanInfo myClan, SpawnStats stats, IVisionSense visionSense)
         {
-            ClanId = clanId;
+            ClanInfo = myClan;
             Id = stats.Id;
             Health = stats.Health;
             Damage = stats.Damage;
@@ -56,7 +57,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         protected virtual void MoveToTile(IOccupiable targetTile, ref StepSummary summary)
         {
-            if (targetTile.ClanOwnershipId != this.ClanId)
+            if (targetTile.ClanOwnershipId != this.ClanInfo.Id)
             {
                 summary.AddConqueredTerritoryInfo(targetTile.ClanOwnershipId);
             }

@@ -1,6 +1,7 @@
 ﻿using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Simulation.Clan;
 
 
 namespace GameOfLifeClans.Ai.Entities
@@ -10,15 +11,15 @@ namespace GameOfLifeClans.Ai.Entities
         private static IVisionSense _defaultVisionSense = new VisionOfSurrounding();
 
 
-        public Entity Create(EntityId entityId, int clanId)
+        public Entity Create(EntityId entityId, IClanInfo memberOfClan)
         {
             switch (entityId)
             {
                 case EntityId.Headquarter:
-                    return new Headquarter(clanId, SpawnStatsFactory.Create(entityId), _defaultVisionSense);
+                    return new Headquarter(memberOfClan, SpawnStatsFactory.Create(entityId), _defaultVisionSense);
 
                 case EntityId.Soldier:
-                    return new Soldier(clanId, SpawnStatsFactory.Create(entityId), _defaultVisionSense);
+                    return new Soldier(memberOfClan, SpawnStatsFactory.Create(entityId), _defaultVisionSense);
 
                 default:
                     throw new System.Exception("Missing entity in EntityFactory");

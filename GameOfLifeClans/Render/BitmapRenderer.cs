@@ -35,7 +35,7 @@ namespace GameOfLifeClans.Render
                     Tile rendered = _map.Tiles[x, y];
                     if (rendered.IsOccupied)
                     {
-                        _canvas.SetPixel(x, y, _colors.GetEntityColor(rendered.AiEntity.ClanId));
+                        _canvas.SetPixel(x, y, _colors.GetEntityColor(rendered.AiEntity.ClanInfo.Id));
                     }
                     else if (rendered.ClanOwnershipId != -1)
                     {
