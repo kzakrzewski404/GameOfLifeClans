@@ -5,9 +5,9 @@ namespace GameOfLifeClans.Ai.Data
 {
     public struct StepSummary
     {
-        public bool HasConqueredTerrain { get; private set; }
+        public bool HasConqueredTerritory { get; private set; }
         public bool HasSpawnedEntity { get; private set; }
-        public int ConqueredTerrainPreviousClanOwnerId { get; private set; }
+        public int PreviousTileClanOwnerId { get; private set; }
         public Entity SpawnedEntitiy { get; private set; }
 
 
@@ -15,8 +15,8 @@ namespace GameOfLifeClans.Ai.Data
         {
             if (previousClanOwnerId != MapConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
             {
-                HasConqueredTerrain = true;
-                ConqueredTerrainPreviousClanOwnerId = previousClanOwnerId;
+                HasConqueredTerritory = true;
+                PreviousTileClanOwnerId = previousClanOwnerId;
             }
         }
 

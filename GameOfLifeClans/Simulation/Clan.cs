@@ -51,10 +51,10 @@ namespace GameOfLifeClans.Simulation
                         AddSpawnedEntityToClan(summary.SpawnedEntitiy);
                     }
 
-                    if (summary.HasConqueredTerrain)
+                    if (summary.HasConqueredTerritory)
                     {
                         Territory.Gain();
-                        OnOtherClansTerritoryIsConquered(summary.ConqueredTerrainPreviousClanOwnerId);
+                        OnOtherClansTerritoryIsConquered(summary.PreviousTileClanOwnerId);
                     }
                 }
             }
