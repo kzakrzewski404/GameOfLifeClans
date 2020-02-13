@@ -6,9 +6,9 @@ using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Simulation
+namespace GameOfLifeClans.Simulation.Clan
 {
-    public class Clan : IClanInfo
+    public class ClanController : IClanInfo
     {
         private Headquarter _headquarter;
         private List<Entity> _entitiesList = new List<Entity>();
@@ -24,11 +24,11 @@ namespace GameOfLifeClans.Simulation
 
         public event ClanIsDestroyedEventHandler ClanIsDestroyed;
         public event ConqueredOtherClansTerritoryEventHandler ConqueredOtherClansTerritory;
-        public delegate void ClanIsDestroyedEventHandler(Clan invoker);
+        public delegate void ClanIsDestroyedEventHandler(ClanController invoker);
         public delegate void ConqueredOtherClansTerritoryEventHandler(int clanIdThatLostTerritory);
 
 
-        public Clan(int clanId, Tile spawnTile)
+        public ClanController(int clanId, Tile spawnTile)
         {
             StrengthController = new ClanStrength();
             Id = clanId;

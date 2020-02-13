@@ -1,7 +1,7 @@
 ﻿using GameOfLifeClans.Simulation.Config;
 
 
-namespace GameOfLifeClans.Simulation
+namespace GameOfLifeClans.Simulation.Clan
 {
     public class ClanStrength : IClanStrengthController
     {

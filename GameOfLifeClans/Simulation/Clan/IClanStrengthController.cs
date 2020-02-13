@@ -1,4 +1,4 @@
-﻿namespace GameOfLifeClans.Simulation
+﻿namespace GameOfLifeClans.Simulation.Clan
 {
     public interface IClanStrengthController : IClanStrength
     {

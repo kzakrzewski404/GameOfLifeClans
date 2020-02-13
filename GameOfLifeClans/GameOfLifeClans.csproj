@@ -64,7 +64,7 @@
     <Compile Include="Ai\Senses\Vision\IVisionSense.cs" />
     <Compile Include="Ai\Senses\Vision\IVisionResult.cs" />
     <Compile Include="Map\Config\MapConfig.cs" />
-    <Compile Include="Simulation\ClanStrength.cs" />
+    <Compile Include="Simulation\Clan\ClanStrength.cs" />
     <Compile Include="Ai\Entities\EntityFactory.cs" />
     <Compile Include="Ai\Enums\EntityId.cs" />
     <Compile Include="Ai\Entities\Headquarter.cs" />
@@ -85,13 +85,12 @@
     <Compile Include="Render\BitmapColors.cs" />
     <Compile Include="Render\BitmapRenderer.cs" />
     <Compile Include="Render\Renderer.cs" />
-    <Compile Include="Simulation\Clan.cs" />
+    <Compile Include="Simulation\Clan\Clan.cs" />
     <Compile Include="Simulation\Config\Multipliers.cs" />
-    <Compile Include="Simulation\IClanInfo.cs" />
-    <Compile Include="Simulation\IClanStrength.cs" />
-    <Compile Include="Simulation\IClanStrengthController.cs" />
+    <Compile Include="Simulation\Clan\IClanInfo.cs" />
+    <Compile Include="Simulation\Clan\IClanStrength.cs" />
+    <Compile Include="Simulation\Clan\IClanStrengthController.cs" />
     <Compile Include="Simulation\SimulationHandler.cs" />
-    <Compile Include="Simulation\TerritoryControl.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
