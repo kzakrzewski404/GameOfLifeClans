@@ -1,9 +1,9 @@
 ﻿using GameOfLifeClans.Ai.Enums;
 
 
-namespace GameOfLifeClans.Ai.Config
+namespace GameOfLifeClans.Ai.Entities.Config;
 {
-    public class EntityConfig
+    public class SpawnStats
     {
         public int Health { get; private set; }
         public int Damage { get; private set; }
@@ -11,7 +11,7 @@ namespace GameOfLifeClans.Ai.Config
         public EntityId Id { get; private set; }
 
 
-        public EntityConfig(EntityId id, int healht, int damage, int defence)
+        public SpawnStats(EntityId id, int healht, int damage, int defence)
         {
             Id = id;
             Health = healht;
