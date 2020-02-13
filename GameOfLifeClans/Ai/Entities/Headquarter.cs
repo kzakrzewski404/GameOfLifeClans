@@ -1,10 +1,10 @@
-﻿using GameOfLifeClans.Ai.Config;
-using GameOfLifeClans.Ai.Data;
+﻿using GameOfLifeClans.Ai.Data;
+using GameOfLifeClans.Ai.Entities.Config;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Senses.Vision;
 
 
-namespace GameOfLifeClans.Ai
+namespace GameOfLifeClans.Ai.Entities
 {
     public class Headquarter : Entity
     {
@@ -12,18 +12,17 @@ namespace GameOfLifeClans.Ai
         private int _nextSpawnCounter;
 
 
-        public Headquarter(EntityId id, int clanId, int health, int damage, int defence) 
-            : base(id, clanId, health, damage, defence)
+        public Headquarter(int clanId, SpawnStats stats, IVisionSense visionSense) : base(clanId, stats, visionSense)
         {
             // Force entity spawn on first CalculateStep()
-            _nextSpawnCounter = AiConfig.HEADQUARTER_SPAWN_TRESHOLD;
+            _nextSpawnCounter = Behaviour.HEADQUARTER_SPAWN_TRESHOLD;
         }
 
 
         public override StepSummary CalculateStep()
         {
             StepSummary summary = new StepSummary();
-            IReadableVisionResult visionResult = _vision.GetResult(this);
+            IVisionResult visionResult = _visionSense.GetResult(this);
 
             // Attack
             if (visionResult.IsEnemyFound)
@@ -32,7 +31,7 @@ namespace GameOfLifeClans.Ai
             }
 
             // Spawn
-            if (_nextSpawnCounter < AiConfig.HEADQUARTER_SPAWN_TRESHOLD)
+            if (_nextSpawnCounter < Behaviour.HEADQUARTER_SPAWN_TRESHOLD)
             {
                 _nextSpawnCounter++;
             }

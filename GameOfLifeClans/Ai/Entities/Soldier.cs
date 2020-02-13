@@ -1,12 +1,11 @@
 ﻿using System;
 
-using GameOfLifeClans.Ai.Config;
 using GameOfLifeClans.Ai.Data;
-using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Entities.Config;
+using GameOfLifeClans.Ai.Senses.Vision;
 
 
-namespace GameOfLifeClans.Ai
+namespace GameOfLifeClans.Ai.Entities
 {
     public class Soldier : Entity
     {
@@ -17,16 +16,16 @@ namespace GameOfLifeClans.Ai
         private bool IsWillingToAttack => _rnd.Next(0, 100) <= _willingnessToAttactk;
 
 
-        public Soldier(EntityId id, int clan, int health, int damage, int defence) : base(id, clan, health, damage, defence)
+        public Soldier(int clanId, SpawnStats stats, IVisionSense visionSense) : base(clanId, stats, visionSense)
         {
-            _willingnessToAttactk = _rnd.Next(AiConfig.SOLDIER_MINIMAL_WILLIGNESS_TO_ATTACK, 100);
+            _willingnessToAttactk = _rnd.Next(Behaviour.SOLDIER_MINIMAL_WILLIGNESS_TO_ATTACK, 100);
         }
 
 
         public override StepSummary CalculateStep()
         {
             StepSummary summary = new StepSummary();
-            IReadableVisionResult visionResult = _vision.GetResult(this);
+            IVisionResult visionResult = _visionSense.GetResult(this);
 
             // Attack
             bool isEnemyAttacked = false;
