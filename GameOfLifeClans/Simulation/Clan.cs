@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map.Data;

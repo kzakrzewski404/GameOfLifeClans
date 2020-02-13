@@ -1,10 +1,11 @@
-﻿using GameOfLifeClans.Generics;
+﻿using GameOfLifeClans.Ai.Entities;
+using GameOfLifeClans.Generics;
 using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Ai.Senses
+namespace GameOfLifeClans.Ai.Senses.Vision
 {
-    public class VisionResult : ICreatableVisionResult, IReadableVisionResult
+    public class VisionResult : IVisionResultCreating
     {
         public ItemsContainer<Tile> FreeTiles { get; private set; }
         public ItemsContainer<Entity> Allies { get; private set; }
@@ -25,6 +26,7 @@ namespace GameOfLifeClans.Ai.Senses
             Allies = new ItemsContainer<Entity>();
             Enemies = new ItemsContainer<Entity>();
         }
+
 
 
         public void AddFreeTile(Tile tile) => FreeTiles.Add(tile);

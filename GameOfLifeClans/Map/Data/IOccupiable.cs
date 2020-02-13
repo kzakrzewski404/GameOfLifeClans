@@ -1,4 +1,4 @@
-﻿using GameOfLifeClans.Ai;
+﻿using GameOfLifeClans.Ai.Entities;
 
 
 namespace GameOfLifeClans.Map.Data

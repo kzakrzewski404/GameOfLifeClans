@@ -1,7 +1,7 @@
 ﻿using GameOfLifeClans.Ai.Enums;
 
 
-namespace GameOfLifeClans.Ai.Entities.Config;
+namespace GameOfLifeClans.Ai.Data
 {
     public class SpawnStats
     {

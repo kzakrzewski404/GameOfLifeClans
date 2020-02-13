@@ -56,25 +56,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ai\Entities\Config\MainConfig.cs" />
-    <Compile Include="Ai\Entities\Config\SpawnStats.cs" />
-    <Compile Include="Ai\Entities\Config\SpawnStatsFactory.cs" />
+    <Compile Include="Ai\Entities\Config\Behaviour.cs" />
+    <Compile Include="Ai\Entities\Config\Stats.cs" />
+    <Compile Include="Ai\Data\SpawnStats.cs" />
+    <Compile Include="Ai\Data\SpawnStatsFactory.cs" />
     <Compile Include="Ai\Data\StepSummary.cs" />
-    <Compile Include="Ai\Senses\Vision\IVision.cs" />
+    <Compile Include="Ai\Senses\Vision\IVisionSense.cs" />
     <Compile Include="Ai\Senses\Vision\IVisionResult.cs" />
     <Compile Include="Map\Config\MapConfig.cs" />
     <Compile Include="Simulation\ClanPower.cs" />
-    <Compile Include="Ai\Config\AiConfig.cs" />
     <Compile Include="Ai\Entities\EntityFactory.cs" />
     <Compile Include="Ai\Enums\EntityId.cs" />
     <Compile Include="Ai\Entities\Headquarter.cs" />
-    <Compile Include="Ai\Entities\Interfaces\IAttackable.cs" />
-    <Compile Include="Ai\Entities\Interfaces\IForceKillable.cs" />
-    <Compile Include="Ai\Senses\ICreatableVisionResult.cs" />
-    <Compile Include="Ai\Senses\IReadableVisionResult.cs" />
+    <Compile Include="Ai\Entities\IAttackable.cs" />
+    <Compile Include="Ai\Entities\IForceKillable.cs" />
+    <Compile Include="Ai\Senses\Vision\IVisionResultCreating.cs" />
     <Compile Include="Generics\ItemsContainer.cs" />
-    <Compile Include="Ai\Senses\VisionResult.cs" />
-    <Compile Include="Ai\Senses\Vision.cs" />
+    <Compile Include="Ai\Senses\Vision\VisionResult.cs" />
+    <Compile Include="Ai\Senses\Vision\VisionOfSurrounding.cs" />
     <Compile Include="Ai\Entities\Soldier.cs" />
     <Compile Include="Map\Data\IOccupiable.cs" />
     <Compile Include="Map\Data\Terrain.cs" />
@@ -94,7 +93,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Ai\Entities\Entity.cs" />
-    <Compile Include="Ai\Enums\ClanId.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -132,5 +130,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
