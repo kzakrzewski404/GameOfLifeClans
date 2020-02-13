@@ -1,4 +1,5 @@
-﻿using GameOfLifeClans.Map.Config;
+﻿using GameOfLifeClans.Ai.Entities;
+using GameOfLifeClans.Map.Config;
 
 
 namespace GameOfLifeClans.Ai.Data
@@ -11,7 +12,7 @@ namespace GameOfLifeClans.Ai.Data
         public Entity SpawnedEntitiy { get; private set; }
 
 
-        public void AddConqueredTerrainInfo(int previousClanOwnerId)
+        public void AddConqueredTerritoryInfo(int previousClanOwnerId)
         {
             if (previousClanOwnerId != MapConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
             {
