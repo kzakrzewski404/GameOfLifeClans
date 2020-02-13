@@ -30,7 +30,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity headquarter = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+            Entity headquarter = _tools.AddAllyEntity(1, 1, EntityId.Headquarter);
 
             //Act
             for (int i = 0; i <= _spawnTreshold; i++)
@@ -48,7 +48,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity headquarter = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+            Entity headquarter = _tools.AddAllyEntity(1, 1, EntityId.Headquarter);
 
             //Act
             for (int i = 0; i <= (_spawnTreshold * 20); i++)
@@ -66,7 +66,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
             _tools.SetTerrain(1, 2, TerrainId.Grass); //only one free tile for spawn
 
             //Act
@@ -77,8 +77,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
             Entity spawned = _map.Tiles[1, 2].AiEntity;
 
             //Assert
-            Assert.IsTrue(headquarter.ClanId == spawned.ClanId, 
-                $"Headquarter clan: {headquarter.ClanId}\nSpawned clan: {spawned.ClanId}");
+            Assert.IsTrue(headquarter.ClanInfo.Id == spawned.ClanInfo.Id, 
+                $"Headquarter clan: {headquarter.ClanInfo.Id}\nSpawned clan: {spawned.ClanInfo.Id}");
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
 
             //Act
             headquarter.CalculateStep();
@@ -101,7 +101,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
             int originalX = headquarter.LocationX;
             int originalY = headquarter.LocationY;
 
@@ -121,12 +121,12 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 1, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalEnemyHealth = enemy.Health;
 
             //Act
-            attacker.CalculateStep();
+            headquarter.CalculateStep();
 
             //Assert
             Assert.IsTrue(enemy.Health < originalEnemyHealth);
@@ -137,8 +137,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity ally = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 0, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalAllyHealth = ally.Health;
 
             //Act
@@ -153,9 +153,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 1, TerrainId.Grass);
-            Entity ally = _tools.AddEntityAndChangeTerrain(1, 2, EntityId.Soldier, 0, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
+            Entity ally = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 2, EntityId.Soldier);
             int originalAllyHealth = ally.Health;
             int originalEnemyHealth = enemy.Health;
 
@@ -171,8 +171,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 1, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalX = headquarter.LocationX;
             int originalY = headquarter.LocationY;
 
@@ -188,12 +188,12 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity headquarter = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity headquarter = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
 
             //Act
 
             //Assert
-            Assert.IsTrue(headquarter.ClanId == _map.Tiles[1, 1].ClanOwnershipId);
+            Assert.IsTrue(headquarter.ClanInfo.Id == _map.Tiles[1, 1].ClanOwnershipId);
         }
     }
 }

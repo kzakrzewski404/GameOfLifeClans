@@ -20,8 +20,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, 0, TerrainId.Grass);
-            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 1, TerrainId.Grass);
+            Entity attacker = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Soldier);
+            Entity enemy = _tools.AddEnemyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalEnemyHealth = enemy.Health;
 
             //Act
@@ -36,8 +36,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, 0, TerrainId.Grass);
-            Entity enemy = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 1, TerrainId.Grass);
+            Entity attacker = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Soldier);
+            Entity enemy = _tools.AddEnemyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalX = attacker.LocationX;
             int originalY = attacker.LocationY;
 
@@ -53,8 +53,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity attacker = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, 0, TerrainId.Grass);
-            Entity ally = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 0, TerrainId.Grass);
+            Entity attacker = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Soldier);
+            Entity ally = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalAllyHealth = ally.Health;
 
             //Act
@@ -69,8 +69,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Mountain);
-            Entity soldier = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, 0, TerrainId.Grass);
-            Entity ally = _tools.AddEntityAndChangeTerrain(1, 0, EntityId.Soldier, 0, TerrainId.Grass);
+            Entity soldier = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Soldier);
+            Entity ally = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 0, EntityId.Soldier);
             int originalX = soldier.LocationX;
             int originalY = soldier.LocationY;
 
@@ -86,7 +86,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Water);
-            Entity soldier = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, 0, TerrainId.Grass);
+            Entity soldier = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Soldier);
             int originalX = soldier.LocationX;
             int originalY = soldier.LocationY;
 
@@ -102,7 +102,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Entities
         {
             //Arrange
             _map = _tools.GenerateMap(3, 3, TerrainId.Water);
-            Entity soldier = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Soldier, 0, TerrainId.Grass);
+            Entity soldier = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Soldier);
             _tools.SetTerrain(1, 0, TerrainId.Grass); //Free tile
             int originalX = soldier.LocationX;
             int originalY = soldier.LocationY;

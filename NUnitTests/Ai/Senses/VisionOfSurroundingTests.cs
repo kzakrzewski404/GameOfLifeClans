@@ -23,7 +23,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+            Entity entity = _tools.AddAllyEntity(1, 1, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -37,7 +37,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Water);
-            Entity entity = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity entity = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -51,7 +51,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
+            Entity entity = _tools.AddAllyEntity(1, 1, EntityId.Headquarter);
 
             for (int x = 0; x < 3; x++)
             {
@@ -70,8 +70,8 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(0, 0, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(1, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(0, 0, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -85,9 +85,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(0, 1, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(1, 1, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(0, 0, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(0, 1, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -100,10 +100,10 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Water);
-            Entity entity = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity ally1 = _tools.AddEntityAndChangeTerrain(0, 0, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity ally2 = _tools.AddEntityAndChangeTerrain(0, 1, EntityId.Headquarter, 0, TerrainId.Grass);
-            Entity ally3 = _tools.AddEntityAndChangeTerrain(0, 2, EntityId.Headquarter, 0, TerrainId.Grass);
+            Entity entity = _tools.AddAllyEntityAndChangeTerrainToGrass(1, 1, EntityId.Headquarter);
+            Entity ally1 = _tools.AddAllyEntityAndChangeTerrainToGrass(0, 0, EntityId.Headquarter);
+            Entity ally2 = _tools.AddAllyEntityAndChangeTerrainToGrass(0, 1, EntityId.Headquarter);
+            Entity ally3 = _tools.AddAllyEntityAndChangeTerrainToGrass(0, 2, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -117,9 +117,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(0, 1, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(1, 0, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(0, 0, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(0, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(1, 0, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -133,9 +133,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(2, 0, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(1, 0, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(2, 1, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(2, 0, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(1, 0, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(2, 1, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -149,9 +149,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(0, 2, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(0, 1, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(1, 2, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(0, 2, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(0, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(1, 2, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -165,9 +165,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(2, 2, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(2, 1, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(1, 2, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(2, 2, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(2, 1, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(1, 2, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -181,9 +181,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(0, 1, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(0, 2, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(0, 1, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(0, 0, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(0, 2, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -197,9 +197,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(1, 2, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(0, 2, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(2, 2, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(1, 2, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(0, 2, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(2, 2, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -213,9 +213,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(2, 1, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(2, 0, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(2, 2, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(2, 1, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(2, 0, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(2, 2, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
@@ -229,9 +229,9 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         {
             //Arange
             _map = _tools.GenerateMap(3, 3, TerrainId.Grass);
-            Entity entity = _tools.AddEntity(1, 0, EntityId.Headquarter, 0);
-            Entity ally = _tools.AddEntity(0, 0, EntityId.Headquarter, 0);
-            Entity enemy = _tools.AddEntity(2, 0, EntityId.Headquarter, 1);
+            Entity entity = _tools.AddAllyEntity(1, 0, EntityId.Headquarter);
+            Entity ally = _tools.AddAllyEntity(0, 0, EntityId.Headquarter);
+            Entity enemy = _tools.AddEnemyEntity(2, 0, EntityId.Headquarter);
 
             //Act
             var result = _vision.GetResult(entity);
