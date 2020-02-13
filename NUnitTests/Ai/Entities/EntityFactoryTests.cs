@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
 
-using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Ai.Enums;
 
 
-namespace GameOfLifeClans.UnitTests.Ai
+namespace GameOfLifeClans.UnitTests.Ai.Entities
 {
     public class EntityFactoryTests
     {

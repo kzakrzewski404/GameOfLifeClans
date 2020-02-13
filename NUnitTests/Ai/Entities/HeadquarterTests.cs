@@ -1,20 +1,28 @@
 ﻿using NUnit.Framework;
 
-using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Entities;
+using GameOfLifeClans.Ai.Entities.Config;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Config;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
 
 using GameOfLifeClans.UnitTests.TestsTools;
 
 
-namespace GameOfLifeClans.UnitTests.Ai
+namespace GameOfLifeClans.UnitTests.Ai.Entities
 {
     public class HeadquarterTests
     {
         private MapContainer _map;
         private MapTestsTools _tools = new MapTestsTools();
+        private int _spawnTreshold;
+
+
+        [OneTimeSetUp]
+        public void Initialize()
+        {
+            _spawnTreshold = Behaviour.HEADQUARTER_SPAWN_TRESHOLD;
+        }
 
 
         [Test]
@@ -25,7 +33,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             Entity headquarter = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
 
             //Act
-            for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
+            for (int i = 0; i <= _spawnTreshold; i++)
             {
                 headquarter.CalculateStep();
             }
@@ -43,7 +51,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             Entity headquarter = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
 
             //Act
-            for (int i = 0; i <= (AiConfig.HEADQUARTER_SPAWN_TRESHOLD * 20); i++)
+            for (int i = 0; i <= (_spawnTreshold * 20); i++)
             {
                 headquarter.CalculateStep();
             }
@@ -62,7 +70,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             _tools.SetTerrain(1, 2, TerrainId.Grass); //only one free tile for spawn
 
             //Act
-            for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
+            for (int i = 0; i <= _spawnTreshold; i++)
             {
                 headquarter.CalculateStep();
             }
@@ -98,7 +106,7 @@ namespace GameOfLifeClans.UnitTests.Ai
             int originalY = headquarter.LocationY;
 
             //Act
-            for (int i = 0; i <= AiConfig.HEADQUARTER_SPAWN_TRESHOLD; i++)
+            for (int i = 0; i <= _spawnTreshold; i++)
             {
                 headquarter.CalculateStep();
             }

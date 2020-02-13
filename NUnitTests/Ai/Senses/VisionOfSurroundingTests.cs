@@ -1,20 +1,20 @@
 using NUnit.Framework;
 
-using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
 
 using GameOfLifeClans.UnitTests.TestsTools;
 
 
-namespace GameOfLifeClans.UnitTests.Ai.Senses
+namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
 {
-    public class VisionTests
+    public class VisionOfSurroundingTests
     {
         private MapContainer _map;
-        private Vision _vision = new Vision();
+        private VisionOfSurrounding _vision = new VisionOfSurrounding();
         private MapTestsTools _tools = new MapTestsTools();
 
 
@@ -26,7 +26,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity entity = _tools.AddEntity(1, 1, EntityId.Headquarter, 0);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 8) && (result.NumberOfAllies == 0) && (result.NumberOfEnemies == 0));
@@ -40,7 +40,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity entity = _tools.AddEntityAndChangeTerrain(1, 1, EntityId.Headquarter, 0, TerrainId.Grass);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 0) && (result.NumberOfAllies == 0) && (result.NumberOfEnemies == 0));
@@ -59,7 +59,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             }
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 5) && (result.NumberOfAllies == 0) && (result.NumberOfEnemies == 0));
@@ -74,7 +74,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(0, 0, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 7) && (result.NumberOfAllies == 0) && (result.NumberOfEnemies == 1));
@@ -90,7 +90,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(0, 1, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 6) && (result.NumberOfAllies == 1) && (result.NumberOfEnemies == 1));
@@ -106,7 +106,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity ally3 = _tools.AddEntityAndChangeTerrain(0, 2, EntityId.Headquarter, 0, TerrainId.Grass);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 6) && (result.NumberOfAllies == 1) && (result.NumberOfEnemies == 1));
@@ -122,7 +122,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(1, 0, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 1) && (result.NumberOfAllies == 1) && (result.NumberOfEnemies == 1));
@@ -138,7 +138,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(2, 1, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 1) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));
@@ -154,7 +154,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(1, 2, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 1) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));
@@ -170,7 +170,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(1, 2, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 1) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));
@@ -186,7 +186,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(0, 2, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 3) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));
@@ -202,7 +202,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(2, 2, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 3) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));
@@ -218,7 +218,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(2, 2, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 3) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));
@@ -234,7 +234,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
             Entity enemy = _tools.AddEntity(2, 0, EntityId.Headquarter, 1);
 
             //Act
-            IReadableVisionResult result = _vision.GetResult(entity);
+            var result = _vision.GetResult(entity);
 
             //Assert
             Assert.IsTrue((result.NumberOfFreeTiles == 3) && (result.NumberOfEnemies == 1) && (result.NumberOfAllies == 1));

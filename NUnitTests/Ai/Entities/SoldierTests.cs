@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-using GameOfLifeClans.Ai;
+using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
@@ -8,7 +8,7 @@ using GameOfLifeClans.Map.Data.Enums;
 using GameOfLifeClans.UnitTests.TestsTools;
 
 
-namespace GameOfLifeClans.UnitTests.Ai
+namespace GameOfLifeClans.UnitTests.Ai.Entities
 {
     public class SoldierTests
     {
