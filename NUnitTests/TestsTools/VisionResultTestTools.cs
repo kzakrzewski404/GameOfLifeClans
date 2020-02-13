@@ -1,6 +1,6 @@
-﻿using GameOfLifeClans.Ai;
+﻿using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map.Data;
 
 
@@ -31,9 +31,9 @@ namespace GameOfLifeClans.UnitTests.TestsTools
         }
 
 
-        public ICreatableVisionResult GetAsCreatableResult() => _result as ICreatableVisionResult;
+        public IVisionResultCreating GetAsIVisionResultCreating() => _result;
 
-        public IReadableVisionResult GetAsReadableResult() => _result as IReadableVisionResult;
+        public IVisionResult GetAsIVisionResult() => _result;
 
         public Entity CreateAndAddEnemyToResult()
         {

@@ -1,4 +1,4 @@
-﻿using GameOfLifeClans.Ai;
+﻿using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Map;
 using GameOfLifeClans.Map.Data.Enums;
