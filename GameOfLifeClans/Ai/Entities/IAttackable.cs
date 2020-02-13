@@ -1,4 +1,4 @@
-﻿namespace GameOfLifeClans.Ai
+﻿namespace GameOfLifeClans.Ai.Entities
 {
     public interface IAttackable
     {
