@@ -1,20 +1,20 @@
 ﻿using NUnit.Framework;
 
-using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Ai.Senses;
 using GameOfLifeClans.Map.Data;
 
 using GameOfLifeClans.UnitTests.TestsTools;
 
 
-namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
+namespace GameOfLifeClans.UnitTests.Ai.Senses
 {
-    public class IReadableResultTests
+    public class IReadableVisionResultTests
     {
         [Test]
         public void IsEnemyFound_NothingInResult_ReturnsFalse()
         {
             //Arrange
-            IReadableResult result = new ResultTestTools(0, 0, 0).GetAsReadableResult();
+            IReadableVisionResult result = new VisionResultTestTools(0, 0, 0).GetAsReadableResult();
 
             //Act
 
@@ -26,7 +26,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         public void IsEnemyFound_OneEnemyInResult_ReturnsTrue()
         {
             //Arrange
-            IReadableResult result = new ResultTestTools(0, 0, 1).GetAsReadableResult();
+            IReadableVisionResult result = new VisionResultTestTools(0, 0, 1).GetAsReadableResult();
 
             //Act
 
@@ -39,7 +39,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         public void IsAllyFound_NothingInResult_ReturnsFalse()
         {
             //Arrange
-            IReadableResult result = new ResultTestTools(0, 0, 0).GetAsReadableResult();
+            IReadableVisionResult result = new VisionResultTestTools(0, 0, 0).GetAsReadableResult();
 
             //Act
 
@@ -51,7 +51,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         public void IsAllyFound_OneAllyInResult_ReturnsTrue()
         {
             //Arrange
-            IReadableResult result = new ResultTestTools(0, 1, 0).GetAsReadableResult();
+            IReadableVisionResult result = new VisionResultTestTools(0, 1, 0).GetAsReadableResult();
 
             //Act
 
@@ -64,7 +64,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         public void IsFreeTileFound_NothingInResult_ReturnsFalse()
         {
             //Arrange
-            IReadableResult result = new ResultTestTools(0, 0, 0).GetAsReadableResult();
+            IReadableVisionResult result = new VisionResultTestTools(0, 0, 0).GetAsReadableResult();
 
             //Act
 
@@ -76,7 +76,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses.Vision
         public void IsFreeTileFound_OneTileInResult_ReturnsTrue()
         {
             //Arrange
-            IReadableResult result = new ResultTestTools(1, 0, 0).GetAsReadableResult();
+            IReadableVisionResult result = new VisionResultTestTools(1, 0, 0).GetAsReadableResult();
 
             //Act
 

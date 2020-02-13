@@ -65,11 +65,11 @@
     <Compile Include="Ai\Headquarter.cs" />
     <Compile Include="Ai\IAttackable.cs" />
     <Compile Include="Ai\IForceKillable.cs" />
-    <Compile Include="Ai\Senses\Vision\ICreatableResult.cs" />
-    <Compile Include="Ai\Senses\Vision\IReadableResult.cs" />
+    <Compile Include="Ai\Senses\ICreatableVisionResult.cs" />
+    <Compile Include="Ai\Senses\IReadableVisionResult.cs" />
     <Compile Include="Generics\ItemsContainer.cs" />
-    <Compile Include="Ai\Senses\Vision\Result.cs" />
-    <Compile Include="Ai\Senses\Vision\Vision.cs" />
+    <Compile Include="Ai\Senses\VisionResult.cs" />
+    <Compile Include="Ai\Senses\Vision.cs" />
     <Compile Include="Ai\Soldier.cs" />
     <Compile Include="Map\Data\IOccupiable.cs" />
     <Compile Include="Map\Data\Terrain.cs" />

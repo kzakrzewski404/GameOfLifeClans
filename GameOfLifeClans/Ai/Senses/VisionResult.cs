@@ -2,9 +2,9 @@
 using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Ai.Senses.Vision
+namespace GameOfLifeClans.Ai.Senses
 {
-    public class Result : ICreatableResult, IReadableResult
+    public class VisionResult : ICreatableVisionResult, IReadableVisionResult
     {
         public ItemsContainer<Tile> FreeTiles { get; private set; }
         public ItemsContainer<Entity> Allies { get; private set; }
@@ -19,7 +19,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         public int NumberOfFreeTiles => FreeTiles.Count;
 
 
-        public Result()
+        public VisionResult()
         {
             FreeTiles = new ItemsContainer<Tile>();
             Allies = new ItemsContainer<Entity>();

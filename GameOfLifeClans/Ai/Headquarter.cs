@@ -1,7 +1,7 @@
 ﻿using GameOfLifeClans.Ai.Config;
 using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Ai.Senses;
 
 
 namespace GameOfLifeClans.Ai
@@ -23,7 +23,7 @@ namespace GameOfLifeClans.Ai
         public override StepSummary CalculateStep()
         {
             StepSummary summary = new StepSummary();
-            IReadableResult visionResult = _vision.GetResult(this);
+            IReadableVisionResult visionResult = _vision.GetResult(this);
 
             // Attack
             if (visionResult.IsEnemyFound)

@@ -1,9 +1,9 @@
 ﻿using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Ai.Senses.Vision
+namespace GameOfLifeClans.Ai.Senses
 {
-    public interface IReadableResult
+    public interface IReadableVisionResult
     {
         bool IsEnemyFound { get; }
         bool IsAllyFound { get; }

@@ -1,20 +1,20 @@
 ﻿using GameOfLifeClans.Ai;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Ai.Senses;
 using GameOfLifeClans.Map.Data;
 
 
 namespace GameOfLifeClans.UnitTests.TestsTools
 {
-    public class ResultTestTools
+    public class VisionResultTestTools
     {
-        private Result _result;
+        private VisionResult _result;
         private EntityFactory _factory = new EntityFactory();
 
 
-        public ResultTestTools(int startingFreeTiles = 0, int startingAllies = 0, int startingEnemies = 0)
+        public VisionResultTestTools(int startingFreeTiles = 0, int startingAllies = 0, int startingEnemies = 0)
         {
-            _result = new Result();
+            _result = new VisionResult();
 
             for (int i = 0; i < startingFreeTiles; i++)
             {
@@ -31,9 +31,9 @@ namespace GameOfLifeClans.UnitTests.TestsTools
         }
 
 
-        public ICreatableResult GetAsCreatableResult() => _result as ICreatableResult;
+        public ICreatableVisionResult GetAsCreatableResult() => _result as ICreatableVisionResult;
 
-        public IReadableResult GetAsReadableResult() => _result as IReadableResult;
+        public IReadableVisionResult GetAsReadableResult() => _result as IReadableVisionResult;
 
         public Entity CreateAndAddEnemyToResult()
         {

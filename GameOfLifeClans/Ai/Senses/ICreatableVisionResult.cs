@@ -1,9 +1,9 @@
 ﻿using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Ai.Senses.Vision
+namespace GameOfLifeClans.Ai.Senses
 {
-    public interface ICreatableResult
+    public interface ICreatableVisionResult
     {
         void AddFreeTile(Tile tile);
         void AddAlly(Entity ally);

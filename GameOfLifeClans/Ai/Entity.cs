@@ -1,6 +1,6 @@
 ﻿using GameOfLifeClans.Ai.Data;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Ai.Senses;
 using GameOfLifeClans.Map.Data;
 
 

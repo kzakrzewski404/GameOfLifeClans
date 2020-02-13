@@ -2,14 +2,14 @@
 using GameOfLifeClans.Map;
 
 
-namespace GameOfLifeClans.Ai.Senses.Vision
+namespace GameOfLifeClans.Ai.Senses
 {
     public class Vision
     {
         private MapContainer map;
 
 
-        public IReadableResult GetResult(Entity visionOwner) => GenerateResult(visionOwner);
+        public IReadableVisionResult GetResult(Entity visionOwner) => GenerateResult(visionOwner);
 
 
         private bool IsNotCheckingOwner(Entity visionOwner, Tile target) =>
@@ -19,11 +19,11 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         private bool IsAlly(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.ClanId == visionOwner.ClanId);
 
 
-        private IReadableResult GenerateResult(Entity visionOwner)
+        private IReadableVisionResult GenerateResult(Entity visionOwner)
         {
             map = visionOwner.OccupiedTile.Map;
 
-            ICreatableResult result = new Result();
+            ICreatableVisionResult result = new VisionResult();
 
             int minX, maxX, minY, maxY;
             SetAlgorithmBorders(visionOwner, out minX, out maxX, out minY, out maxY);
@@ -50,7 +50,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                     }
                 }
             }
-            return result as IReadableResult;
+            return result as IReadableVisionResult;
         }
 
         private void SetAlgorithmBorders(Entity visionOwner, out int minX, out int maxX, out int minY, out int maxY)

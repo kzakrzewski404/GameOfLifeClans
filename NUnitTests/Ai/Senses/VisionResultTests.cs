@@ -1,18 +1,18 @@
 ﻿using NUnit.Framework;
 
-using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Ai.Senses;
 using GameOfLifeClans.Map.Data;
 
 
 namespace GameOfLifeClans.UnitTests.Ai.Senses
 {
-    public class ResultTests
+    public class VisionResultTests
     {
         [Test]
         public void IsEnemyFound_NothingInList_ReturnsFalse()
         {
             //Arrange
-            Result result = new Result();
+            VisionResult result = new VisionResult();
 
             //Act
 
@@ -24,7 +24,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void IsNotEmpty_OneFreeTileInList_Expect_IsNotEmpty_True()
         {
             //Arrange
-            Result result = new Result();
+            VisionResult result = new VisionResult();
 
             //Act
             result.FreeTiles.Add(new Tile(0, 0, null, null));
@@ -37,7 +37,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_ThreeTilesInList_Expect_IsNotEmpty_True()
         {
             //Arrange
-            Result result = new Result();
+            VisionResult result = new VisionResult();
 
             //Act
             result.FreeTiles.Add(new Tile(0, 0, null, null));
@@ -52,7 +52,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_OneTileInList_Expect_PickRandom_ReturnsSameTile()
         {
             //Arrange
-            Result result = new Result();
+            VisionResult result = new VisionResult();
 
             //Act
             Tile t = new Tile(0, 0, null, null);
@@ -65,7 +65,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_Add_Expect_ListCountEquals1()
         {
             //Arrange
-            Result result = new Result();
+            VisionResult result = new VisionResult();
 
             //Act
             result.FreeTiles.Add(new Tile(0, 0, null, null));
@@ -78,7 +78,7 @@ namespace GameOfLifeClans.UnitTests.Ai.Senses
         public void When_ThreeTilesInList_Expect_ListCountEquals3()
         {
             //Arrange
-            Result result = new Result();
+            VisionResult result = new VisionResult();
 
             //Act
             result.FreeTiles.Add(new Tile(0, 0, null, null));
