@@ -2,7 +2,7 @@
 using GameOfLifeClans.Ai.Enums;
 
 
-namespace GameOfLifeClans.Ai
+namespace GameOfLifeClans.Ai.Entities
 {
     public class EntityFactory
     {

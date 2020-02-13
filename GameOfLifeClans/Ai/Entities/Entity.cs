@@ -1,14 +1,15 @@
 ﻿using GameOfLifeClans.Ai.Data;
+using GameOfLifeClans.Ai.Entities.Config;
 using GameOfLifeClans.Ai.Enums;
-using GameOfLifeClans.Ai.Senses;
+using GameOfLifeClans.Ai.Senses.Vision;
 using GameOfLifeClans.Map.Data;
 
 
-namespace GameOfLifeClans.Ai
+namespace GameOfLifeClans.Ai.Entities
 {
     public abstract class Entity : IAttackable, IForceKillable
     {
-        protected static Vision _vision = new Vision();
+        protected static IVisionSense _visionSense;
         protected WhenKilledCallback _whenIsKilledCallback;
 
 
@@ -27,13 +28,15 @@ namespace GameOfLifeClans.Ai
         public delegate void WhenKilledCallback(Entity entity);
 
 
-        public Entity(EntityId id, int clanId, int health, int damage, int defence)
+        public Entity(int clanId, SpawnStats stats, IVisionSense visionSense)
         {
-            Id = id;
             ClanId = clanId;
-            Health = health;
-            Damage = damage;
-            Defence = defence;
+            Id = stats.Id;
+            Health = stats.Health;
+            Damage = stats.Damage;
+            Defence = stats.Defence;
+
+            _visionSense = visionSense;
         }
 
 
@@ -56,7 +59,7 @@ namespace GameOfLifeClans.Ai
         {
             if (targetTile.ClanOwnershipId != this.ClanId)
             {
-                summary.AddConqueredTerrainInfo(targetTile.ClanOwnershipId);
+                summary.AddConqueredTerritoryInfo(targetTile.ClanOwnershipId);
             }
 
             targetTile.MoveHere(this);
