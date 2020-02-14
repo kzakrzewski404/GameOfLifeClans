@@ -82,7 +82,6 @@ namespace GameOfLifeClans.Simulation.Clan
         {
             if (_isAlive)
             {
-                killed.OccupiedTile.RemoveAiEntity();
                 _entitiesList.Remove(killed);
             }
 

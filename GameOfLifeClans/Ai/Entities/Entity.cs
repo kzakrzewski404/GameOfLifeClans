@@ -86,6 +86,7 @@ namespace GameOfLifeClans.Ai.Entities
 
             if (Health <= 0)
             {
+                OccupiedTile.RemoveAiEntity();
                 OnWhenKilled();
             }
         }
