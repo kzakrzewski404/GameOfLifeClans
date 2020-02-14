@@ -14,7 +14,7 @@ namespace GameOfLifeClans.Ai.Data
 
         public void AddConqueredTerritoryInfo(int previousClanOwnerId)
         {
-            if (previousClanOwnerId != MapConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
+            if (previousClanOwnerId != TerrainConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
             {
                 HasConqueredTerritory = true;
                 PreviousTileClanOwnerId = previousClanOwnerId;

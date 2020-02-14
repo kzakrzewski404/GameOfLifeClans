@@ -62,7 +62,7 @@ namespace GameOfLifeClans.Simulation
 
         private void NotifyWhenOtherClansTerritoryIsConquered(int clanIdThatLostHisTerritory)
         {
-            if (clanIdThatLostHisTerritory != MapConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
+            if (clanIdThatLostHisTerritory != TerrainConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
             {
                 IClanStrengthController loser = _clansList.FirstOrDefault(x => x.Id == clanIdThatLostHisTerritory)?.StrengthController;
                 loser?.LoseTerritory();

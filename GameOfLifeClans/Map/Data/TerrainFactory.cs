@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+
+using GameOfLifeClans.Map.Config;
 using GameOfLifeClans.Map.Data.Enums;
 
 
@@ -18,8 +20,8 @@ namespace GameOfLifeClans.Map.Data
             int count = Enum.GetNames(typeof(TerrainId)).Length;
             _terrains = new Terrain[count];
 
-            InitializeTerrain(TerrainId.Grass, true);
-            InitializeTerrain(TerrainId.Sand, true);
+            InitializeTerrain(TerrainId.Grass, true, TerrainConfig.GRASS_DAMAGE_MULTIPLIER, TerrainConfig.GRASS_DEFENCE_MULTIPLIER);
+            InitializeTerrain(TerrainId.Sand, true, TerrainConfig.SAND_DAMAGE_MULTIPLIER, TerrainConfig.SAND_DEFENCE_MULTIPLIER);
             InitializeTerrain(TerrainId.Water, false);
             InitializeTerrain(TerrainId.Mountain, false);
 
@@ -29,7 +31,10 @@ namespace GameOfLifeClans.Map.Data
             }
         }
 
-        
-        private void InitializeTerrain(TerrainId id, bool isPassable) => _terrains[(int)id] = new Terrain(id, isPassable);
+
+        private void InitializeTerrain(TerrainId id, bool isPassable, float dmgMultiplier = 1.0f, float defMultiplier = 1.0f)
+        {
+            _terrains[(int)id] = new Terrain(id, isPassable, dmgMultiplier, defMultiplier);
+        }
     }
 }
