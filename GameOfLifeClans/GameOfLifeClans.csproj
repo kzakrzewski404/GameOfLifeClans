@@ -85,7 +85,7 @@
     <Compile Include="Render\BitmapColors.cs" />
     <Compile Include="Render\BitmapRenderer.cs" />
     <Compile Include="Render\Renderer.cs" />
-    <Compile Include="Simulation\Clan\Clan.cs" />
+    <Compile Include="Simulation\Clan\ClanController.cs" />
     <Compile Include="Simulation\Config\Multipliers.cs" />
     <Compile Include="Simulation\Clan\IClanInfo.cs" />
     <Compile Include="Simulation\Clan\IClanStrength.cs" />
