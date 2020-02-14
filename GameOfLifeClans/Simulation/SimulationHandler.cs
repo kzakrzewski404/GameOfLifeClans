@@ -64,7 +64,7 @@ namespace GameOfLifeClans.Simulation
         {
             if (clanIdThatLostHisTerritory != MapConfig.TERRAIN_NEUTRAL_CLAN_OWNERSHIP)
             {
-                IClanStrengthController loser = _clansList.FirstOrDefault(x => x.Id == clanIdThatLostHisTerritory).StrengthController;
+                IClanStrengthController loser = _clansList.FirstOrDefault(x => x.Id == clanIdThatLostHisTerritory)?.StrengthController;
                 loser?.LoseTerritory();
             }
         }
