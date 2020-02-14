@@ -2,6 +2,6 @@
 {
     public interface IAttackable
     {
-        void DealDamage(int damage);
+        void DealDamage(int damage, int attackerClanId);
     }
 }

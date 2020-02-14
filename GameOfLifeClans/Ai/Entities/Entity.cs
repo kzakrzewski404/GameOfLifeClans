@@ -44,7 +44,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         public abstract StepSummary CalculateStep();
 
-        public void DealDamage(int damage) => TakeDamage(damage);
+        public void DealDamage(int damage, int attackerClanId) => TakeDamage(damage);
 
         public void ForceKill() => TakeDamage(0, forceKill:true);
 
@@ -55,7 +55,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         protected virtual void OnWhenKilled() => _whenIsKilledCallback?.Invoke(this);
 
-        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage((int)(Damage * OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier));
+        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage((int)(Damage * OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier), this.ClanInfo.Id);
 
         protected virtual void MoveToTile(IOccupiable targetTile, ref StepSummary summary)
         {
