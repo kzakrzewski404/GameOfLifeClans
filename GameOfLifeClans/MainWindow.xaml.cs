@@ -71,6 +71,8 @@ namespace GameOfLifeClans
             else
             {
                 MessageBox.Show("Simulation finished");
+                btnRunSimulation.Content = "Run Simulation";
+                btnGenerateMap.IsEnabled = true;
                 _timer.Stop();
                 _renderer.Render();
             }
