@@ -26,7 +26,7 @@ namespace GameOfLifeClans.Render
             _canvas = new Bitmap(map.Width, map.Height);
         }
 
-        public override void Render()
+        public override void Render(bool renderConqueredTerritory)
         {
             for (int x = 0; x < _map.Width; x++)
             {
@@ -37,7 +37,7 @@ namespace GameOfLifeClans.Render
                     {
                         _canvas.SetPixel(x, y, _colors.GetEntityColor(rendered.AiEntity.ClanInfo.Id));
                     }
-                    else if (rendered.ClanOwnershipId != -1)
+                    else if (renderConqueredTerritory && rendered.ClanOwnershipId != -1)
                     {
                         _canvas.SetPixel(x, y, _colors.GetClanTerritoryColor(rendered.ClanOwnershipId));
                     }
