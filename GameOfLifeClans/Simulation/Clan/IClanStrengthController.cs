@@ -3,6 +3,6 @@
     public interface IClanStrengthController : IClanStrength
     {
         void LoseTerritory();
-        void GainTerritory();
+        void GainTerritory(int numberOfGainedTerritory = 1);
     }
 }

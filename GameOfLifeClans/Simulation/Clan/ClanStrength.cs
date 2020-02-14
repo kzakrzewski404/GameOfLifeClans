@@ -17,6 +17,6 @@ namespace GameOfLifeClans.Simulation.Clan
 
 
         public void LoseTerritory() => ControlledTerritory--;
-        public void GainTerritory() => ControlledTerritory++;
+        public void GainTerritory(int numberOfGainedTerritory = 1) => ControlledTerritory += numberOfGainedTerritory;
     }
 }
