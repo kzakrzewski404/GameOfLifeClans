@@ -26,7 +26,7 @@ namespace GameOfLifeClans.Simulation.Clan
 
         public event ClanIsDestroyedEventHandler ClanIsDestroyed;
         public event ConqueredOtherClansTerritoryEventHandler ConqueredOtherClansTerritory;
-        public delegate void ClanIsDestroyedEventHandler(ClanController invoker);
+        public delegate void ClanIsDestroyedEventHandler(ClanController invoker, ClanIsDestroyedEventArgs args);
         public delegate void ConqueredOtherClansTerritoryEventHandler(int clanIdThatLostTerritory);
 
 
@@ -63,7 +63,7 @@ namespace GameOfLifeClans.Simulation.Clan
         }
 
         
-        private void OnClanIsDestroyed() => ClanIsDestroyed?.Invoke(this);
+        private void OnClanIsDestroyed(ClanIsDestroyedEventArgs args) => ClanIsDestroyed?.Invoke(this, args);
 
         private void OnOtherClansTerritoryIsConquered(int clanIdThatLostTerritory) => ConqueredOtherClansTerritory?.Invoke(clanIdThatLostTerritory);
         
@@ -78,7 +78,7 @@ namespace GameOfLifeClans.Simulation.Clan
             StrengthController.GainTerritory();
         }
 
-        private void NotifyWhenEntityIsKilled(Entity killed)
+        private void NotifyWhenEntityIsKilled(Entity killed, int killedByMemberOfClanId)
         {
             if (_isAlive)
             {
@@ -95,7 +95,7 @@ namespace GameOfLifeClans.Simulation.Clan
                 }
 
                 _entitiesList.Clear();
-                OnClanIsDestroyed();
+                OnClanIsDestroyed(new ClanIsDestroyedEventArgs(killedByMemberOfClanId));
             }
         }
 

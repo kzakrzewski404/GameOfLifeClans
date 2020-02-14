@@ -58,7 +58,10 @@ namespace GameOfLifeClans.Simulation
         }
 
 
-        private void NotifyWhenClanIsDestroyed(ClanController destroyed) => _clansList.Remove(destroyed);
+        private void NotifyWhenClanIsDestroyed(ClanController destroyed, ClanIsDestroyedEventArgs args)
+        {
+            _clansList.Remove(destroyed);
+        }
 
         private void NotifyWhenOtherClansTerritoryIsConquered(int clanIdThatLostHisTerritory)
         {
