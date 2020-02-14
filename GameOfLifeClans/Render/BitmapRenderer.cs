@@ -14,6 +14,8 @@ namespace GameOfLifeClans.Render
         private Bitmap _canvas;
         private BitmapColors _colors = new BitmapColors();
         private System.Windows.Controls.Image _renderOutput;
+        private int _headquarterBlinkCounter;
+        private int _headquarterBlinkTreshold = 5;
 
 
         public void SetRenderOutput(System.Windows.Controls.Image uiImage) => _renderOutput = uiImage;
@@ -28,6 +30,9 @@ namespace GameOfLifeClans.Render
 
         public override void Render(bool renderConqueredTerritory)
         {
+            _headquarterBlinkCounter++;
+            Color selectedColor;
+
             for (int x = 0; x < _map.Width; x++)
             {
                 for (int y = 0; y < _map.Height; y++)
@@ -35,17 +40,31 @@ namespace GameOfLifeClans.Render
                     Tile rendered = _map.Tiles[x, y];
                     if (rendered.IsOccupied)
                     {
-                        _canvas.SetPixel(x, y, _colors.GetEntityColor(rendered.AiEntity.ClanInfo.Id));
+                        if ((_headquarterBlinkCounter == _headquarterBlinkTreshold) && rendered.AiEntity.Id == Ai.Enums.EntityId.Headquarter)
+                        {
+                            selectedColor = Color.White;
+                        }
+                        else
+                        {
+                            selectedColor = _colors.GetEntityColor(rendered.AiEntity.ClanInfo.Id);
+                        }
                     }
                     else if (renderConqueredTerritory && rendered.ClanOwnershipId != -1)
                     {
-                        _canvas.SetPixel(x, y, _colors.GetClanTerritoryColor(rendered.ClanOwnershipId));
+                        selectedColor = _colors.GetClanTerritoryColor(rendered.ClanOwnershipId);
                     }
                     else
                     {
-                        _canvas.SetPixel(x, y, _colors.GetTerrainColor(rendered.Terrain.Id));
+                        selectedColor = _colors.GetTerrainColor(rendered.Terrain.Id);
                     }
+
+                    _canvas.SetPixel(x, y, selectedColor);
                 }
+            }
+
+            if (_headquarterBlinkCounter == _headquarterBlinkTreshold)
+            {
+                _headquarterBlinkCounter = 0;
             }
 
             using (MemoryStream stream = new MemoryStream())
