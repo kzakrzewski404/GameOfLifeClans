@@ -6,45 +6,118 @@
         xmlns:local="clr-namespace:GameOfLifeClans"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <!--controls area-->
+        
+        <!--Map generation settings area-->
         <Rectangle Grid.Column="0" Fill="Silver"/>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="90*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="btnRunSimulation" Grid.Row="0" Content="Run simulation" Margin="10,20,10,20" Click="RunSimulation_Click"/>
+
+            <!--Header-->
+            <Grid Grid.Row="0">
+                <Rectangle Fill="#41B691"/>
+                <Label Content="Map generation" Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!--Controls-->
+            <Rectangle Fill="#3C4A4D" Grid.Row="1"/>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Simulation speed:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <Slider Grid.Row="1" x:Name="sldSimulationSpeed" Minimum="1" Maximum="5" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
-                <Label Grid.Row="2" Content="{Binding ElementName=sldSimulationSpeed, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
+
+                <!--Simulation speed-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Label Content="Number of clans:" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Slider Grid.Row="1" x:Name="sldNumberOfClans" Minimum="2" Maximum="100" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label Grid.Row="2" Content="{Binding ElementName=sldNumberOfClans, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#aab3b7" FontSize="11"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Button x:Name="btnGenerateMap" BorderBrush="#FFFFFF" Background="#41B691" Foreground="#FFFFFF" Content="Generate map" Margin="10,30,10,30" Click="GenerateMap_Click"/>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Number of clans:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <Slider Grid.Row="1" x:Name="sldNumberOfClans" Minimum="2" Maximum="20" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
-                <Label Grid.Row="2" Content="{Binding ElementName=sldNumberOfClans, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
-            </Grid>
-            <Button x:Name="btnGenerateMap" Grid.Row="3" Content="Generate map" Margin="10,20,10,20" Click="GenerateMap_Click"/>
         </Grid>
-        <!--render area-->
-        <Rectangle Grid.Column="1" Grid.Row="0" Fill="#202020"/>
-        <Image x:Name="imgRenderOutput" Grid.Column="1" Margin="10" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+        
+        
+        <!--Render area-->
+        <Grid Grid.Column="1">
+            <Rectangle Fill="#2f393b"/>
+            <Image x:Name="imgRenderOutput" Margin="10" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+        </Grid>
+
+        
+        <!--Map generation settings area-->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="90*"/>
+            </Grid.RowDefinitions>
+
+            <!--Header-->
+            <Grid Grid.Row="0">
+                <Rectangle Fill="#41B691"/>
+                <Label Content="Simulation" Foreground="#FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!--Controls-->
+            <Rectangle Fill="#3C4A4D" Grid.Row="1"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Simulation speed-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Label Content="Speed:" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Slider Grid.Row="1" x:Name="sldSimulationSpeed" Minimum="1" Maximum="20" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label Grid.Row="2" Content="{Binding ElementName=sldSimulationSpeed, Path=Value, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="{}{0}x" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#aab3b7" FontSize="11"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Button x:Name="btnRunSimulation" BorderBrush="#FFFFFF" Background="#41B691" Foreground="#FFFFFF" Content="Run simulation" Margin="10,30,10,30" Click="RunSimulation_Click"/>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
