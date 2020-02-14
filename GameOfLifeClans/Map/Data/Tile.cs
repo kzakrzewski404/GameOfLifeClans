@@ -3,19 +3,18 @@
 
 namespace GameOfLifeClans.Map.Data
 {
-    public class Tile : IOccupiable
+    public class Tile : IOccupiable, ITransferOwnership
     {
         public int LocationX { get; private set; }
         public int LocationY { get; private set; }
+        public int ClanOwnershipId { get; private set; }
         public Terrain Terrain { get; private set; }
         public Entity AiEntity { get; private set; }
         public MapContainer Map { get; private set; }
 
-        private int _clanOwnership;
-
 
         public bool IsOccupied => !(AiEntity == null);
-        public int ClanOwnershipId => _clanOwnership;
+
 
 
         public Tile(int x, int y, Terrain terrain, MapContainer map)
@@ -24,25 +23,27 @@ namespace GameOfLifeClans.Map.Data
             LocationY = y;
             Map = map;
             SetTerrain(terrain);
-            _clanOwnership = -1;
+            ClanOwnershipId = -1;
         }
 
         public void RemoveAiEntity() => AiEntity = null;
 
         public void SetTerrain(Terrain terrain) => Terrain = terrain;
 
+        public void ChangeTileOwnership(int targetId) => ClanOwnershipId = targetId;
+
         public void SetAiEntity(Entity aiEntity)
         {
             AiEntity = aiEntity;
             AiEntity.SetOccupiedTile(this);
-            _clanOwnership = AiEntity.ClanInfo.Id;
+            ClanOwnershipId = AiEntity.ClanInfo.Id;
         }
 
         public void MoveHere(Entity invoker)
         {
             invoker.OccupiedTile.RemoveAiEntity();
             SetAiEntity(invoker);
-            _clanOwnership = invoker.ClanInfo.Id;
+            ClanOwnershipId = invoker.ClanInfo.Id;
         }
     }
 }
