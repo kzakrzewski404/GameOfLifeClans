@@ -61,12 +61,14 @@ namespace GameOfLifeClans
             }
         }
 
+        private void RenderFrame() => _renderer.Render(chbTerritory.IsChecked ?? true);
+
         private void On_SimulationTimerTick(object sender, EventArgs e)
         {
             if (_simulation.IsSimulationRunning)
             {
                 _simulation.CalculateStep((int)sldSimulationSpeed.Value);
-                _renderer.Render();
+                RenderFrame();
             }
             else
             {
@@ -74,7 +76,7 @@ namespace GameOfLifeClans
                 btnRunSimulation.Content = "Run Simulation";
                 btnGenerateMap.IsEnabled = true;
                 _timer.Stop();
-                _renderer.Render();
+                RenderFrame();
             }
         }
 
@@ -86,7 +88,7 @@ namespace GameOfLifeClans
                 int mapScale = (int)sldMapScale.Value;
                 _simulation.GenerateMap(100 * mapScale, 100 * mapScale, numberOfClans);
                 _renderer.LinkMapContainer(_simulation.Map, numberOfClans);
-                _renderer.Render();
+                RenderFrame();
             }
         }
     }
