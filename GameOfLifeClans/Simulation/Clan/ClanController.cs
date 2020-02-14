@@ -14,7 +14,9 @@ namespace GameOfLifeClans.Simulation.Clan
         private List<Entity> _entitiesList = new List<Entity>();
         private bool _isAlive;
 
+
         public int Id { get; private set; }
+
 
         public int EntitiesOnMap => _entitiesList.Count;
         public IClanStrengthController StrengthController { get; private set; }
