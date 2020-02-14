@@ -61,6 +61,8 @@ namespace GameOfLifeClans.Simulation
         private void NotifyWhenClanIsDestroyed(ClanController destroyed, ClanIsDestroyedEventArgs args)
         {
             _clansList.Remove(destroyed);
+            TileOwnershipTransferer transferer = new TileOwnershipTransferer();
+            transferer.TransferOwnership(Map, destroyed.Id, args.DestroyedByClan);
         }
 
         private void NotifyWhenOtherClansTerritoryIsConquered(int clanIdThatLostHisTerritory)
