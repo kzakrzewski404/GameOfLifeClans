@@ -39,7 +39,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!--Simulation speed-->
+                <!--Number of clans-->
                 <Grid Grid.Row="0" Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30*"/>
@@ -48,13 +48,32 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <Label Content="Number of clans:" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
+                        <Label Content="Number of clans:" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Slider Grid.Row="1" x:Name="sldNumberOfClans" Minimum="2" Maximum="100" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
                     </Grid>
                     <Grid Grid.Row="2">
                         <Label Grid.Row="2" Content="{Binding ElementName=sldNumberOfClans, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#aab3b7" FontSize="11"/>
+                    </Grid>
+                </Grid>
+
+                <!--Map size-->
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Label Content="Map scale:" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Slider Grid.Row="1" x:Name="sldMapScale" Minimum="1" Maximum="3" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label Grid.Row="2" Content="{Binding ElementName=sldMapScale, Path=Value, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="{}{0}x" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#aab3b7" FontSize="11"/>
                     </Grid>
                 </Grid>
 
@@ -104,7 +123,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <Label Content="Speed:" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
+                        <Label Content="Speed:" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#dee5ea" FontSize="11"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Slider Grid.Row="1" x:Name="sldSimulationSpeed" Minimum="1" Maximum="20" Margin="10" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>

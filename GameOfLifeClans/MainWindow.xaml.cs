@@ -81,7 +81,8 @@ namespace GameOfLifeClans
             if (!_simulation.IsSimulationRunning || !_timer.IsEnabled)
             {
                 int numberOfClans = (int)sldNumberOfClans.Value;
-                _simulation.GenerateMap(100, 100, numberOfClans);
+                int mapScale = (int)sldMapScale.Value;
+                _simulation.GenerateMap(100 * mapScale, 100 * mapScale, numberOfClans);
                 _renderer.LinkMapContainer(_simulation.Map, numberOfClans);
                 _renderer.Render();
             }
