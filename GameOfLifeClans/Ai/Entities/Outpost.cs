@@ -6,16 +6,11 @@ using GameOfLifeClans.Simulation.Clan;
 
 namespace GameOfLifeClans.Ai.Entities
 {
-    public class Outpost : Entity
+    public class Outpost : Headquarter
     {
-        private static EntityFactory _entityFactory = new EntityFactory();
-        private int _nextSpawnCounter;
-        private int _spawnTreshold;
-
-
-        public Outpost(IClanInfo myClan, SpawnStats stats, IVisionSense visionSense, int spawnTreshold) : base(myClan, stats, visionSense)
+        public Outpost(IClanInfo myClan, SpawnStats stats, IVisionSense visionSense, int spawnTreshold) : base(myClan, stats, visionSense, spawnTreshold)
         {
-            _spawnTreshold = spawnTreshold;
+            // Empty
         }
 
 
@@ -25,31 +20,25 @@ namespace GameOfLifeClans.Ai.Entities
             IVisionResult visionResult = _visionSense.GetResult(this);
 
             // HealAlly priority over attack
-            if (visionResult.IsAllyFound)
+            if (visionResult.IsAllyToHealFound)
             {
-                HealAlly(visionResult.GetRandomAlly());
+                HealAlly(visionResult.GetRandomAllyWhoRequireHealing());
             }
             else if (visionResult.IsEnemyFound)
             {
                 AttackEnemy(visionResult.GetRandomEnemy());
             }
 
-
             // Spawn
-            if (_nextSpawnCounter < _spawnTreshold)
-            {
-                _nextSpawnCounter++;
-            }
-            else if (visionResult.IsFreeTileFound)
-            {
-                Entity spawned = _entityFactory.Create(EntityId.Soldier, this.ClanInfo);
-                summary.AddSpawnedEntityInfo(spawned);
-
-                visionResult.GetRandomFreeTile().SetAiEntity(spawned);
-                _nextSpawnCounter = 0;
-            }
+            HandleSpawn(visionResult, ref summary);
 
             return summary;
+        }
+
+
+        protected override void InitializePossibleSpawns()
+        {
+            _possibleSpawns.Add(0, EntityId.Soldier);
         }
 
 

@@ -13,7 +13,7 @@ namespace GameOfLifeClans.Ai.Entities
     public class Headquarter : Entity
     {
         private static Random _rnd = new Random();
-        private static EntityFactory _entityFactory = new EntityFactory();
+        protected static EntityFactory _entityFactory = new EntityFactory();
         private int _nextSpawnCounter;
         private int _spawnTreshold;
 
@@ -39,18 +39,29 @@ namespace GameOfLifeClans.Ai.Entities
             }
 
             // Spawn
-            if (_nextSpawnCounter < _spawnTreshold)
-            {
-                _nextSpawnCounter++;
-            }
-            else if(visionResult.IsFreeTileFound)
-            {
-                SpawnEntity(visionResult, ref summary);
-            }
+            HandleSpawn(visionResult, ref summary);
 
             return summary;
         }
 
+
+        protected virtual void InitializePossibleSpawns()
+        {
+            _possibleSpawns.Add(1, EntityId.Builder);
+            _possibleSpawns.Add(0, EntityId.Soldier);
+        }
+
+        protected void HandleSpawn(IVisionResult visionResult, ref StepSummary summary)
+        {
+            if (_nextSpawnCounter < _spawnTreshold)
+            {
+                _nextSpawnCounter++;
+            }
+            else if (visionResult.IsFreeTileFound)
+            {
+                SpawnEntity(visionResult, ref summary);
+            }
+        }
 
         protected void SpawnEntity(IVisionResult visionResult, ref StepSummary summary)
         {
@@ -61,11 +72,6 @@ namespace GameOfLifeClans.Ai.Entities
             _nextSpawnCounter = 0;
         }
 
-        protected virtual void InitializePossibleSpawns()
-        {
-            _possibleSpawns.Add(1, EntityId.Builder);
-            _possibleSpawns.Add(0, EntityId.Soldier);            
-        }
 
         private EntityId GetEntityIdToSpawn()
         {
