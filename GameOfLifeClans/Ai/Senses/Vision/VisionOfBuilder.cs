@@ -26,8 +26,8 @@ namespace GameOfLifeClans.Ai.Senses.Vision
 
 
         private bool IsAlliedHeadquarter(IClanInfo ownerClan, Tile targetTile) => IsAlly(ownerClan, targetTile) && 
-                                                                                  (targetTile.AiEntity.Id == EntityId.Headquarter) ||
-                                                                                  (targetTile.AiEntity.Id == EntityId.Outpost);
+                                                                                  ((targetTile.AiEntity.Id == EntityId.Headquarter) ||
+                                                                                  (targetTile.AiEntity.Id == EntityId.Outpost));
 
         private bool CheckIfIsAwayFromClosestHeadquarter(Entity visionOwner)
         {
