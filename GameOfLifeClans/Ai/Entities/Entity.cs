@@ -55,7 +55,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         protected virtual void OnWhenKilled(int killedByMemberOfClanId) => _whenIsKilledCallback?.Invoke(this, killedByMemberOfClanId);
 
-        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage((int)(Damage * OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier), this.ClanInfo.Id);
+        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage((int)(Damage * GetDamageMultiplier()), this.ClanInfo.Id);
 
         protected virtual void MoveToTile(IOccupiable targetTile, ref StepSummary summary)
         {
@@ -75,7 +75,7 @@ namespace GameOfLifeClans.Ai.Entities
             }
             else
             {
-                damage -= (int)(Defence * OccupiedTile.Terrain.DefenceMultiplier * ClanInfo.Strength.DefenceBonusMultiplier);
+                damage -= (int)(Defence * GetDefenceMultiplier());
                 if (damage <= 0)
                 {
                     damage = 1;
@@ -90,5 +90,9 @@ namespace GameOfLifeClans.Ai.Entities
                 OnWhenKilled(attackedByMemberOfClanId);
             }
         }
+
+        protected float GetDamageMultiplier() => OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier;
+
+        protected float GetDefenceMultiplier() => OccupiedTile.Terrain.DefenceMultiplier * ClanInfo.Strength.DefenceBonusMultiplier;
     }
 }
