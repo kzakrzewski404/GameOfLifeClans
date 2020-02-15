@@ -48,7 +48,7 @@ namespace GameOfLifeClans.Ai.Entities
         protected virtual void InitializePossibleSpawns()
         {
             _possibleSpawns.Add(1, EntityId.Builder);
-            _possibleSpawns.Add(0, EntityId.Soldier);
+            _possibleSpawns.Add(100, EntityId.Soldier);
         }
 
         protected void HandleSpawn(IVisionResult visionResult, ref StepSummary summary)
@@ -75,10 +75,10 @@ namespace GameOfLifeClans.Ai.Entities
 
         private EntityId GetEntityIdToSpawn()
         {
-            int x = _rnd.Next(1, 101);
+            int x = _rnd.Next(1, 100);
             foreach (var item in _possibleSpawns)
             {
-                if (item.Key <= x)
+                if (x <= item.Key)
                 {
                     return item.Value;
                 }

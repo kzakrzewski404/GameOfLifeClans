@@ -38,7 +38,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         protected override void InitializePossibleSpawns()
         {
-            _possibleSpawns.Add(0, EntityId.Soldier);
+            _possibleSpawns.Add(100, EntityId.Soldier);
         }
 
 
