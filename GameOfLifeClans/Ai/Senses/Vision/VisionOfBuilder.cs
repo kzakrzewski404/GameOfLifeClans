@@ -39,8 +39,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                 for (int y = minY; y <= maxY; y++)
                 {
                     Tile currentTile = _map.Tiles[x, y];
-                    if (currentTile.IsOccupied && currentTile.AiEntity.ClanInfo.Id == visionOwner.ClanInfo.Id && (currentTile.AiEntity.Id
-                         == EntityId.Headquarter || currentTile.AiEntity.Id == EntityId.Outpost))
+                    if (IsAlliedHeadquarter(visionOwner.ClanInfo, currentTile))
                     {
                         return false;
                     }
