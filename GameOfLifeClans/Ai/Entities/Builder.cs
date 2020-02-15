@@ -2,6 +2,7 @@
 using GameOfLifeClans.Ai.Entities.Config;
 using GameOfLifeClans.Ai.Enums;
 using GameOfLifeClans.Ai.Senses.Vision;
+using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Simulation.Clan;
 
 
@@ -27,13 +28,7 @@ namespace GameOfLifeClans.Ai.Entities
             // Build
             if (visionResult.IsAwayFromClosestHeadquarter)
             {
-                //Todo spawn
-                /*
-                 * Entity spawned = _entityFactory.Create(EntityId.Soldier, this.ClanInfo);
-                summary.AddSpawnedEntityInfo(spawned);
-
-                visionResult.GetRandomFreeTile().SetAiEntity(spawned);
-                 */
+                TransformBuilderIntoOutpost(visionResult, ref summary);
             }
             else if (visionResult.IsFreeTileFound)
             {
@@ -41,6 +36,17 @@ namespace GameOfLifeClans.Ai.Entities
             }
 
             return summary;
+        }
+
+
+        private void TransformBuilderIntoOutpost(IBuilderVisionResult visionResult, ref StepSummary summary)
+        {
+            Entity buildedOutpost = _entityFactory.Create(EntityId.Outpost, this.ClanInfo);
+            summary.AddSpawnedEntityInfo(buildedOutpost);
+
+            Tile transformTile = OccupiedTile;
+            this.ForceKill();
+            transformTile.SetAiEntity(buildedOutpost);
         }
     }
 }

@@ -3,6 +3,8 @@
     public enum EntityId
     {
         Headquarter,
-        Soldier
+        Soldier,
+        Builder,
+        Outpost
     };
 }
