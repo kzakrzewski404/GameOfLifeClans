@@ -1,40 +1,41 @@
 ﻿using GameOfLifeClans.Ai.Entities;
 using GameOfLifeClans.Map.Data;
 using GameOfLifeClans.Map;
+using GameOfLifeClans.Simulation.Clan;
 
 
 namespace GameOfLifeClans.Ai.Senses.Vision
 {
     public class VisionOfSurrounding : IVisionSense
     {
-        private MapContainer _map;
-        private int _visionRange;
+        protected MapContainer _map;
+        protected int _visionRange;
 
 
-        public VisionOfSurrounding(int visionRange = 1)
+        public VisionOfSurrounding(int surroundingVisionRange = 1)
         {
-            _visionRange = visionRange;
+            _visionRange = surroundingVisionRange;
         }
 
 
         public IVisionResult GetResult(Entity visionOwner) => GenerateResult(visionOwner);
 
 
-        private bool IsNotCheckingOwner(Entity visionOwner, Tile target) =>
+        protected bool IsNotCheckingOwner(Entity visionOwner, Tile target) =>
             ((visionOwner.LocationX != target.LocationX) || (visionOwner.LocationY != target.LocationY));
-        private bool IsTileFree(Tile target) => !target.IsOccupied && target.Terrain.IsPassable;
-        private bool IsEnemy(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.ClanInfo.Id != visionOwner.ClanInfo.Id);
-        private bool IsAlly(Entity visionOwner, Tile target) => target.IsOccupied && (target.AiEntity.ClanInfo.Id == visionOwner.ClanInfo.Id);
+        protected bool IsTileFree(Tile target) => !target.IsOccupied && target.Terrain.IsPassable;
+        protected bool IsEnemy(IClanInfo ownerClan, Tile target) => target.IsOccupied && (target.AiEntity.ClanInfo.Id != ownerClan.Id);
+        protected bool IsAlly(IClanInfo ownerClan, Tile target) => target.IsOccupied && (target.AiEntity.ClanInfo.Id == ownerClan.Id);
 
 
-        private IVisionResultCreating GenerateResult(Entity visionOwner)
+        protected IVisionResultCreating GenerateResult(Entity visionOwner)
         {
             _map = visionOwner.OccupiedTile.Map;
 
             IVisionResultCreating result = new VisionResult();
 
             int minX, maxX, minY, maxY;
-            SetAlgorithmBorders(visionOwner, out minX, out maxX, out minY, out maxY);
+            SetAlgorithmBorders(visionOwner, _visionRange, out minX, out maxX, out minY, out maxY);
 
             for (int x = minX; x <= maxX; x++)
             {
@@ -47,11 +48,11 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                         {
                             result.AddFreeTile(currentTile);
                         }
-                        else if (IsAlly(visionOwner, currentTile))
+                        else if (IsAlly(visionOwner.ClanInfo, currentTile))
                         {
                             result.AddAlly(currentTile.AiEntity);
                         }
-                        else if (IsEnemy(visionOwner, currentTile))
+                        else if (IsEnemy(visionOwner.ClanInfo, currentTile))
                         {
                             result.AddEnemy(currentTile.AiEntity);
                         }
@@ -62,12 +63,12 @@ namespace GameOfLifeClans.Ai.Senses.Vision
             return result;
         }
 
-        private void SetAlgorithmBorders(Entity visionOwner, out int minX, out int maxX, out int minY, out int maxY)
+        protected void SetAlgorithmBorders(Entity visionOwner, int range, out int minX, out int maxX, out int minY, out int maxY)
         {
-            minX = (visionOwner.LocationX - _visionRange) < 0 ? 0 : (visionOwner.LocationX - _visionRange);
-            maxX = (visionOwner.LocationX + _visionRange) >= _map.Width ? _map.Width - _visionRange : visionOwner.LocationX + _visionRange;
-            minY = (visionOwner.LocationY - _visionRange) < 0 ? 0 : (visionOwner.LocationY - _visionRange);
-            maxY = (visionOwner.LocationY + _visionRange) >= _map.Height ? _map.Height - _visionRange : visionOwner.LocationY + _visionRange;
+            minX = (visionOwner.LocationX - range) < 0 ? 0 : (visionOwner.LocationX - range);
+            maxX = (visionOwner.LocationX + range) >= _map.Width ? _map.Width - range : visionOwner.LocationX + range;
+            minY = (visionOwner.LocationY - range) < 0 ? 0 : (visionOwner.LocationY - range);
+            maxY = (visionOwner.LocationY + range) >= _map.Height ? _map.Height - range : visionOwner.LocationY + range;
         }
     }
 }
