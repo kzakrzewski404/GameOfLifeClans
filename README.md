@@ -5,6 +5,7 @@
 * [Demo](#demo)
 * [General info](#general-info)
 * [Screenshots](#screenshots)
+* [Technologies and Frameworks](#technologies-and-frameworks)
 * [Features](#features)
 * [Unit types in simulation](#units-types-in-simulation)
 * [Status](#status)
@@ -20,6 +21,10 @@
 
 ## Screenshots
 ![Example screenshot](.readmeFiles/appPreview.png)
+
+## Technologies and Frameworks
+* WPF
+* NUnit
 
 ## Features
 * Number of conquered territory affects all units strength and defence.
