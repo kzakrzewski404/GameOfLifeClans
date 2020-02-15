@@ -10,6 +10,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         public ItemsContainer<Tile> FreeTiles { get; private set; }
         public ItemsContainer<Entity> Allies { get; private set; }
         public ItemsContainer<Entity> Enemies { get; private set; }
+        public bool IsAwayFromClosestHeadquarter { get; private set; }
 
 
         public bool IsEnemyFound => Enemies.IsNotEmpty;
@@ -40,5 +41,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         public Entity GetRandomAlly() => Allies.PickRandom;
 
         public Tile GetRandomFreeTile() => FreeTiles.PickRandom;
+
+        public void SetIsAwayFromClosestHeadquarter(bool result) => IsAwayFromClosestHeadquarter = result;
     }
 }
