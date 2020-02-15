@@ -15,6 +15,8 @@ namespace GameOfLifeClans.Ai.Data
             _configs = new SpawnStats[Stats.NUMBER_OF_ENTITIES];
             InitializeConfig(EntityId.Headquarter, Stats.HEADQUARTER_HEALTH, Stats.HEADQUARTER_DAMAGE, Stats.HEADQUARTER_DEFENCE);
             InitializeConfig(EntityId.Soldier, Stats.SOLDIER_HEALTH, Stats.SOLDIER_DAMAGE, Stats.SOLDIER_DEFENCE);
+            InitializeConfig(EntityId.Builder, Stats.BUILDER_HEALTH, Stats.BUILDER_DAMAGE, Stats.BUILDER_DEFENCE);
+            InitializeConfig(EntityId.Outpost, Stats.OUTPOST_HEALTH, Stats.OUTPOST_DAMAGE, Stats.OUTPOST_DEFENCE);
 
             if (_numberOfInitializedConfigs != Stats.NUMBER_OF_ENTITIES)
             {
