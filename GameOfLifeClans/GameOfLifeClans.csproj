@@ -64,8 +64,6 @@
     <Compile Include="Ai\Data\StepSummary.cs" />
     <Compile Include="Ai\Entities\Outpost.cs" />
     <Compile Include="Ai\IHealable.cs" />
-    <Compile Include="Ai\Senses\Vision\IBuilderVisionResult.cs" />
-    <Compile Include="Ai\Senses\Vision\IBuilderVisionSense.cs" />
     <Compile Include="Ai\Senses\Vision\IVisionSense.cs" />
     <Compile Include="Ai\Senses\Vision\IVisionResult.cs" />
     <Compile Include="Ai\Senses\Vision\VisionOfBuilder.cs" />
