@@ -40,7 +40,7 @@ namespace GameOfLifeClans.Render
                     Tile rendered = _map.Tiles[x, y];
                     if (rendered.IsOccupied)
                     {
-                        if ((_headquarterBlinkCounter == _headquarterBlinkTreshold) && rendered.AiEntity.Id == Ai.Enums.EntityId.Headquarter)
+                        if ((_headquarterBlinkCounter == _headquarterBlinkTreshold) && (rendered.AiEntity.Id == Ai.Enums.EntityId.Headquarter || rendered.AiEntity.Id == Ai.Enums.EntityId.Outpost))
                         {
                             selectedColor = Color.White;
                         }
