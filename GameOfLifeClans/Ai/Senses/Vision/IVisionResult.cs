@@ -8,14 +8,17 @@ namespace GameOfLifeClans.Ai.Senses.Vision
     {
         bool IsEnemyFound { get; }
         bool IsAllyFound { get; }
+        bool IsAllyToHealFound { get; }
         bool IsFreeTileFound { get; }
         int NumberOfEnemies { get; }
         int NumberOfAllies { get; }
+        int NumberOfAlliesToHeal { get; }
         int NumberOfFreeTiles { get; }
 
 
         IAttackable GetRandomEnemy();
-        IHealable GetRandomAlly();
+        Entity GetRandomAlly();
+        IHealable GetRandomAllyWhoRequireHealing();
         Tile GetRandomFreeTile();
     }
 }

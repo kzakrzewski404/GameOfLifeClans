@@ -8,6 +8,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
     {
         void AddFreeTile(Tile tile);
         void AddAlly(Entity ally);
+        void AddAllyToHeal(Entity allyToHeal);
         void AddEnemy(Entity enemy);
 
         void SetIsAwayFromClosestHeadquarter(bool result);

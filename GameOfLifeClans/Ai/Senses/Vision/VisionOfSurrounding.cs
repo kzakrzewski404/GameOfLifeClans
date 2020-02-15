@@ -48,9 +48,14 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                         {
                             result.AddFreeTile(currentTile);
                         }
-                        else if (IsAlly(visionOwner.ClanInfo, currentTile) && currentTile.AiEntity.IsNeedingHealing)
+                        else if (IsAlly(visionOwner.ClanInfo, currentTile))
                         {
                             result.AddAlly(currentTile.AiEntity);
+
+                            if (currentTile.AiEntity.IsNeedingHealing)
+                            {
+                                result.AddAllyToHeal(currentTile.AiEntity);
+                            }
                         }
                         else if (IsEnemy(visionOwner.ClanInfo, currentTile))
                         {
