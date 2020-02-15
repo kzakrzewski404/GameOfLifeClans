@@ -8,6 +8,6 @@
 
         public const int SOLDIER_MINIMAL_WILLIGNESS_TO_ATTACK = 40;
 
-        public const int BUILDER_MINIMAL_REQUIRED_DISTANCE_FROM_HEADQUARTER = 30;
+        public const int BUILDER_HEADQUARTER_CHECK_RANGE = 30;
     }
 }

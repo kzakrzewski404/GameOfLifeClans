@@ -17,12 +17,13 @@ namespace GameOfLifeClans.Ai.Entities
         private int _nextSpawnCounter;
         private int _spawnTreshold;
 
-        protected Dictionary<int, EntityId> _possibleSpawnsPercentages = new Dictionary<int, EntityId>();
+        protected Dictionary<int, EntityId> _possibleSpawns = new Dictionary<int, EntityId>();
 
 
         public Headquarter(IClanInfo myClan, SpawnStats stats, IVisionSense visionSense, int spawnTreshold) : base(myClan, stats, visionSense)
         {
             _spawnTreshold = spawnTreshold;
+            InitializePossibleSpawns();
         }
 
 
@@ -62,14 +63,14 @@ namespace GameOfLifeClans.Ai.Entities
 
         protected virtual void InitializePossibleSpawns()
         {
-            _possibleSpawnsPercentages.Add(1, EntityId.Builder);
-            _possibleSpawnsPercentages.Add(100, EntityId.Soldier);
+            _possibleSpawns.Add(1, EntityId.Builder);
+            _possibleSpawns.Add(0, EntityId.Soldier);            
         }
 
         private EntityId GetEntityIdToSpawn()
         {
             int x = _rnd.Next(1, 101);
-            foreach (var item in _possibleSpawnsPercentages)
+            foreach (var item in _possibleSpawns)
             {
                 if (item.Key <= x)
                 {
