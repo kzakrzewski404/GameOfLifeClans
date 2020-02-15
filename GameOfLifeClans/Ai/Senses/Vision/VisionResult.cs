@@ -38,7 +38,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
 
         public IAttackable GetRandomEnemy() => Enemies.PickRandom;
 
-        public Entity GetRandomAlly() => Allies.PickRandom;
+        public IHealable GetRandomAlly() => Allies.PickRandom;
 
         public Tile GetRandomFreeTile() => FreeTiles.PickRandom;
 

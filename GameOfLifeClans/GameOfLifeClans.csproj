@@ -62,6 +62,8 @@
     <Compile Include="Ai\Data\SpawnStats.cs" />
     <Compile Include="Ai\Data\SpawnStatsFactory.cs" />
     <Compile Include="Ai\Data\StepSummary.cs" />
+    <Compile Include="Ai\Entities\Outpost.cs" />
+    <Compile Include="Ai\IHealable.cs" />
     <Compile Include="Ai\Senses\Vision\IBuilderVisionResult.cs" />
     <Compile Include="Ai\Senses\Vision\IBuilderVisionSense.cs" />
     <Compile Include="Ai\Senses\Vision\IVisionSense.cs" />

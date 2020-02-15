@@ -9,10 +9,11 @@ using GameOfLifeClans.Simulation.Clan;
 
 namespace GameOfLifeClans.Ai.Entities
 {
-    public abstract class Entity : IAttackable, IForceKillable
+    public abstract class Entity : IAttackable, IForceKillable, IHealable
     {
         protected static IVisionSense _visionSense;
         protected WhenKilledCallback _whenIsKilledCallback;
+        protected int _maxHealth;
 
 
         public int Health { get; private set; }
@@ -25,6 +26,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         public int LocationX => OccupiedTile.LocationX;
         public int LocationY => OccupiedTile.LocationY;
+        public bool IsNeedingHealing => Health < _maxHealth;
 
 
         public delegate void WhenKilledCallback(Entity entity, int killedByMemberOfClanId);
@@ -35,6 +37,7 @@ namespace GameOfLifeClans.Ai.Entities
             ClanInfo = myClan;
             Id = stats.Id;
             Health = stats.Health;
+            _maxHealth = Health;
             Damage = stats.Damage;
             Defence = stats.Defence;
 
@@ -43,6 +46,15 @@ namespace GameOfLifeClans.Ai.Entities
 
 
         public abstract StepSummary CalculateStep();
+
+        public void Heal(int healPower)
+        {
+            Health += healPower;
+            if (Health > _maxHealth)
+            {
+                Health = _maxHealth;
+            }
+        }
 
         public void DealDamage(int damage, int attackedByMemberOfClanId) => TakeDamage(damage, attackedByMemberOfClanId);
 
@@ -91,8 +103,8 @@ namespace GameOfLifeClans.Ai.Entities
             }
         }
 
-        protected float GetDamageMultiplier() => OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier;
+        protected virtual float GetDamageMultiplier() => OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier;
 
-        protected float GetDefenceMultiplier() => OccupiedTile.Terrain.DefenceMultiplier * ClanInfo.Strength.DefenceBonusMultiplier;
+        protected virtual float GetDefenceMultiplier() => OccupiedTile.Terrain.DefenceMultiplier * ClanInfo.Strength.DefenceBonusMultiplier;
     }
 }

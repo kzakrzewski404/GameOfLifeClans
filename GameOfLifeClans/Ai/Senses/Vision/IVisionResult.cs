@@ -15,7 +15,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
 
 
         IAttackable GetRandomEnemy();
-        Entity GetRandomAlly();
+        IHealable GetRandomAlly();
         Tile GetRandomFreeTile();
     }
 }
