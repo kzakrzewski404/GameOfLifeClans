@@ -20,7 +20,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         protected override IVisionResultCreating GenerateResult(Entity visionOwner)
         {
             IVisionResultCreating result = base.GenerateResult(visionOwner);
-            result.SetIsAwayFromClosestHeadquarter(CheckIfIsAwayFromClosestHeadquarter(visionOwner));
+            result.SetIsAwayFromClosestHeadquarter(IsAwayFromClosestHeadquarter(visionOwner));
             return result;
         }
 
@@ -29,7 +29,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                                                                                   ((targetTile.AiEntity.Id == EntityId.Headquarter) ||
                                                                                   (targetTile.AiEntity.Id == EntityId.Outpost));
 
-        private bool CheckIfIsAwayFromClosestHeadquarter(Entity visionOwner)
+        private bool IsAwayFromClosestHeadquarter(Entity visionOwner)
         {
             int minX, maxX, minY, maxY;
             SetAlgorithmBorders(visionOwner, _headquarterCheckRange, out minX, out maxX, out minY, out maxY);
@@ -39,7 +39,8 @@ namespace GameOfLifeClans.Ai.Senses.Vision
                 for (int y = minY; y <= maxY; y++)
                 {
                     Tile currentTile = _map.Tiles[x, y];
-                    if (IsAlliedHeadquarter(visionOwner.ClanInfo, currentTile))
+                    if (currentTile.IsOccupied && currentTile.AiEntity.ClanInfo.Id == visionOwner.ClanInfo.Id && (currentTile.AiEntity.Id
+                         == EntityId.Headquarter || currentTile.AiEntity.Id == EntityId.Outpost))
                     {
                         return false;
                     }

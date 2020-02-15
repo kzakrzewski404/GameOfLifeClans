@@ -71,9 +71,9 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         protected void SetAlgorithmBorders(Entity visionOwner, int range, out int minX, out int maxX, out int minY, out int maxY)
         {
             minX = (visionOwner.LocationX - range) < 0 ? 0 : (visionOwner.LocationX - range);
-            maxX = (visionOwner.LocationX + range) >= _map.Width ? _map.Width - range : visionOwner.LocationX + range;
+            maxX = (visionOwner.LocationX + range) >= _map.Width ? _map.Width - 1 : visionOwner.LocationX + range;
             minY = (visionOwner.LocationY - range) < 0 ? 0 : (visionOwner.LocationY - range);
-            maxY = (visionOwner.LocationY + range) >= _map.Height ? _map.Height - range : visionOwner.LocationY + range;
+            maxY = (visionOwner.LocationY + range) >= _map.Height ? _map.Height - 1 : visionOwner.LocationY + range;
         }
     }
 }
