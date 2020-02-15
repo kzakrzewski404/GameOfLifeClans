@@ -6,9 +6,10 @@ namespace GameOfLifeClans.Generics
 {
     public class ItemsContainer<T>
     {
-        public List<T> Items { get; private set; }
-
         private static Random _rnd = new Random();
+
+
+        public List<T> Items { get; private set; }
 
 
         public bool IsNotEmpty => Items.Count > 0;
