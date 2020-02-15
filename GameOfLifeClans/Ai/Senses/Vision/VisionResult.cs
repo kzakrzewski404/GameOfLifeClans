@@ -29,6 +29,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
             FreeTiles = new ItemsContainer<Tile>();
             Allies = new ItemsContainer<Entity>();
             Enemies = new ItemsContainer<Entity>();
+            AlliesToHeal = new ItemsContainer<Entity>();
         }
 
 

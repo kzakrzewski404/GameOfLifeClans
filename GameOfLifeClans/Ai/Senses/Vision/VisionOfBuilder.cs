@@ -6,29 +6,31 @@ using GameOfLifeClans.Simulation.Clan;
 
 namespace GameOfLifeClans.Ai.Senses.Vision
 {
-    public class VisionOfBuilder : VisionOfSurrounding, IBuilderVisionSense
+    public class VisionOfBuilder : VisionOfSurrounding
     {
-        public VisionOfBuilder(int surroundingVisionRange = 1) : base(surroundingVisionRange)
+        private int _headquarterCheckRange;
+
+
+        public VisionOfBuilder(int headquarterCheckRange, int surroundingVisionRange = 1) : base(surroundingVisionRange)
         {
-            // Empty
+            _headquarterCheckRange = headquarterCheckRange;
         }
 
 
-        public IBuilderVisionResult GetResult(Entity visionOwner, int minimalDistanceFromHeadquarter)
+        protected override IVisionResultCreating GenerateResult(Entity visionOwner)
         {
-            IVisionResultCreating result = GenerateResult(visionOwner);
-            result.SetIsAwayFromClosestHeadquarter(CheckIfIsAwayFromClosestHeadquarter(visionOwner, minimalDistanceFromHeadquarter));
-
+            IVisionResultCreating result = base.GenerateResult(visionOwner);
+            result.SetIsAwayFromClosestHeadquarter(CheckIfIsAwayFromClosestHeadquarter(visionOwner));
             return result;
         }
 
 
-        private bool IsAlliedHeadquarter(IClanInfo ownerClan, Tile targetTile) => (targetTile.AiEntity.Id == EntityId.Headquarter) && IsAlly(ownerClan, targetTile);
+        private bool IsAlliedHeadquarter(IClanInfo ownerClan, Tile targetTile) => IsAlly(ownerClan, targetTile) && (targetTile.AiEntity.Id == EntityId.Headquarter);
 
-        private bool CheckIfIsAwayFromClosestHeadquarter(Entity visionOwner, int headquarterCheckRange)
+        private bool CheckIfIsAwayFromClosestHeadquarter(Entity visionOwner)
         {
             int minX, maxX, minY, maxY;
-            SetAlgorithmBorders(visionOwner, headquarterCheckRange, out minX, out maxX, out minY, out maxY);
+            SetAlgorithmBorders(visionOwner, _headquarterCheckRange, out minX, out maxX, out minY, out maxY);
 
             for (int x = minX; x <= maxX; x++)
             {

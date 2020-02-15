@@ -28,7 +28,7 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         protected bool IsAlly(IClanInfo ownerClan, Tile target) => target.IsOccupied && (target.AiEntity.ClanInfo.Id == ownerClan.Id);
 
 
-        protected IVisionResultCreating GenerateResult(Entity visionOwner)
+        protected virtual IVisionResultCreating GenerateResult(Entity visionOwner)
         {
             _map = visionOwner.OccupiedTile.Map;
 

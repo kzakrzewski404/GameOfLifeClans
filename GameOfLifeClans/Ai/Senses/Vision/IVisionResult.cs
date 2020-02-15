@@ -15,6 +15,8 @@ namespace GameOfLifeClans.Ai.Senses.Vision
         int NumberOfAlliesToHeal { get; }
         int NumberOfFreeTiles { get; }
 
+        bool IsAwayFromClosestHeadquarter { get; }
+
 
         IAttackable GetRandomEnemy();
         Entity GetRandomAlly();

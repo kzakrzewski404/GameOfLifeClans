@@ -4,7 +4,7 @@ using GameOfLifeClans.Map.Data;
 
 namespace GameOfLifeClans.Ai.Senses.Vision
 {
-    public interface IVisionResultCreating : IVisionResult, IBuilderVisionResult
+    public interface IVisionResultCreating : IVisionResult
     {
         void AddFreeTile(Tile tile);
         void AddAlly(Entity ally);
