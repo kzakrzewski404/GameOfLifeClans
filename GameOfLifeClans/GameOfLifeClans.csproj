@@ -95,7 +95,7 @@
     <Compile Include="Simulation\Config\Multipliers.cs" />
     <Compile Include="Simulation\Clan\IClanInfo.cs" />
     <Compile Include="Simulation\Clan\IClanStrength.cs" />
-    <Compile Include="Simulation\Clan\IClanStrengthController.cs" />
+    <Compile Include="Simulation\Clan\IClanStrengthChanger.cs" />
     <Compile Include="Simulation\SimulationHandler.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

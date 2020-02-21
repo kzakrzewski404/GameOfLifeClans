@@ -3,7 +3,7 @@
 
 namespace GameOfLifeClans.Simulation.Clan
 {
-    public class ClanStrength : IClanStrengthController
+    public class ClanStrength : IClanStrengthChanger
     {
         public int ControlledTerritory {get; private set;}
 

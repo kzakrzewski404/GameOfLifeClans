@@ -19,7 +19,7 @@ namespace GameOfLifeClans.Simulation.Clan
 
 
         public int EntitiesOnMap => _entitiesList.Count;
-        public IClanStrengthController StrengthController { get; private set; }
+        public IClanStrengthChanger StrengthController { get; private set; }
         public IClanStrength Strength => StrengthController;
 
 

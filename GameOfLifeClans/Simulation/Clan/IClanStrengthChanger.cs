@@ -1,6 +1,6 @@
 ﻿namespace GameOfLifeClans.Simulation.Clan
 {
-    public interface IClanStrengthController : IClanStrength
+    public interface IClanStrengthChanger : IClanStrength
     {
         void LoseTerritory();
         void GainTerritory(int numberOfGainedTerritory = 1);
