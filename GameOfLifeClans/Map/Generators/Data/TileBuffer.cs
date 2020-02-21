@@ -23,7 +23,8 @@ namespace GameOfLifeClans.Map.Generators.Data
 
 
         public Tile GetRandom => GetAndManageBuffer();
-        public Tile GetFromGeneratedSeed => GetAndManageBuffer(true);
+        public Tile GetRandomSeedFromWholeMap => GetAndManageBuffer(RandomSeedFromWholeMap);
+        public Tile GetSeedFromRandomMapBorder => GetAndManageBuffer(RandomSeedFromMapBorder);
 
 
         private bool CanBeEdited(int x, int y) => IsInsideMapBorders(x, y) && !IsMarkedByBuffer(x, y) && IsGrass(x, y);
@@ -32,29 +33,53 @@ namespace GameOfLifeClans.Map.Generators.Data
         private bool IsGrass(int x, int y) => _map.Tiles[x, y].Terrain.Id == TerrainId.Grass;
 
 
-        private Tile GetAndManageBuffer(bool generateSeed = false)
+        private Tile GetAndManageBuffer(Func<Tile> seedSearchingMethod = null)
         {
-            Tile tile;
-            if (generateSeed)
+            Tile seed;
+            if (seedSearchingMethod != null)
             {
-                tile = FindTileForSeed();
-                _checkedTiles[tile.LocationX, tile.LocationY] = true;
+                seed = seedSearchingMethod();
+                _checkedTiles[seed.LocationX, seed.LocationY] = true;
             }
             else
             {
-                tile = _tilesPool.PickRandomAndRemoveFromList();
+                seed = _tilesPool.PickRandomAndRemoveFromList();
             }
 
-            BufferNeighbours(tile);
-            return tile;
+            BufferNeighbours(seed);
+            return seed;
         }
 
-        private Tile FindTileForSeed()
+        private Tile RandomSeedFromWholeMap()
         {
             while (true)
             {
                 int x, y;
                 GetRandomXY(out x, out y);
+
+                if (CanBeEdited(x, y))
+                {
+                    return _map.Tiles[x, y];
+                }
+            }
+        }
+
+        private Tile RandomSeedFromMapBorder()
+        {
+            while (true)
+            {
+                int randomBorder = _rnd.Next(0, 4);
+                int x, y;
+                if (randomBorder <= 1) // x will be locked
+                {
+                    x = randomBorder == 0 ? 0 : _map.Width - 1;
+                    y = _rnd.Next(0, _map.Height);
+                }
+                else
+                {
+                    x = _rnd.Next(0, _map.Width - 1);
+                    y = randomBorder == 2 ? 0 : _map.Height - 1;
+                }
 
                 if (CanBeEdited(x, y))
                 {
