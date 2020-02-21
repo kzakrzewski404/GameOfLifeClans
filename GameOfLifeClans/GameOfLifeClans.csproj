@@ -68,7 +68,6 @@
     <Compile Include="Ai\Senses\Vision\IVisionResult.cs" />
     <Compile Include="Ai\Senses\Vision\VisionOfBuilder.cs" />
     <Compile Include="Map\Config\MapConfig.cs" />
-    <Compile Include="Map\Data\ITransferOwnership.cs" />
     <Compile Include="Map\Data\TileOwnershipTransferer.cs" />
     <Compile Include="Simulation\Clan\ClanIsDestroyedEventArgs.cs" />
     <Compile Include="Simulation\Clan\ClanStrength.cs" />

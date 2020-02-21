@@ -3,7 +3,7 @@
 
 namespace GameOfLifeClans.Map.Data
 {
-    public class Tile : IOccupiable, ITransferOwnership
+    public class Tile : IOccupiable
     {
         public int LocationX { get; private set; }
         public int LocationY { get; private set; }
