@@ -28,6 +28,9 @@ namespace GameOfLifeClans.Ai.Entities
         public int LocationY => OccupiedTile.LocationY;
         public bool IsNeedingHealing => Health < _maxHealth;
 
+        protected virtual float DamageMultiplier => OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier;
+        protected virtual float DefenceMultiplier => OccupiedTile.Terrain.DefenceMultiplier * ClanInfo.Strength.DefenceBonusMultiplier;
+
 
         public delegate void WhenKilledCallback(Entity entity, int killedByMemberOfClanId);
 
@@ -67,7 +70,7 @@ namespace GameOfLifeClans.Ai.Entities
 
         protected virtual void OnWhenKilled(int killedByMemberOfClanId) => _whenIsKilledCallback?.Invoke(this, killedByMemberOfClanId);
 
-        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage((int)(Damage * GetDamageMultiplier()), this.ClanInfo.Id);
+        protected virtual void AttackEnemy(IAttackable enemy) => enemy.DealDamage((int)(Damage * DamageMultiplier), this.ClanInfo.Id);
 
         protected virtual void MoveToTile(IOccupiable targetTile, ref StepSummary summary)
         {
@@ -87,7 +90,7 @@ namespace GameOfLifeClans.Ai.Entities
             }
             else
             {
-                damage -= (int)(Defence * GetDefenceMultiplier());
+                damage -= (int)(Defence * DefenceMultiplier);
                 if (damage <= 0)
                 {
                     damage = 1;
@@ -103,8 +106,5 @@ namespace GameOfLifeClans.Ai.Entities
             }
         }
 
-        protected virtual float GetDamageMultiplier() => OccupiedTile.Terrain.DamageMultiplier * ClanInfo.Strength.DamageBonusMultiplier;
-
-        protected virtual float GetDefenceMultiplier() => OccupiedTile.Terrain.DefenceMultiplier * ClanInfo.Strength.DefenceBonusMultiplier;
     }
 }
