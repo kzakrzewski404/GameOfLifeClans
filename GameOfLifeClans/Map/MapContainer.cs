@@ -30,6 +30,9 @@ namespace GameOfLifeClans.Map
             {
                 LandspaceGenerator water = new WaterGenerator();
                 water.Generate(this, TerrainId.Water);
+
+                LandspaceGenerator sand = new SandGenerator();
+                sand.Generate(this, TerrainId.Sand);
             }
         }
 
