@@ -9,7 +9,7 @@ namespace GameOfLifeClans.Map.Generators
     public class SandGenerator : LandspaceGenerator
     {
         private const int MIN_SAND_MASS_PERCENTAGE = 10;
-        private const int MAX_SAND_MASS_PERCENTAGE = 30;
+        private const int MAX_SAND_MASS_PERCENTAGE = 60;
         private const int MAX_SAND_SEEDS_NUMBER = 6;
 
 
