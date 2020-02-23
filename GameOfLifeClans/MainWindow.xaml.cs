@@ -69,6 +69,7 @@ namespace GameOfLifeClans
             {
                 _simulation.CalculateStep((int)sldSimulationSpeed.Value);
                 RenderFrame();
+                lblTotalEntitiesOnMap.Content = $"Total Entities: {_simulation.NumberOfEntitiesOnMap}";
             }
             else
             {

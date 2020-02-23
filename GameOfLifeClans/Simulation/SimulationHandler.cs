@@ -20,6 +20,7 @@ namespace GameOfLifeClans.Simulation
 
 
         public bool IsSimulationRunning => _clansList.Count > 1;
+        public int NumberOfEntitiesOnMap => _clansList.Sum(clan => clan.EntitiesOnMap);
 
 
         public SimulationHandler()

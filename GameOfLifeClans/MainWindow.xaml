@@ -86,8 +86,21 @@
         
         <!--Render area-->
         <Grid Grid.Column="1">
-            <Rectangle Fill="#2f393b"/>
-            <Image x:Name="imgRenderOutput" Margin="10" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="94*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Rectangle Fill="#2f393b"/>
+                <Image x:Name="imgRenderOutput" Margin="10" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Rectangle Fill="#3C4A4D"/>
+                <Label x:Name="lblTotalEntitiesOnMap" Content="Total Entities:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#dee5ea" FontSize="11"/>
+            </Grid>
+            
+
         </Grid>
 
         
